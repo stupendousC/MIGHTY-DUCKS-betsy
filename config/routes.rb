@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: 'homepages#index'
   
   resources :products
+
+
   
   resources :merchants
   get "/login", to: "merchants#login_form", as: "login"

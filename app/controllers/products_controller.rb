@@ -59,11 +59,16 @@ class ProductsController < ApplicationController
   private
 
   def require_login
-    @merchant = Merchant.find_by(id: session)
-    if @merchant.nil?
-      flash[:error] = "You must log in first!"
-      redirect_to root_path
+    @merchant = Merchant.find_by(id: session[:merchant_id])
+    @product = Product.find_by(id: params[:id])
+    
+    unless @product.merchant.id == @merchant.id
+      flash[:error] = "You are not authorized to edit this product!"
     end
+    # if @merchant.nil?
+    #   flash[:error] = "You must log in first!"
+    #   redirect_to root_path
+    # end
   end
 
   def product_params
