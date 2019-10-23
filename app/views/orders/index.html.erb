@@ -11,5 +11,8 @@ Order id: <%= order.id %>
 <p>
 Created on: <%= order.created_at %>
 </p>
+<p>
+Order status: <%= order.status %>
+</p>
 <%= link_to "Edit", edit_order_path(order.id) %>
 <% end %>

@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   before_action :find_order
-
+  
   def index
     @orders = Order.all
   end
@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
   
   def create
     @order = Order.new( order_params )
+    @order.order_items << OrderItem.create(product_id: params[product.id])
     @order.status = :pending
     if @order.save
       session[:order_id] = @order.id
@@ -49,10 +50,25 @@ class OrdersController < ApplicationController
   
   def view_cart
     # this is for the view_cart_path
+    # possibly make this the same as edit? -kk
   end
   
   def checkout
-    # this is for the checkout_path
+    # ideally the params will include all the info the customer entered into the checkout form
+    @customer_info = params
+  end
+  
+  def purchase
+    @customer_info = params
+    if @customer_info.valid?
+      @order.status = :paid
+      session[:order_id] = nil
+      flash[:success] = "Successfully placed order!"
+      redirect_to order_path(@order.id)
+    else
+      flash[:error] = "Could not place order"
+      redirect_to order_path(@order.id)
+    end
   end
   
   private
