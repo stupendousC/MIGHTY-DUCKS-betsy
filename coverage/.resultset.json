@@ -1,0 +1,135 @@
+{
+  "MiniTest": {
+    "coverage": {
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/controllers/homepages_controller.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/controllers/merchants_controller.rb": [
+        1,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/controllers/orders_controller.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/controllers/products_controller.rb": [
+        1,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/models/category.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/models/merchant.rb": [
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/models/order_item.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/models/order.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/models/product.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/models/review.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1571803274
+  }
+}
