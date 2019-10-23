@@ -1,8 +1,8 @@
 class Product < ApplicationRecord
-  has_many :categories
   has_many :reviews
   has_many :order_items
   belongs_to :merchant
+  has_and_belongs_to_many :categories
   
   # VALIDATION: TODO in Trello
   # 1.  Name must be present
