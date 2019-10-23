@@ -4,11 +4,9 @@ Rails.application.routes.draw do
   
   resources :products
   
-  resources :merchants
+  resources :merchants, except: [:new, :create]
   get "/auth/github", as: "github_login"
-  get "/auth/:provider/callback", to: "merchants#create"
-  get "/login", to: "merchants#login_form", as: "login"
-  post "/login", to: "merchants#login"
+  get "/auth/:provider/callback", to: "merchants#login"
   post "/logout", to: "merchants#logout", as: "logout"
   # not sure if we need a merchants#index page, why would they want to see what other merchants are out there?
   # merchant's own merchants/:id show page will have all the links to add/edit/delete products? and links to all relevant placed orders?

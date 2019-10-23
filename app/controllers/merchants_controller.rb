@@ -4,10 +4,7 @@ class MerchantsController < ApplicationController
     ### IS THIS NECESSARY???
   end
   
-  def new
-  end
-  
-  def create
+  def login
     auth_hash = request.env["omniauth.auth"]
     
     merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
@@ -35,18 +32,6 @@ class MerchantsController < ApplicationController
     # If we get here, we have a valid merchant instance
     session[:merchant_id] = merchant.id
     return redirect_to root_path
-  end
-  
-  def login
-    # if github authenticates Merchant
-    # if new merchant
-    # call .new and .create
-    # set session
-    # if existing/returning merchant
-    # set session
-    
-    # else bogus merchant
-    # error page
   end
   
   def edit

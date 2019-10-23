@@ -19,9 +19,15 @@
     <%= link_to "Login with Github", github_login_path %>
   <% end %>
 
-  <h3>FLASH MSGS HERE</h3>
-  ###TODO
+  <hr><hr><hr>
 
+  <h3>FLASH MSGS HERE</h3>
+  <% flash.each do |name, message| %>
+    <%= name %>: <%= message %>
+  <% end %>
+
+
+  <hr><hr><hr>
 
     <%= yield %>
   </body>
