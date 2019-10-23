@@ -1,0 +1,23 @@
+{
+  "MiniTest": {
+    "coverage": {
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/controllers/homepages_controller.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/controllers/application_controller.rb": [
+        1,
+        null
+      ],
+      "/Users/carolinewu/ADA/MIGHTY-DUCKS-betsy/app/controllers/products_controller.rb": [
+        1,
+        null
+      ]
+    },
+    "timestamp": 1571789761
+  }
+}
