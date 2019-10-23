@@ -24,7 +24,8 @@ class MerchantsController < ApplicationController
         # way we've configured GitHub. Our strategy will
         # be to display error messages to make future
         # debugging easier.
-        flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
+        flash[:error] = "Could not create new merchant account!"
+        flash[:error_msgs] = merchant.errors.full_messages
         return redirect_to root_path
       end
     end

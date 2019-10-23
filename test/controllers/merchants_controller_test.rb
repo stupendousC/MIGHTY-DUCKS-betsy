@@ -64,31 +64,35 @@ describe MerchantsController do
       
     end
     
-    # it "redirects to the login route if given invalid merchant data" do
-    #   # new but BOGUS merchant
-    #   # now expecting Merchant.count to NOT change b/c it shouldn't get saved to db
-    #   start_count_before = Merchant.count
-    #   assert(start_count_before == 2)
+    describe "Edge cases" do 
+      
+      it "if name == nil" do
+        start_count_before = Merchant.count
+        assert(start_count_before == 2)
+        
+        bogus_merchant = Merchant.new(name:nil, email:"nobody@nobody.com", uid: "1357", provider: "github")
+        
+        perform_login(bogus_merchant)
+        
+        must_redirect_to root_path
+        p flash[:error_msgs]
+        assert(flash[:error] == "Could not create new merchant account!")
+        assert(flash[:error_msgs].length == 1)
+        assert(flash[:error_msgs].first == "Name can't be blank")
+        assert(Merchant.count == start_count_before)
+        
+      end
+      
+      it "if email == nil" do
+      end
+      
+      it "if name is not unique" do
+      end
+      
+      it "if email is not unique" do
+      end
+      
+    end
     
-    #   # Make a new merchant
-    #   merchant = Merchant.new(name:nil, email:"nobody@nobody.com", uid: "1357", provider: "github")
-    
-    #   # Tell OmniAuth to use this merchant's info when it sees an auth callback from github
-    #   # this will fake a hashie to look as if it came from github
-    #   OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
-    
-    #   # Send a login request for that merchant
-    #   get auth_callback_path(:github)
-    
-    #   # following the ctrller logic, we should end up here
-    #   must_redirect_to root_path
-    #   assert(flash[:success] == "Logged in as new merchant #{merchant.name}")
-    
-    #   # Should *not* have created a new merchant
-    #   assert(Merchant.count == start_count_before + 1)
-    #   # no need to check for correct attrib on Merchant.last b/c that's covered by Model tests
-    
-    
-    # end
   end
 end
