@@ -87,3 +87,6 @@ end
 
 gem 'pry-byebug'
 gem 'simplecov'
+
+gem "omniauth"
+gem "omniauth-github"
