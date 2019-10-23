@@ -1,0 +1,15 @@
+<h2>
+PLACEHOLDER HTML
+</h2>
+<h4>
+Total orders: <%= @orders.length %>
+</h4>
+<% @orders.each do |order| %>
+<p>
+Order id: <%= order.id %>
+</p>
+<p>
+Created on: <%= order.created_at %>
+</p>
+<%= link_to "Edit", edit_order_path(order.id) %>
+<% end %>

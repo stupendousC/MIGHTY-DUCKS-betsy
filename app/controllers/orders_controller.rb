@@ -1,19 +1,23 @@
 class OrdersController < ApplicationController
   
   def index
-    orders = Order.all
+    @orders = Order.all
   end
   
   # placeholder method
   def show; end
   
+  def new
+    @order = Order.new
+  end
+  
   def create
-    order = Order.new( order_params )
-    order.status = "pending"
-    if order.save
-      session[:order_id] = order.id
+    @order = Order.new( order_params )
+    @order.status = :pending
+    if @order.save
+      session[:order_id] = @order.id
       flash[:success] = "Successfully created order"
-      redirect_to order_path(order.id)
+      redirect_to order_path(@order.id)
     else
       flash[:error] = "Could not create order"
       redirect_to root_path
@@ -25,8 +29,16 @@ class OrdersController < ApplicationController
   
   def update
     if @order.update( order_params )
-      flash[:success] = "Successfully updated order"
-      redirect_to order_path(@order.id)
+      if @order.order_items.length == 0
+        # sets session to nil if there are no products in the order
+        session[:order_id] = nil
+        flash[:success] = "Order cancelled: all items removed from cart"
+        redirect_to root_path
+      else
+        # successfully updates order
+        flash[:success] = "Successfully updated order"
+        redirect_to order_path(@order.id)
+      end
     else
       flash[:error] = "Could not update order"
       redirect_to root_path
@@ -49,7 +61,7 @@ class OrdersController < ApplicationController
   
   def order_params
     # not sure whether it will return an order item or a product in the params
-    return params.require(:order).permit(:order_items)
+    return params.require(:order).permit(:order_items, :status)
   end
   
 end
