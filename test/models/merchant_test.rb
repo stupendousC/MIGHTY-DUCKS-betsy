@@ -6,9 +6,10 @@ describe Merchant do
     it "given auth_hash, will build new Merchant instance correctly" do
     end
     
-    it "given bad auth_"
-    
-  end
+    it "given bad auth_" do
+    end
+  end 
+  
   
   describe "validations work?" do
     
