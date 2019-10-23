@@ -10,6 +10,19 @@
   </head>
 
   <body>
+
+  <h3>LOG IN/OUT BUTTONS HERE</h3>
+  <% if session[:user_id] %>
+  <p>You're logged in as XXX</p>
+    <%= link_to "Log out", logout_path, method: "delete" %>
+  <% else %>
+    <%= link_to "Login with Github", github_login_path %>
+  <% end %>
+
+  <h3>FLASH MSGS HERE</h3>
+  ###TODO
+
+
     <%= yield %>
   </body>
 </html>
