@@ -31,9 +31,29 @@ describe MerchantsController do
     end
     
     it "creates an account for a new merchant and redirects to the root route" do
-      # new merchant, therefore making new data here, b/c yml are all created in db
-          ]
-
+      # new merchant, therefore making new data here, b/c yml are already created in db
+      # now expecting Merchant.count to change in this block
+      start_count_before = Merchant.count
+      assert(start_count_before == 2)
+      
+      # Make a new merchant
+      merchant = Merchant.new(name:"new person", email:"nobody@nobody.com", uid: "1357", provider: "github")
+      
+      # Tell OmniAuth to use this merchant's info when it sees an auth callback from github
+      # this will fake a hashie to look as if it came from github
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
+      
+      # Send a login request for that merchant
+      get auth_callback_path(:github)
+      
+      # following the ctrller logic, we should end up here
+      must_redirect_to root_path
+      assert(flash[:success] == "Logged in as new merchant #{merchant.name}")
+      
+      # Should *not* have created a new merchant
+      assert(Merchant.count == start_count_before + 1)
+      # no need to check for correct attrib on Merchant.last b/c that's covered by Model tests
+      
     end
     
     it "redirects to the login route if given invalid merchant data" do
