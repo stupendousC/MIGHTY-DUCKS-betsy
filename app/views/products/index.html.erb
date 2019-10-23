@@ -1,5 +1,10 @@
-<h1>PRODUCT INDEX</h1>
+<h1>PRODUCT INDEX PAGE:</h1>
 
 #in product index view page, we only want to show products where status = nil
 # status: nil by default
 # when a merchant wants the product to retire, they can edit status: unavailable
+
+<% @products.each do |product| %>
+  <%= product.name%>
+  <%= product.price%>
+<%end%>

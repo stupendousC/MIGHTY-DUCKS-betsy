@@ -3,7 +3,9 @@ class ProductsController < ApplicationController
   before_action :require_user, only: [:new, :create, :edit, :update]
 
   def index 
-    @products = Product.all
+    #status: nil by default
+
+    @products = Product.where(status: nil)
     # in product index view page, we only want to show products where status = nil
   end
 
@@ -38,6 +40,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    #need to verify that the product belongs to the specific merchant in order to edit
     @product = Product.find_by(id: params[:id])
   end
 
