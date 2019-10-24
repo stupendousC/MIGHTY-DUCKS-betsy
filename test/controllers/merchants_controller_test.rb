@@ -58,6 +58,10 @@ describe MerchantsController do
       must_redirect_to root_path
       assert(flash[:success] == "Logged in as new merchant #{new_merchant.name}")
       
+      # check that the merchant ID was set as expected
+      db_new_merchant = Merchant.find_by(name: new_merchant.name)
+      assert(session[:merchant_id] == db_new_merchant.id)
+      
       # Should *not* have created a new merchant
       assert(Merchant.count == start_count_before + 1)
       # no need to check for correct attrib on Merchant.last b/c that's covered by Model tests
@@ -65,18 +69,30 @@ describe MerchantsController do
     
     describe "Edge cases" do 
       it "if name == nil" do
+        # Arrange
         start_count_before = Merchant.count
         assert(start_count_before == 2)
         
         bogus_merchant = Merchant.new(name:nil, email:"nobody@nobody.com", uid: "1357", provider: "github")
         
+<<<<<<< HEAD
         bogus_merchant = perform_login(bogus_merchant)
+=======
+        # Act
+        perform_login(bogus_merchant)
+>>>>>>> master
         
+        # ASSERT
         must_redirect_to root_path
         assert(flash[:error] == "Could not create new merchant account!")
         assert(flash[:error_msgs].length == 1)
         assert(flash[:error_msgs].first == "Name can't be blank")
         assert(Merchant.count == start_count_before)
+<<<<<<< HEAD
+=======
+        refute(session[:merchant_id])
+        
+>>>>>>> master
       end
       
       it "if email == nil" do

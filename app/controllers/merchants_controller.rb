@@ -38,13 +38,13 @@ class MerchantsController < ApplicationController
   def edit
     #What are we editing? shouldn't we just allow the merchant to edit their products
     # Are we allowing them to edit their name or email? That doesn't seem right?
-
+    
   end
   
   def update
     #What would we be able to update in merchant...a merchant can update it's products, but that would be the 
     #the role of the products controller
-
+    
   end
   
   def show
@@ -59,17 +59,17 @@ class MerchantsController < ApplicationController
   def destroy
     #I don't know if this would work
     loggedin_merchant = session[:merchant_id].id
-  
-      loggedin_merchant = nil
-      flash[:success] = "Successfully logged out!"
-  
-      redirect_to root_path
+    
+    loggedin_merchant = nil
+    flash[:success] = "Successfully logged out!"
+    
+    redirect_to root_path
   end
   
   #Now I think we probably will not need this action:
   def logout
   end
-
+  
   def current
     #should we add this method in order to make ito so when can always kno
     #reference who is current
