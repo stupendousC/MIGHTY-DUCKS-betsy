@@ -16,7 +16,7 @@
 
   <h3>LOG IN/OUT BUTTONS HERE</h3>
   <% if session[:merchant_id] %>
-    <p>You're logged in as <%= @merchant %></p>
+    <p>You're logged in as <%= session[:merchant_name] %></p>
     <%= link_to "Log out", logout_path, method: "delete" %>
   <% else %>
     <%= link_to "Login with Github", github_login_path %>

@@ -29,19 +29,16 @@ class MerchantsController < ApplicationController
     
     # If we get here, we have a valid merchant instance
     session[:merchant_id] = @merchant.id
+    session[:merchant_name] = @merchant.name
     return redirect_to root_path
   end
   
   def edit
-    
-    # Are we allowing them to edit their name or email? 
-    
+    # Do we want to edit their name or email? 
   end
   
   def update
-    #What would we be able to update in merchant...a merchant can update it's products, but that would be the 
-    #the role of the products controller
-    
+    # Do we want this?
   end
   
   def show
@@ -59,6 +56,7 @@ class MerchantsController < ApplicationController
   
   def logout
     session[:merchant_id] = nil
+    session[:merchant_name] = nil
     flash[:success] = "Successfully logged out!"
     return redirect_to root_path
   end
