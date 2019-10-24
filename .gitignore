@@ -4,8 +4,10 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+
 # Ignore bundler config.
 /.bundle
+
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -16,15 +18,10 @@
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
-
 /node_modules
 /yarn-error.log
-
 /public/assets
 .byebug_history
-
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-
-
 .env
