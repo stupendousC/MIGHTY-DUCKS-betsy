@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#login", as: "auth_callback"
   post "/logout", to: "merchants#logout", as: "logout"
+  delete "/logout", to: "merchants#destroy", as: "logout"
   # not sure if we need a merchants#index page, why would they want to see what other merchants are out there?
   # merchant's own merchants/:id show page will have all the links to add/edit/delete products? and links to all relevant placed orders?
   
