@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   post "/logout", to: "merchants#logout", as: "logout"
   # not sure if we need a merchants#index page, why would they want to see what other merchants are out there?
   # merchant's own merchants/:id show page will have all the links to add/edit/delete products? and links to all relevant placed orders?
-  
+  resources :orders
   get "/orders/view_cart", to: "orders#view_cart", as: "view_cart"
   get "/orders/checkout", to: "orders#checkout", as: "checkout"
-  
+  post "/orders/purchase", to: "orders#purchase", as: "purchase"
   ### did NOT make a route for reviews b/c we can just embed both all the reviews AND the new review form in the products/:id show page?
   
 end
