@@ -7,9 +7,31 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <!-- These are the google fonts Caroline found, just soemthing for now, can refine selection later -->
+    <link href="https://fonts.googleapis.com/css?family=Alegreya:900|Bubblegum+Sans|Capriola|Gorditas:700|Knewave|Lemon|Modak|Sriracha&display=swap" rel="stylesheet">
   </head>
 
   <body>
+
+  <h3>LOG IN/OUT BUTTONS HERE</h3>
+  <% if session[:user_id] %>
+  <p>You're logged in as XXX</p>
+    <%= link_to "Log out", logout_path, method: "delete" %>
+  <% else %>
+    <%= link_to "Login with Github", github_login_path %>
+  <% end %>
+
+  <hr><hr><hr>
+
+  <h3>FLASH MSGS HERE</h3>
+  <% flash.each do |name, message| %>
+    <%= name %>: <%= message %>
+  <% end %>
+
+
+  <hr><hr><hr>
+
     <%= yield %>
   </body>
 </html>
