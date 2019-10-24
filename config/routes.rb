@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: 'homepages#index'
   
   resources :products
+
+
   
   resources :merchants, except: [:new, :create]
   get "/auth/github", as: "github_login"
