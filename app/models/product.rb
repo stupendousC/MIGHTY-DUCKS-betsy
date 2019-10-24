@@ -4,12 +4,8 @@ class Product < ApplicationRecord
   belongs_to :merchant
   has_and_belongs_to_many :categories
   
-  # VALIDATION: TODO in Trello
-  # 1.  Name must be present
-  # 2.  Name must be unique
-  # 3.  Price must be present
-  # 4.  Price must be a number
-  # 5.  Price must be greater than 0
-  # 6.  Product must belong to a Merchant
-  
+  validates :name, presence: true, uniqueness: true
+  # by default numericality doesn't allow value of nil
+  validates :price, numericality: { only_integer: true, greater_than: 0 }
+
 end
