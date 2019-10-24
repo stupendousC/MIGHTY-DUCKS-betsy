@@ -35,3 +35,8 @@ h1 {
    text-align: center;
    background-color: #FF4343
 }
+
+.img_100_width {
+   width: 100vw;
+   object-fit: scale-down;
+}
