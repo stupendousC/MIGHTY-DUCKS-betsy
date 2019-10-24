@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2019_10_23_214656) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uid"
+    t.string "provider"
   end
 
   create_table "order_items", force: :cascade do |t|

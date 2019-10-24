@@ -74,6 +74,7 @@ group :development do
 end
 
 group :development do
+  gem 'dotenv-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'guard'
@@ -87,3 +88,6 @@ end
 
 gem 'pry-byebug'
 gem 'simplecov'
+
+gem "omniauth"
+gem "omniauth-github"
