@@ -16,10 +16,12 @@
 
   <h3>LOG IN/OUT BUTTONS HERE</h3>
   <% if session[:merchant_id] %>
-    <p>You're logged in as <%= session[:merchant_name] %></p>
-    <%= link_to "Log out", logout_path, method: "delete" %>
+    <button type="button" class="btn btn-primary">You're logged in as <%= session[:merchant_name] %></button>
+    <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>
+    
   <% else %>
-    <%= link_to "Login with Github", github_login_path %>
+  <%= link_to "Login with Github", github_login_path, class:"btn btn-primary" %>
+    
   <% end %>
 
   <hr><hr><hr>
