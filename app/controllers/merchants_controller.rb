@@ -48,6 +48,7 @@ class MerchantsController < ApplicationController
   end
   
   def show
+    @products = @merchant.products
     #Get the merchant id by seeing if they are in session
     #find the merchant using their UID or session id
     #If you don't find them output Merchant is not found in a flash
@@ -63,11 +64,15 @@ class MerchantsController < ApplicationController
       flash[:success] = "Successfully logged out!"
   
       redirect_to root_path
-    end
   end
   
   #Now I think we probably will not need this action:
   def logout
+  end
+
+  def current
+    #should we add this method in order to make ito so when can always kno
+    #reference who is current
   end
   
 end
