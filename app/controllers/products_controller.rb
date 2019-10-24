@@ -4,9 +4,9 @@ class ProductsController < ApplicationController
 
   def index 
     #status: nil by default
+    # in product index view page, we only want to show products where status = nil
 
     @products = Product.where(status: nil)
-    # in product index view page, we only want to show products where status = nil
   end
 
   def show
@@ -40,7 +40,6 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    #need to verify that the product belongs to the specific merchant in order to edit
     @product = Product.find_by(id: params[:id])
   end
 
@@ -62,13 +61,10 @@ class ProductsController < ApplicationController
     @merchant = Merchant.find_by(id: session[:merchant_id])
     @product = Product.find_by(id: params[:id])
     
+    # need to confirm that the product belongs to its merchant
     unless @product.merchant.id == @merchant.id
       flash[:error] = "You are not authorized to edit this product!"
     end
-    # if @merchant.nil?
-    #   flash[:error] = "You must log in first!"
-    #   redirect_to root_path
-    # end
   end
 
   def product_params

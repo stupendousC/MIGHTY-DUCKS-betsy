@@ -1,0 +1,14 @@
+<h1>Edit Product Form</h1>
+<%#a merchant can only edit the price, stock, status%>
+
+
+<%= form_with model: @product, class:"edit-product-form" do |f| %>
+  <%= f.label :price %>
+  <%= f.text_field :price %>
+  <%= f.label :stock %>
+  <%= f.text_field :stock %>
+
+  <%= f.submit "Edit Product", class: "product-form-buttom "%>
+<% end %>
+
+<%= link_to "#{(product.status == nil)? "(Mark Available)" : "(Mark Unavailable)"}", product_path(product.id), method: :patch %>
