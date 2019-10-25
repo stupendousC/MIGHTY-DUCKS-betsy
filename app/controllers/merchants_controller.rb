@@ -42,7 +42,10 @@ class MerchantsController < ApplicationController
   end
   
   def show
-    @products = @merchant.products
+    #@merchant= Merchant.find_by(id: 1)
+    
+    #@products = @merchant.products
+    
     #Get the merchant id by seeing if they are in session
     #find the merchant using their UID or session id
     #If you don't find them output Merchant is not found in a flash
