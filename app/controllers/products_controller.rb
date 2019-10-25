@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-  before_action :require_user, only: [:new, :create, :edit, :update]
+  before_action :require_login, only: [:edit, :update]
 
   def index 
     #status: nil by default
@@ -68,6 +68,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    return params.require(:product).permit(:name, :price, :stock, :img_url, :description, :status)
+    return params.require(:product).permit(:name, :price, :stock, :img_url, :description, :status, category_ids: [])
   end
 end

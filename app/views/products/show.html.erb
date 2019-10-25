@@ -4,7 +4,7 @@
 
 <%= @product.img_url %>
 <%= @product.name%>
-<%= @product.price%>
+$ <%= sprintf('%.2f', @product.price / 100) %>
 <%= @product.description%>
 
-<#%= link_to add to cart%>
+<%# link_to add to cart%>
