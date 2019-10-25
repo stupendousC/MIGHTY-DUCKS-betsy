@@ -9,8 +9,8 @@ class Merchant < ApplicationRecord
     merchant = Merchant.new
     merchant.uid = auth_hash[:uid]
     merchant.provider = "github"
-    merchant.name = auth_hash["info"]["name"]
-    merchant.email = auth_hash["info"]["email"]
+    merchant.name = auth_hash[:info][:name]
+    merchant.email = auth_hash[:info][:email]
     
     # will Merchant.save() later inside ctrller
     return merchant

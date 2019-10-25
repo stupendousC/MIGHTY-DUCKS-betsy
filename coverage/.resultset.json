@@ -58,7 +58,10 @@
         null,
         null,
         1,
-        0,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null,
@@ -207,6 +210,34 @@
         null,
         null,
         1,
+<<<<<<< HEAD
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+=======
+>>>>>>> Caroline
         0,
         null,
         0,
@@ -280,14 +311,14 @@
         null,
         1,
         null,
-        5,
-        5,
-        5,
-        5,
-        5,
+        6,
+        6,
+        6,
+        6,
+        6,
         null,
         null,
-        5,
+        6,
         null,
         null,
         null
@@ -367,6 +398,10 @@
         null
       ]
     },
+<<<<<<< HEAD
+    "timestamp": 1572040184
+=======
     "timestamp": 1571959261
+>>>>>>> Caroline
   }
 }
