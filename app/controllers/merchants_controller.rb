@@ -19,7 +19,7 @@ class MerchantsController < ApplicationController
       if merchant.save
         flash[:success] = "Logged in as new merchant #{merchant.name}"
       else
-        # Couldn't save the merchant for some reason. If we
+        # Couldn't save the merchant some reason. If we
         # hit this it probably means there's a bug with the
         # way we've configured GitHub. Our strategy will
         # be to display error messages to make future
@@ -36,19 +36,25 @@ class MerchantsController < ApplicationController
   end
   
   def edit
-    #What are we editing? shouldn't we just allow the merchant to edit their products
-    # Are we allowing them to edit their name or email? That doesn't seem right?
+    #find the correct merchant to allow them to update their information...go grab the 
+    #form with their information.
+    
+    
     
   end
   
   def update
     #What would we be able to update in merchant...a merchant can update it's products, but that would be the 
     #the role of the products controller
+    #
     
   end
   
   def show
-    @products = @merchant.products
+    #@merchant= Merchant.find_by(id: 1)
+    
+    #@products = @merchant.products
+    
     #Get the merchant id by seeing if they are in session
     #find the merchant using their UID or session id
     #If you don't find them output Merchant is not found in a flash
@@ -58,21 +64,28 @@ class MerchantsController < ApplicationController
   
   def destroy
     #I don't know if this would work
-    loggedin_merchant = session[:merchant_id].id
     
-    loggedin_merchant = nil
-    flash[:success] = "Successfully logged out!"
     
-    redirect_to root_path
+    
+    
+    
   end
   
   #Now I think we probably will not need this action:
   def logout
+    session[:merchant_id] = nil
+    session[:merchant_name]= nil
+    flash[:success] = "Successfully logged out!"
+    redirect_to root_path
   end
   
   def current
-    #should we add this method in order to make ito so when can always kno
-    #reference who is current
+    @current_merchant = Merchant.find_by(id: session[:merchant_id])
+    unless @current_merchant
+      flash[:error] = "You must be logged in to see this page"
+      redirect_to root_path
+    end
   end
   
-end
+  
+  

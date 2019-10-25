@@ -22,7 +22,7 @@ class ActiveSupport::TestCase
     # A request to /auth/provider will redirect immediately to /auth/provider/callback.
     OmniAuth.config.test_mode = true
   end
-  
+
   def mock_auth_hash(merchant)
     return {
       provider: merchant.provider,
@@ -42,5 +42,4 @@ class ActiveSupport::TestCase
     
     return merchant
   end
-  
 end

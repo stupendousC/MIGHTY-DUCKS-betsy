@@ -75,12 +75,8 @@ describe MerchantsController do
         
         bogus_merchant = Merchant.new(name:nil, email:"nobody@nobody.com", uid: "1357", provider: "github")
         
-<<<<<<< HEAD
-        bogus_merchant = perform_login(bogus_merchant)
-=======
         # Act
         perform_login(bogus_merchant)
->>>>>>> master
         
         # ASSERT
         must_redirect_to root_path
@@ -88,11 +84,8 @@ describe MerchantsController do
         assert(flash[:error_msgs].length == 1)
         assert(flash[:error_msgs].first == "Name can't be blank")
         assert(Merchant.count == start_count_before)
-<<<<<<< HEAD
-=======
         refute(session[:merchant_id])
         
->>>>>>> master
       end
       
       it "if email == nil" do
@@ -142,3 +135,4 @@ describe MerchantsController do
     end
   end
 end
+
