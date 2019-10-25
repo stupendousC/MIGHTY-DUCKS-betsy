@@ -27,6 +27,7 @@
 
 body {
    background-color: #FFBB00;
+   font-family: 'Capriola', sans-serif;
 }
 
 h1 {
@@ -39,4 +40,12 @@ h1 {
 .img_100_width {
    width: 100vw;
    object-fit: scale-down;
+}
+
+.homepage-nav-links {
+   background-color: lightgreen;
+}
+
+.flash_section {
+   background-color: skyblue;
 }
