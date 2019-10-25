@@ -46,8 +46,7 @@ class MerchantsController < ApplicationController
   def update
     #What would we be able to update in merchant...a merchant can update it's products, but that would be the 
     #the role of the products controller
-    #
-    
+  
   end
   
   def show
@@ -86,6 +85,6 @@ class MerchantsController < ApplicationController
       redirect_to root_path
     end
   end
-  
+end
   
   

@@ -6,7 +6,7 @@ describe Merchant do
       #give it an auth_hash somehow...
        auth_hash = {
           provider:"github",
-          uid: 1234,
+          uid: "1234",
           info: {
             email: "test@email.com",
             name: "test Merchant"
@@ -15,11 +15,11 @@ describe Merchant do
 
      # auth_hash = request.env["omniauth.auth"]
       #Then call on Build from method to create a hash
+      # new_merchant = Merchant.build_from_github(auth_hash)
       new_merchant = Merchant.build_from_github(auth_hash)
-      p new_merchant
-      expect(new_merchant.uid).must_be 1234 
-      expect(new_merchant.email).must_be "test@email.com"
-      expect(new_merchant.name).must_be "Test Merchant"
+      expect(new_merchant.uid).must_equal "1234"
+      expect(new_merchant.email).must_equal "test@email.com"
+      expect(new_merchant.name).must_equal "test Merchant"
     end
     
     it "given bad auth_" do
