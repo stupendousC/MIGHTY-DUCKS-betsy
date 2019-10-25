@@ -7,7 +7,7 @@ module ApplicationHelper
   
   def usd(cents_integer)
     # Returns integer argument as a string.  Ex: usd(199) returns "$1.99"
-    return format("$%.2f", cents_float/100.0)
+    return format("$%.2f", cents_integer/100.0)
   end
   
 end
