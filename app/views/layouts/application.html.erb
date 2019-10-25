@@ -16,7 +16,7 @@
 
   <h3>LOG IN/OUT BUTTONS HERE</h3>
   <% if session[:merchant_id] %>
-    <%= link_to "#{session[:merchant_name]} Dashboard", merchant_path(id: session[:merchant_id]), class: "btn btn-primary"%>
+    <%= link_to "#{session[:merchant_name]}'s Dashboard", merchant_path(id: session[:merchant_id]), class: "btn btn-primary"%>
     <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>
     
   <% else %>
