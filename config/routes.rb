@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root to: 'homepages#index'
   
   resources :products
-
-
+  
+  
   
   resources :merchants, except: [:new, :create]
   get "/auth/github", as: "github_login"
@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   post "/logout", to: "merchants#logout", as: "logout"
   # not sure if we need a merchants#index page, why would they want to see what other merchants are out there?
   # merchant's own merchants/:id show page will have all the links to add/edit/delete products? and links to all relevant placed orders?
-  resources :orders
+  resources :orders do
+    resources :order_items
+  end
   get "/orders/view_cart", to: "orders#view_cart", as: "view_cart"
   get "/orders/checkout", to: "orders#checkout", as: "checkout"
   post "/orders/purchase", to: "orders#purchase", as: "purchase"
