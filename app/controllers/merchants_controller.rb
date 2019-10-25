@@ -1,16 +1,17 @@
 class MerchantsController < ApplicationController
   
+  before_action :require_login, except: [:login]
+  
   def index
     ### IS THIS NECESSARY???
   end
   
   def login
     auth_hash = request.env["omniauth.auth"]
-    
-    merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
-    if merchant
+    @merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
+    if @merchant
       # merchant was found in the database
-      flash[:success] = "Logged in as returning merchant #{merchant.name}"
+      flash[:success] = "Logged in as returning merchant #{@merchant.name}"
     else
       # merchant doesn't match anything in the DB
       # Attempt to create a new merchant
@@ -18,12 +19,8 @@ class MerchantsController < ApplicationController
       
       if merchant.save
         flash[:success] = "Logged in as new merchant #{merchant.name}"
+        @merchant = Merchant.last
       else
-        # Couldn't save the merchant some reason. If we
-        # hit this it probably means there's a bug with the
-        # way we've configured GitHub. Our strategy will
-        # be to display error messages to make future
-        # debugging easier.
         flash[:error] = "Could not create new merchant account!"
         flash[:error_msgs] = merchant.errors.full_messages
         return redirect_to root_path
@@ -31,22 +28,17 @@ class MerchantsController < ApplicationController
     end
     
     # If we get here, we have a valid merchant instance
-    session[:merchant_id] = merchant.id
+    session[:merchant_id] = @merchant.id
+    session[:merchant_name] = @merchant.name
     return redirect_to root_path
   end
   
   def edit
-    #find the correct merchant to allow them to update their information...go grab the 
-    #form with their information.
-    
-    
-    
+    # Do we want to edit their name or email? 
   end
   
   def update
-    #What would we be able to update in merchant...a merchant can update it's products, but that would be the 
-    #the role of the products controller
-  
+    # Do we want this?
   end
   
   def show
@@ -62,29 +54,28 @@ class MerchantsController < ApplicationController
   end
   
   def destroy
-    #I don't know if this would work
-    
-    
-    
-    
-    
+    # UNNECESSARY???
   end
   
-  #Now I think we probably will not need this action:
   def logout
     session[:merchant_id] = nil
-    session[:merchant_name]= nil
+    session[:merchant_name] = nil
     flash[:success] = "Successfully logged out!"
-    redirect_to root_path
+    return redirect_to root_path
   end
   
-  def current
-    @current_merchant = Merchant.find_by(id: session[:merchant_id])
-    unless @current_merchant
-      flash[:error] = "You must be logged in to see this page"
+  
+  
+  private
+  def current_merchant
+    @merchant ||= Merchant.find(session[:merchant_id]) if session[:merchant_id]
+  end
+  
+  def require_login
+    if current_merchant.nil?
+      flash[:error] = "You must be logged in to view this section"
       redirect_to root_path
     end
+    
   end
 end
-  
-  
