@@ -28,6 +28,7 @@
 body {
    background-color: #FFBB00;
    font-family: 'Capriola', sans-serif;
+   margin: 1rem;
 }
 
 h1 {
@@ -44,8 +45,35 @@ h1 {
 
 .homepage-nav-links {
    background-color: lightgreen;
+   margin: 0.5rem 0rem;
 }
 
 .flash_section {
    background-color: skyblue;
+   margin: 0.5rem 0rem;
 }
+
+
+
+
+
+/// OPTIONAL: Caroline is still toying with this ///
+
+.two_panels {
+   display: grid;
+   grid-template-columns: 1fr 5fr;
+}
+
+.two_panels * {
+   margin: 1rem 0rem;
+}
+
+.left_shop_panel {
+   display: flex;
+   flex-direction: column;
+}
+
+.left_shop_panel a {
+   background-color: lime;
+}
+/// end OPTIONAL: Caroline is still toying with this ///
