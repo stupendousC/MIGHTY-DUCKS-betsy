@@ -65,11 +65,9 @@ describe MerchantsController do
       # Should *not* have created a new merchant
       assert(Merchant.count == start_count_before + 1)
       # no need to check for correct attrib on Merchant.last b/c that's covered by Model tests
-      
     end
     
     describe "Edge cases" do 
-      
       it "if name == nil" do
         # Arrange
         start_count_before = Merchant.count
@@ -87,19 +85,80 @@ describe MerchantsController do
         assert(flash[:error_msgs].first == "Name can't be blank")
         assert(Merchant.count == start_count_before)
         refute(session[:merchant_id])
-        
       end
       
       it "if email == nil" do
+        start_count_before = Merchant.count
+        assert(start_count_before == 2)
+        
+        bogus_merchant = Merchant.new(name:"nobody", email:nil, uid: "1357", provider: "github")
+        
+        perform_login(bogus_merchant)
+        
+        must_redirect_to root_path
+        assert(flash[:error] == "Could not create new merchant account!")
+        assert(flash[:error_msgs].length == 1)
+        assert(flash[:error_msgs].first == "Email can't be blank")
+        assert(Merchant.count == start_count_before)
+        refute(session[:merchant_id])
       end
       
       it "if name is not unique" do
+        start_count_before = Merchant.count
+        assert(start_count_before == 2)
+        bogus_merchant = Merchant.new(name:"countess_ada", email:"second_email.com", uid: "1217", provider: "github")
+        
+        perform_login(bogus_merchant)
+        
+        must_redirect_to root_path
+        
+        assert(flash[:error] == "Could not create new merchant account!")
+        assert(flash[:error_msgs].length == 1)
+        assert(flash[:error_msgs].first == "Name has already been taken")
+        assert(Merchant.count == start_count_before)
+        refute(session[:merchant_id])
       end
       
       it "if email is not unique" do
+        start_count_before = Merchant.count
+        assert(start_count_before == 2)
+        bogus_merchant = Merchant.new(name:"Nobody", email:"ada@adadevelopersacademy.org", uid: "1217", provider: "github")
+        
+        perform_login(bogus_merchant)
+        
+        must_redirect_to root_path
+        assert(flash[:error] == "Could not create new merchant account!")
+        assert(flash[:error_msgs].length == 1)
+        assert(flash[:error_msgs].first == "Email has already been taken")
+        assert(Merchant.count == start_count_before)
+        refute(session[:merchant_id])
       end
+    end
+  end
+  
+  describe "LOGOUT" do
+    it "valid merchant can logout correctly" do
+      perform_login
       
+      delete logout_path
+      
+      refute(session[:merchant_id])
+      refute(session[:merchant_name])
+      assert(flash[:success] == "Successfully logged out!")
+      must_redirect_to root_path
+    end
+    
+    it "non-logged-in person cannot logout" do
+      get root_path
+      refute(session[:merchant_id])
+      
+      delete logout_path
+      
+      # should see before_action's require_login kick in with error msg & redirect
+      assert(flash[:error] == "You must be logged in to view this section")
+      must_redirect_to root_path
     end
     
   end
+  
 end

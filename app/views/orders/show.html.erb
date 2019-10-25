@@ -1,1 +1,8 @@
 <%= @order.id %>
+<% @order.order_items.each do |item| %>
+<li>
+<% prod = Product.find_by(id: item.product_id) %>
+<%= prod.name %>
+<%= item.qty %>
+</li>
+<% end %>
