@@ -15,9 +15,9 @@ class OrdersController < ApplicationController
   
   def create
     @order = Order.new( order_params )
-    @order.order_items << OrderItem.create(product_id: params[product.id])
     @order.status = :pending
     if @order.save
+      @order.order_items << OrderItem.create(product_id: params[product.id], order_id: @order.id)
       session[:order_id] = @order.id
       flash[:success] = "Successfully created order"
       redirect_to order_path(@order.id)
@@ -36,15 +36,16 @@ class OrdersController < ApplicationController
         # sets session to nil if there are no products in the order
         session[:order_id] = nil
         flash[:success] = "Order cancelled: all items removed from cart"
-        redirect_to root_path
+        redirect_to orders_path
       else
         # successfully updates order
+        @order.order_items.update(qty: params[:order][:quantity])
         flash[:success] = "Successfully updated order"
         redirect_to order_path(@order.id)
       end
     else
       flash[:error] = "Could not update order"
-      redirect_to root_path
+      redirect_to orders_path
     end
   end
   
@@ -79,7 +80,7 @@ class OrdersController < ApplicationController
   
   def order_params
     # not sure whether it will return an order item or a product in the params
-    return params.require(:order).permit(:order_items, :status)
+    return params.require(:order).permit(order_items: [])
   end
   
 end
