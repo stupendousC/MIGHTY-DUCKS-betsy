@@ -14,36 +14,46 @@
 
   <body>
 
-  <h3>LOG IN/OUT BUTTONS HERE</h3>
-  <% if session[:user_id] %>
-  <p>You're logged in as XXX</p>
-    <%= link_to "Log out", logout_path, method: "delete" %>
-  <% else %>
-    <%= link_to "Login with Github", github_login_path %>
-  <% end %>
-
-  <hr><hr><hr>
-
-  <h3>FLASH MSGS HERE</h3>
-  <% flash.each do |name, message| %>
-    <%= name %>: <%= message %>
-  <% end %>
+  <h1><%= link_to "MIGHTY DUCKS", root_path %></h1>
 
 
-  <hr><hr><hr>
 
   <section class="homepage-nav-links">
-  <h3>NAV LINKS (located here temporarily)</h3>
-  <%= link_to "Products", products_path %>
-  <% if session[:order_id] %>
-    <%= link_to "Cart", order_path(session[:order_id]) %>
-  <% end %>
-  <% if session[:merchant_id] %>
-    <%= link_to "Dashboard", merchant_path(session[:merchant_id]) %>
-  <% end %>
+    <h3>LOG IN/OUT BUTTONS HERE</h3>
+    <% if session[:merchant_id] %>
+      <%= link_to "#{session[:merchant_name]}'s Dashboard", merchant_path(id: session[:merchant_id]), class: "btn btn-primary"%>
+      <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>
+      
+    <% else %>
+    <%= link_to "Login with Github", github_login_path, class:"btn btn-primary" %>
+      
+    <% end %>
+
+    <h3>NAV LINKS (located here temporarily)</h3>
+    <%= link_to "Products", products_path, class:"btn btn-primary" %>
+    <% if session[:order_id] %>
+      <%= link_to "Cart", order_path(session[:order_id]), class:"btn btn-primary" %>
+    <% end %>
+    <% if session[:merchant_id] %>
+      <%= link_to "Dashboard", merchant_path(session[:merchant_id]), class:"btn btn-primary" %>
+    <% end %>
 </section>
 
 
+<section class="flash_section">
+  <h3>FLASH MSGS HERE</h3>
+  <% flash.each do |name, message| %>
+    <%= name.upcase %>: <%= message %>
+  <% end %>
+</section>
+
+<main>
+
     <%= yield %>
-  </body>
+  
+
+</main>
+
+<footer>FOOTER STUFF HERE</footer>
+</body>
 </html>
