@@ -1,9 +1,11 @@
-<%= form_with model: @order, url: order_path do |f| %>
+<%= form_with model: @order, url: order_path(@order.id) do |f| %>
 <p> Edit Order </p>
-      Item: <%= @order.id %>
+<% @order.order_items.each do |item| %>
+      Item: <%= item.id %>
     <%= f.label :quantity %>
-    <%= f.text_field :quantity %>
+    <%= f.number_field :quantity, value: item.qty %>
     <%= f.label :remove %>
     <%= f.check_box :remove %>
   <%= f.submit "Update" %>
+  <% end %>
 <% end %>

@@ -34,6 +34,18 @@
 
   <hr><hr><hr>
 
+  <section class="homepage-nav-links">
+  <h3>NAV LINKS (located here temporarily)</h3>
+  <%= link_to "Products", products_path %>
+  <% if session[:order_id] %>
+    <%= link_to "Cart", order_path(session[:order_id]) %>
+  <% end %>
+  <% if session[:merchant_id] %>
+    <%= link_to "Dashboard", merchant_path(session[:merchant_id]) %>
+  <% end %>
+</section>
+
+
     <%= yield %>
   </body>
 </html>
