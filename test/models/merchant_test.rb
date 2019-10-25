@@ -4,16 +4,16 @@ describe Merchant do
   describe "self.build_from_github works?" do
     it "given auth_hash, will build new Merchant instance correctly" do
       #give it an auth_hash somehow...
-       auth_hash = {
-          provider:"github",
-          uid: "1234",
-          info: {
-            email: "test@email.com",
-            name: "test Merchant"
-          }
+      auth_hash = {
+        provider:"github",
+        uid: "1234",
+        info: {
+          email: "test@email.com",
+          name: "test Merchant"
         }
-
-     # auth_hash = request.env["omniauth.auth"]
+      }
+      
+      # auth_hash = request.env["omniauth.auth"]
       #Then call on Build from method to create a hash
       # new_merchant = Merchant.build_from_github(auth_hash)
       new_merchant = Merchant.build_from_github(auth_hash)
@@ -22,9 +22,10 @@ describe Merchant do
       expect(new_merchant.name).must_equal "test Merchant"
     end
     
-    it "given bad auth_" do
+    it "given bad auth_hash" do
       #Here I am going to test what is being passed in to the Build_from_github
-      #Must raise argument error
+      
+      expect {Merchant.build_from_github(666)}.must_raise TypeError
     end
   end 
   
@@ -38,7 +39,7 @@ describe Merchant do
     it "can validate nominal cases of email" do
       new_merchant = Merchant.new(name:"new person", email: "nobody@nobody.com", uid: "1357", provider: "github")
       expect(new_merchant.valid?).must_equal true
-    
+      
     end
     
     it "will reject edge cases of name" do
