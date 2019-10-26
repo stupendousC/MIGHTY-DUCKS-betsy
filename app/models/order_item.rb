@@ -11,7 +11,12 @@ class OrderItem < ApplicationRecord
   # 5.  Quantity must be greater than 0
   
   
-  
+  def by_merchant(id)
+    product = Product.find_by(id: self.product_id)
+    if product.merchant_id == id
+      return product
+    end
+  end
   
   private
   def get_subtotal

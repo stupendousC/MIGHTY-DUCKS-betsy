@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :orders do
     resources :order_items
   end
+  resources :order_items, only: [:create]
   
   get "/orders/view_cart", to: "orders#view_cart", as: "view_cart"
   get "/orders/checkout", to: "orders#checkout", as: "checkout"
