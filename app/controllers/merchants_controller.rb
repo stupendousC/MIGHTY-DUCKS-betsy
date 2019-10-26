@@ -34,23 +34,21 @@ class MerchantsController < ApplicationController
   end
   
   def edit
-    # Do we want to edit their name or email? 
+    @merchant = Merchant.find_by(id: params[:id])
   end
-  
+
   def update
-    # Do we want this?
+    if @merchant.update(merchant_params)
+      redirect_to merchant_path(@merchant.id)
+      flash[:success] = "Information was updated"
+    else
+      render edit_book_path
+    end
   end
   
   def show
-    #@merchant= Merchant.find_by(id: 1)
-    
+    @merchant = current_merchant
     #@products = @merchant.products
-    
-    #Get the merchant id by seeing if they are in session
-    #find the merchant using their UID or session id
-    #If you don't find them output Merchant is not found in a flash
-    #then render the same page so they have a chance to input a differnt merchant
-    #Don't forget to return
   end
   
   def destroy
@@ -65,17 +63,19 @@ class MerchantsController < ApplicationController
   end
   
   
-  
   private
   def current_merchant
     @merchant ||= Merchant.find(session[:merchant_id]) if session[:merchant_id]
   end
   
+  def merchant_params
+    return params.require(:merchant).permit(:name, :email, :merchant_id)
+  end
+
   def require_login
     if current_merchant.nil?
       flash[:error] = "You must be logged in to view this section"
       redirect_to root_path
     end
-    
   end
 end
