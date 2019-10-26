@@ -2,7 +2,7 @@
 
 <section class="two_panels">
 
-<%= render "body" %>
+<%= render "left_panel" %>
 
 <div class="table-responsive table-striped">
   <table class="table">
@@ -23,9 +23,9 @@
       <% @merchant.products.each do |product| %>
         <tr>
           <td><%= get_string_of_names(product.categories) %></td>
-          <td><%= product.img_url %></td>
+          <td><%= image_tag product.img_url, class: "thumbnail"%></td>
           <td><%= link_to product.name.upcase, product_path(id: product.id) %></td>
-          <td><%= product.description %></td>
+          <td><%= first_x_chars(product.description, x=10) %></td>
           <td><%= product.stock %></td>
           <td><%= usd(product.price) %></td>
           <td><%= link_to "EDIT", edit_product_path(id: product.id) %></td>

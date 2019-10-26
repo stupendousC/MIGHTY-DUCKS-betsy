@@ -30,5 +30,5 @@ products = [
 ]
 
 products.each do |product|
-  Product.create(name: product[:name], stock: product[:stock], price: product[:price], category_ids: product[:category_ids], merchant: Merchant.last)
+  Product.create(name: product[:name], stock: product[:stock], price: product[:price], category_ids: product[:category_ids], merchant: Merchant.last, description: product[:description], img_url: product[:img_url])
 end
