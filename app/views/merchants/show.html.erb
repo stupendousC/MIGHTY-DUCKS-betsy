@@ -8,6 +8,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th>CATEGORIES</th>
         <th>PICTURE</th>
         <th>NAME</th>
         <th>DESCRIPTION</th>
@@ -21,13 +22,14 @@
     <tbody>
       <% @merchant.products.each do |product| %>
         <tr>
+          <td><%= get_string_of_names(product.categories) %></td>
           <td><%= product.img_url %></td>
           <td><%= link_to product.name.upcase, product_path(id: product.id) %></td>
           <td><%= product.description %></td>
           <td><%= product.stock %></td>
           <td><%= usd(product.price) %></td>
           <td><%= link_to "EDIT", edit_product_path(id: product.id) %></td>
-          <td>??</td>
+          <td>link to orders that contain these products</td>
         </tr>
       <% end %>
     </tbody>
