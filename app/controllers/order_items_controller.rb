@@ -4,6 +4,16 @@ class OrderItemsController < ApplicationController
     @order_items = OrderItem.all
   end
   
+  def create
+    order_item = OrderItem.create(product_id: params[product.id])
+    if session[:order_id]
+      order_item.order_id = session[:order_id]
+    else
+      order = Order.create
+      order_item.order_id = order.id
+    end
+  end
+  
   def update
     @order_item = OrderItem.find_by(id: params[:order_id])
     @order = Order.find_by(id: @order_item.order_id)

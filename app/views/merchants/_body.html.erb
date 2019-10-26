@@ -1,6 +1,5 @@
   <section class="left_shop_panel">
 
-    <%= link_to "My products", merchant_products_path(merchant_id: session[:merchant_id]) %>
     <%= link_to "Create new product", new_product_path%>
     <%= link_to "Order fulfillment page", merchant_orders_path(merchant_id: session[:merchant_id]) %>
     <%= link_to "Edit my Info", edit_merchant_path(id: session[:merchant_id]) %>

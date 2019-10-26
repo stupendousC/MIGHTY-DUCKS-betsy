@@ -24,8 +24,12 @@ describe Merchant do
     
     it "given bad auth_hash" do
       #Here I am going to test what is being passed in to the Build_from_github
+      #Must raise argument error
+      auth_hash = [1,2,4,5,5]
+      new_merchant = Merchant.build_from_github(auth_hash)
       
-      expect {Merchant.build_from_github(666)}.must_raise TypeError
+      
+      
     end
   end 
   
