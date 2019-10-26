@@ -158,8 +158,60 @@ describe MerchantsController do
       assert(flash[:error] == "You must be logged in to view this section")
       must_redirect_to root_path
     end
-    
   end
   
+  describe "edit" do
+    
+    it "responds with success when getting the edit page for an existing, valid merchant" do
+      merchant = Merchant.create(name:"Nobody", email:"dora@adadevelopersacademy.org", uid: "1217", provider: "github")
+      
+      
+      perform_login(merchant)
+      
+      get edit_merchant_path(merchant.id)
+      
+      must_respond_with :success
+      expect(Merchant.count).must_be :>, 0
+    end
+    
+    it "responds with redirect when getting the edit page for a non-existing merchant" do
+      get edit_merchant_path(-20)
+      
+      must_respond_with :redirect
+      must_redirect_to root_path
+    end
+  end
+  
+  describe "update" do
+    it "allows a merchant to update their existing information accurately, and can redirect" do
+      merchant_changes = {
+        merchant: {
+          email: "hello",
+          name: "amal"
+        }
+      }
+      
+      perform_login
+      
+      merchant_to_update = merchants(:ada)
+     
+      expect {
+        patch merchant_path(merchant_to_update), params: merchant_changes
+      }.must_differ "Merchant.count", 0
+    
+      updated_merchant = Merchant.find_by(id: merchant_to_update.id)
+      
+      expect(updated_merchant.name).must_equal "amal"
+      expect(updated_merchant.email).must_equal "hello"
+      
+      must_respond_with :redirect
+      must_redirect_to merchant_path
+    end
+    
+    describe "merchant should be able to see their show page when logged in" do
+      it "" do
+      end
+    end
+  end
 end
 

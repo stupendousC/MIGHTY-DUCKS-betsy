@@ -1,3 +1,5 @@
+require 'pry'
+
 class MerchantsController < ApplicationController
   
   before_action :require_login, except: [:login]
@@ -34,20 +36,27 @@ class MerchantsController < ApplicationController
   end
   
   def edit
-    @merchant = Merchant.find_by(id: params[:id])
+    session[:merchant_id] = @merchant.id
+    if @merchant.nil?
+      redirect_to root_path
+      return
+    end
+    @merchant = Merchant.find_by(id: session[:merchant_id])
   end
-
+  
   def update
     if @merchant.update(merchant_params)
       redirect_to merchant_path(@merchant.id)
       flash[:success] = "Information was updated"
     else
-      render edit_book_path
+      flash[:error] = "Please enter valid information"
+      render :edit 
     end
   end
   
   def show
-    @merchant = current_merchant
+    #what the hell is the point of the show action ?
+    #@merchant = current_merchant
     #@products = @merchant.products
   end
   
@@ -71,7 +80,7 @@ class MerchantsController < ApplicationController
   def merchant_params
     return params.require(:merchant).permit(:name, :email, :merchant_id)
   end
-
+  
   def require_login
     if current_merchant.nil?
       flash[:error] = "You must be logged in to view this section"

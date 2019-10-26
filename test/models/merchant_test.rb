@@ -3,19 +3,14 @@ require "test_helper"
 describe Merchant do
   describe "self.build_from_github works?" do
     it "given auth_hash, will build new Merchant instance correctly" do
-      #give it an auth_hash somehow...
-       auth_hash = {
-          provider:"github",
-          uid: "1234",
-          info: {
-            email: "test@email.com",
-            name: "test Merchant"
-          }
+      auth_hash = {
+        provider:"github",
+        uid: "1234",
+        info: {
+          email: "test@email.com",
+          name: "test Merchant"
         }
-
-     # auth_hash = request.env["omniauth.auth"]
-      #Then call on Build from method to create a hash
-      # new_merchant = Merchant.build_from_github(auth_hash)
+      }
       new_merchant = Merchant.build_from_github(auth_hash)
       expect(new_merchant.uid).must_equal "1234"
       expect(new_merchant.email).must_equal "test@email.com"
@@ -23,12 +18,10 @@ describe Merchant do
     end
     
     it "given an auth_hash that is not a hash will raise a Error" do
-      #Here I am going to test what is being passed in to the Build_from_github
-      #Make sure that what is being passed in are correct 
       auth_hash = 12321421123
       expect {new_merchant = Merchant.build_from_github(auth_hash)}.must_raise TypeError
     end
-
+    
     it "given an empty auth_hash will raise an Error" do
       auth_hash = {}
       expect{ new_merchant = Merchant.build_from_github(auth_hash)}.must_raise NoMethodError
