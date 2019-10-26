@@ -5,7 +5,7 @@
 
 //////////////// TEMPORARY,marking sections ONLY! get rid of this when all done!!!
 * {
-   border: 1px dashed white;
+   // border: 1px dashed white;
 }
 
 //////////////// GENERAL REFERENCE ///////////////////
@@ -41,6 +41,10 @@ h1 {
 .img_100_width {
    width: 100vw;
    object-fit: scale-down;
+}
+
+.thumbnail {
+   width: 100%;
 }
 
 .homepage-nav-links {
