@@ -28,13 +28,11 @@
           <td><%= usd(product.price) %></td>
           <td><%= link_to "EDIT", edit_product_path(id: product.id) %></td>
           <td><%= link_to "DELETE", product_path(id: product.id), method: :delete %></td>
-
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
-
 
 
 </section>
