@@ -7,5 +7,6 @@
 <% @products.each do |product| %>
   <li><%= link_to product.name, product_path(product.id)%>
   
-  $ <%= sprintf('%.2f', product.price / 100) %></li>
+  
+  <%= usd(product.price) %></li>
 <%end%>

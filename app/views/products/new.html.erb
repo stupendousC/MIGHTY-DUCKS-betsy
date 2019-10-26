@@ -9,6 +9,8 @@
   <%= f.text_field :stock %>
   <%= f.label :description %>
   <%= f.text_field :description %>
+  <%= f.label :img_url %>
+  <%= f.text_field :img_url %>
 
   <%= f.label :categories %>
   <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>

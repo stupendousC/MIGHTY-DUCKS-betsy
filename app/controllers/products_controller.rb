@@ -26,6 +26,8 @@ class ProductsController < ApplicationController
   def create 
     @product = Product.new( product_params )
 
+    @product.merchant_id = session[:merchant_id]
+    
     if @product.save 
       flash[:success] = "#{@product.name} added successfully"
       redirect_to product_path(@product.id)
