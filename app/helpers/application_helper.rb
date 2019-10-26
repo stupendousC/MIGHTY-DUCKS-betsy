@@ -28,5 +28,11 @@ module ApplicationHelper
     
     return string
   end
+  
+  def first_x_chars(string, x=5)
+    final = string[0..x-1]
+    final << "..." if string.length > x
+    return final
+  end
 end
 
