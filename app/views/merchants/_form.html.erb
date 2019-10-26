@@ -1,0 +1,10 @@
+<%= form_with model: @merchant, class: merchant_form_class do |f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <%= f.submit submit_button_label, class: "merchant-form-button" %>
+
+<% end %>
