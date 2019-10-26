@@ -11,7 +11,8 @@ merchant2 = Merchant.create(name: "Diana", email: "diana@diana.diana")
 merchant3 = Merchant.create(name: "Steph", email: "steph@steph.steph")
 merchant4 = Merchant.create(name: "Caroline", email: "caroline@caroline.caroline")
 
-
+category = Category.create(name: "posters")
+category = Category.create(name: "toys")
 
 products = [ 
   { name: "duck socks", qty: 5, price: 2000},
@@ -21,5 +22,5 @@ products = [
 ]
 
 products.each do |product|
-  Product.create(name: product[:name], stock: product[:qty], price: product[:price], merchant_id: merchant.id)
+  Product.create(name: product[:name], stock: product[:qty], price: product[:price], merchant_id: merchant.id, category_ids: [category.id])
 end
