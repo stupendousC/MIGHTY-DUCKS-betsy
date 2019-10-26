@@ -25,7 +25,7 @@
           <td><%= get_string_of_names(product.categories) %></td>
           <td><%= product.img_url %></td>
           <td><%= link_to product.name.upcase, product_path(id: product.id) %></td>
-          <td><%= product.description %></td>
+          <td><%= first_x_chars(product.description, x=10) %></td>
           <td><%= product.stock %></td>
           <td><%= usd(product.price) %></td>
           <td><%= link_to "EDIT", edit_product_path(id: product.id) %></td>
