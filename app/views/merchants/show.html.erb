@@ -14,7 +14,7 @@
         <th>STOCK</th>
         <th>PRICE</th>
         <th>EDIT</th>
-        <th>DELETE</th>
+        <th>ORDERS?</th>
       </tr>
     </thead>
 
@@ -27,7 +27,7 @@
           <td><%= product.stock %></td>
           <td><%= usd(product.price) %></td>
           <td><%= link_to "EDIT", edit_product_path(id: product.id) %></td>
-          <td><%= link_to "DELETE", product_path(id: product.id), method: :delete %></td>
+          <td>??</td>
         </tr>
       <% end %>
     </tbody>
