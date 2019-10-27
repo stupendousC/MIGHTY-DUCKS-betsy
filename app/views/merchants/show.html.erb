@@ -23,7 +23,7 @@
       <% @merchant.products.each do |product| %>
         <tr>
           <td><%= get_string_of_names(product.categories) %></td>
-          <td><% make_thumbnail_link(product) %></td>
+          <td><%= make_thumbnail_link(product) %></td>
           <td><%= link_to product.name.upcase, product_path(id: product.id) %></td>
           <td><%= first_x_chars(product.description, x=10) %></td>
           <td><%= product.stock %></td>
