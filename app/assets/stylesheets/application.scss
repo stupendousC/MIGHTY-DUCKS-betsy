@@ -5,7 +5,7 @@
 
 //////////////// TEMPORARY,marking sections ONLY! get rid of this when all done!!!
 * {
-   border: 1px dashed white;
+   // border: 1px dashed white;
 }
 
 //////////////// GENERAL REFERENCE ///////////////////
@@ -52,6 +52,10 @@ h1 {
    object-fit: scale-down;
 }
 
+.thumbnail {
+   width: 100%;
+}
+
 .homepage-nav-links {
    display: flex;
    background-color: lightgreen;
@@ -64,6 +68,13 @@ h1 {
    margin: 0.5rem 0rem;
 }
 
+.table-responsive {
+   // Bootstrap: lets u scroll horizontally
+}
+
+.table-striped {
+   // Bootstrap: colors every other row
+}
 
 footer {
    display: flex;

@@ -10,10 +10,7 @@
   <%= f.label :description %>
   <%= f.text_field :description %>
 
-  <%# product status is nil by default and it means available%>
-  <%= f.label :status %>
-  <%= f.select :status, [["Available", nil], ["Unavailable"]] %>
   <%= f.submit "Edit Product", class: "product-form-buttom "%>
 <% end %>
 
-<%#= link_to "#{(@product.status == nil)? "(Mark Unvailable)" : "(Mark Available)"}", product_path(@product.id), method: :patch %>
+<%= link_to "#{(product.status == nil)? "(Mark Available)" : "(Mark Unavailable)"}", product_path(product.id), method: :patch %>
