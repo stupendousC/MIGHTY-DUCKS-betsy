@@ -39,9 +39,9 @@ products = [
   { name: "police ducks", stock: 2, price: 2099, category_ids: [c1], merchant: m3, description: "You don't have to worry about bad guys when you have these defenders of justice on your side!  Bad boys, bad boys, whatchu gonna do? Whatchu gonna do when they come for you?  Buy this duck of course!", img_url: "https://live.staticflickr.com/3101/2819378644_2be90721e6.jpg" },
   
   
-  # { name: "XXX", stock: 1, price: 99, category_ids: [], merchant: m#, description: "", img_url: "" },
-  # { name: "XXX", stock: 1, price: 99, category_ids: [], merchant: m#, description: "", img_url: "" },
-  # { name: "XXX", stock: 1, price: 99, category_ids: [], merchant: m#, description: "", img_url: "" },
+  { name: "doggy duck", stock: 1, price: 1099, category_ids: [c1], merchant: m4, description: "When a dog and a duck love each other very much, they do a special kind of hug, and thus... this thing is born!  You should buy it.", img_url: "https://live.staticflickr.com/2038/2128859065_ca0ed8f16d.jpg" },
+  { name: "tres amigos", stock: 1, price: 5900, category_ids: [c1], merchant: m4, description: "We're selling this as a set, they can't bear to be apart!  These 3 amigos need to stay together at all times :-D", img_url: "https://live.staticflickr.com/3149/2818279661_f8e438d0da.jpg" },
+  { name: "giant duck", stock: 1, price: 500000, category_ids: [c4], merchant: m4, description: "Now you too, can terrorize innocent sailors with this monstrosity... check out the size of this thing!  It truly is a rubber ducky of the Gods... BUY IT!", img_url: "https://live.staticflickr.com/2807/8758506394_530e29fd13.jpg" },
 ]
 
 products.each do |product|
