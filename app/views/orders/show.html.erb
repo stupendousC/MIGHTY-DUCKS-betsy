@@ -1,9 +1,12 @@
 <%= @order.id %>
-<% @order.order_items.each do |item| %>
+<% if session[:merchant_id] %>
+<% order_items = OrderItem.by_merchant(session[:merchant_id]) %>
+<% order_items.each do |item| %>
 <li>
-By Merchant: <%= item.by_merchant(5).name %>
-<% prod = Product.find_by(id: item.product_id) %>
-<%= prod.name %>
-<%= item.qty %>
+PRODUCT: <%= item.name %>,
+QTY: <%= item.qty %>,
+ORDER STATUS: <%= Order.find_by(id: item.id).status %>,
+MERCHANT ID: <%= item.merchant_id%>
 </li>
+<% end %>
 <% end %>

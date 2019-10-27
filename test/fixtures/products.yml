@@ -2,7 +2,6 @@ p1:
   name: product1
   stock: 5
   price: 2000
-  categories: c1
   merchant: m1
   description: duck socks
   img_url: https://live.staticflickr.com/4081/4906646028_1be7b70d6d_z.jpg
