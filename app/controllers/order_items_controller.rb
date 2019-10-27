@@ -5,12 +5,13 @@ class OrderItemsController < ApplicationController
   end
   
   def create
-    order_item = OrderItem.create(product_id: params[product.id])
-    if session[:order_id]
-      order_item.order_id = session[:order_id]
+    order_item = OrderItem.new(product_id: params[product.id], order_id: session[:order_id], qty: 1, subtotal: params[product.price])
+    if order_item.save
+      flash[:success] = "Item added to order"  
+      redirect_to product_path(params[product.id])
     else
-      order = Order.create
-      order_item.order_id = order.id
+      flash[:error] = "Could not add item to order"
+      redirect_to products_path
     end
   end
   

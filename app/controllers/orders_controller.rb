@@ -16,7 +16,6 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new( order_params )
     if @order.save
-      @order.update({status: "pending"})
       session[:order_id] = @order.id
       flash[:success] = "Successfully created order"
       redirect_to order_path(@order.id)

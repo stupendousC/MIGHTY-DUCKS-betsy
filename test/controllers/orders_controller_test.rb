@@ -18,15 +18,11 @@ describe OrdersController do
     end
     
   end
-
-  describe "update" do
   
-    it "can add an order item" do
-      
-    end
-
+  describe "update" do
+    
   end
-
+  
   
   # describe "VIEW_CART" do
   #   it "can go to view_cart page" do

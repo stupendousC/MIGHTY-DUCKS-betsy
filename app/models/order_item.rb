@@ -1,4 +1,7 @@
 class OrderItem < ApplicationRecord
+  before_save :get_subtotal
+  before_save :get_order
+  before_save :default_qty
   
   belongs_to :product
   belongs_to :order 
@@ -23,8 +26,23 @@ class OrderItem < ApplicationRecord
   end
   
   private
+  
   def get_subtotal
-    # put it here?  call this when creating/updating an order_item instance
+    product = Product.find_by(id: self.product_id).price
+    self.subtotal = self.qty.to_i * product
+  end
+  
+  def get_order
+    if self.order_id == nil
+      order = Order.create
+      order_item.order_id = order.id
+    end
+  end
+  
+  def default_qty
+    if self.qty == nil
+      self.qty = 1
+    end
   end
   
 end
