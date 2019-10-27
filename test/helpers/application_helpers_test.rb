@@ -1,16 +1,44 @@
 require "test_helper"
 
-describe "Application_helper" do
+describe ApplicationHelper, :helper do
   
-  it "CAROLINE" do
+  describe "does display_date() work?" do
+    it "nominal" do
+    end
     
-    puts "\n\n\nWTF"
-    puts merchants[:m1]
-    puts categories[:c1]
-
-    p1 = products(:p1)
-    p p1.categories
-    assert(false)
+    it "edge" do
+    end
   end
   
+  describe "does usd() work?" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
+  describe "does get_string_of_names() work?" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
+  describe "does first_x_chars() work?" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
+  describe "does make_thumbnail_link() work?" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
 end
