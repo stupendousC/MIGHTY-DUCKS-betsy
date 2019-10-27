@@ -4,5 +4,5 @@
 
 <%= make_thumbnail_link(@product) %>
 <%= @product.name%>
-$ <%= sprintf('%.2f', @product.price / 100) %>
+<%= usd(@product.price) %>
 <%= @product.description%>
