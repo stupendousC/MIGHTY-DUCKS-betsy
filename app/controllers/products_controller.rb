@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
     #status: nil by default
     # in product index view page, we only want to show products where status = nil
 
-    @products = Product.where(status: nil)
+    @products = Product.where(status: "Available")
   end
 
   def show
@@ -24,7 +24,9 @@ class ProductsController < ApplicationController
   end
 
   def create 
-    @product = Product.new( product_params )
+    @status = "Available"
+    @product = Product.new( product_params)
+
 
     if @product.save 
       flash[:success] = "#{@product.name} added successfully"
@@ -45,6 +47,8 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find_by(id: params[:id])
+
+    @status = params[:status]
 
     if @product.update( product_params )
       flash[:success] = "You successfully updated #{@product.name}"
@@ -68,6 +72,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    return params.require(:product).permit(:name, :price, :stock, :img_url, :description, :status, category_ids: [])
+    return params.require(:product).permit(:name, :price, :stock, :img_url, :description, category_ids: []).merge(status: @status)
   end
 end
