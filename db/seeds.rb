@@ -12,7 +12,7 @@ Merchant.create(name: "Diana", uid: "37133508", provider: "github", email: "dian
 m2 = Merchant.find_by(name: "Diana")
 Merchant.create(name: "Kelsey", uid: "38271546", provider: "github", email: "kelsey@ada.com")
 m3 = Merchant.find_by(name: "Kelsey")
-Merchant.create(name: "Steph", uid: "x", provider: "github", email: "steph@ada.com")
+Merchant.create(name: "Steph", uid: "15236701", provider: "github", email: "steph@ada.com")
 m4 = Merchant.find_by(name: "Steph")
 
 
