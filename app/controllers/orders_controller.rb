@@ -10,13 +10,13 @@ class OrdersController < ApplicationController
   def show; end
   
   def new
-    @order = Order.new
+    @order = Order.new( order_params )
   end
   
   def create
     @order = Order.new( order_params )
-    @order.status = :pending
     if @order.save
+      # sets the session order id
       session[:order_id] = @order.id
       flash[:success] = "Successfully created order"
       redirect_to order_path(@order.id)
@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
   
   def order_params
     # not sure whether it will return an order item or a product in the params
-    return params.require(:order).permit(order_items: [])
+    return params.require(:order).permit(:status, :order_items, :grand_total)
   end
   
 end

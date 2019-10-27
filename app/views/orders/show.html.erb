@@ -10,3 +10,15 @@ MERCHANT ID: <%= item.merchant_id%>
 </li>
 <% end %>
 <% end %>
+
+<% @order.order_items.each do |item| %>
+<% product = Product.find_by(id: item.product_id) %>
+<li>
+PRODUCT: <%= product.name %>
+QTY: <%= item.qty %>
+PRICE: <%= product.price %>
+SUBTOTAL: <%= item.subtotal %>
+ORDER STATUS: <%= @order.status %>
+MERCHANT ID: <%= product.merchant_id %>
+</li>
+<% end %>
