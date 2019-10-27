@@ -10,6 +10,9 @@
 
 
 # Ignore all logfiles and tempfiles.
+/log
+/tmp
+/coverage
 /log/*
 /tmp/*
 !/log/.keep

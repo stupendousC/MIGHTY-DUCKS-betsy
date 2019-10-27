@@ -11,8 +11,15 @@ class OrderItem < ApplicationRecord
   # 5.  Quantity must be greater than 0
   
   
-  def by_merchant(id)
-    return Product.where(id: self.product_id, merchant_id: id)
+  def self.by_merchant(id)
+    order_items = OrderItem.all
+    result = []
+    order_items.each do |item|
+      if Product.find_by(id: item.product_id).merchant_id == id
+        result << item
+      end
+    end
+    return result
   end
   
   private
