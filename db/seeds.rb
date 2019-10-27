@@ -1,10 +1,5 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
 Merchant.create(name: "Plucky", uid: "000", provider: "github", email: "plucky@tinytoons.com")
 # we will NOT be able to log in as Plucky, since that's not a real Github acct, he's just a test. 
@@ -30,8 +25,6 @@ c2 = Category.find_by(name: "Live Animals").id
 c3 = Category.find_by(name: "Food").id
 c4 = Category.find_by(name: "Miscellaneous").id
 
-category = Category.create(name: "posters")
-category = Category.create(name: "toys")
 
 products = [ 
   { name: "duck socks", stock: 5, price: 2000, category_ids: [c1, c4], merchant: m1, description: "real spiffy!", img_url: "https://live.staticflickr.com/4081/4906646028_1be7b70d6d_z.jpg"},

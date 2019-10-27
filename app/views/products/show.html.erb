@@ -2,12 +2,9 @@
 
 <h2>Product Details:</h2>
 
-<%#= image_tag @product.img_url, alt: "Giant Duck in Pittsburgh", class: "img_100_width" %>
-<%#= @product.img_url %>
+<%= @product.img_url %>
 <%= @product.name%>
-<%= usd(@product.price) %>
+$ <%= sprintf('%.2f', @product.price / 100) %>
 <%= @product.description%>
 
-<%# if @product.status = nil && @product.stock != 0 %>
-<%#= link_to "Add to cart", .....path orderitem #create %>
-<%# end%>
+<%# link_to add to cart%>

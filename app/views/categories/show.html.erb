@@ -1,8 +1,0 @@
-<h1>View Products by Category: <%= @category.name %> </h1>
-
-<% @products.each do |product| %>
-  <li><%= link_to product.name, product_path(product.id)%>
-  
-  
-  <%= usd(product.price) %></li>
-<%end%>

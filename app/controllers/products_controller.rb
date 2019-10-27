@@ -6,12 +6,11 @@ class ProductsController < ApplicationController
     #status: nil by default
     # in product index view page, we only want to show products where status = nil
 
-    @products = Product.where(status: "")
+    @products = Product.where(status: nil)
   end
 
   def show
     product_id = params[:id]
-
     @product = Product.find_by(id: product_id)
 
     if @product.nil?
@@ -27,8 +26,6 @@ class ProductsController < ApplicationController
   def create 
     @product = Product.new( product_params )
 
-    @product.merchant_id = session[:merchant_id]
-    
     if @product.save 
       flash[:success] = "#{@product.name} added successfully"
       redirect_to product_path(@product.id)
@@ -50,7 +47,6 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
 
     if @product.update( product_params )
-      
       flash[:success] = "You successfully updated #{@product.name}"
       redirect_to product_path(@product.id)
     else
