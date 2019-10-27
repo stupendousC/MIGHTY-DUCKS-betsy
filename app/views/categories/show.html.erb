@@ -1,12 +1,5 @@
 <h1>View Products by Category: <%= @category.name %> </h1>
 
 <% @products.each do |product| %>
-<<<<<<< HEAD
   <li><%= link_to product.name, product_path(product.id)%> <%= usd(product.price) %></li>
-=======
-  <li><%= link_to product.name, product_path(product.id)%>
-  
-  
-  <%= usd(product.price) %></li>
->>>>>>> 9415bf4... Merge pull request #28 from stupendousC/diana-new
 <%end%>
