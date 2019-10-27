@@ -34,5 +34,9 @@ module ApplicationHelper
     final << "..." if string.length > x
     return final
   end
+  
+  def make_thumbnail_link(productInstance)
+    return "link_to image_tag('#{productInstance.img_url}'', alt: 'picture of #{productInstance.name}', class: 'thumbnail'), product_path(id: #{productInstance.id})"  
+  end
 end
 

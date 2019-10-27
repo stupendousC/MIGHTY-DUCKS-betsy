@@ -14,29 +14,32 @@
 
   <body>
 
-  <h1><%= link_to "MIGHTY DUCKS", root_path %></h1>
+  <h1><%= link_to "MIGHTY DUCKS", root_path, class: "quiet_link" %></h1>
 
 
 
   <section class="homepage-nav-links">
 
+    <section class="products-nav">
     <%= link_to "Products", products_path, class:"btn btn-primary" %>
     <% if session[:order_id] %>
       <%= link_to "Cart", order_path(session[:order_id]), class:"btn btn-primary" %>
     <% end %>
+    </section>
 
+    <section class="users-nav">
     <% if session[:merchant_id] %>
       <%= link_to "#{session[:merchant_name]}'s Dashboard", merchant_path(id: session[:merchant_id]), class: "btn btn-primary"%>
       <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>
-      
     <% else %>
     <%= link_to "Login with Github", github_login_path, class:"btn btn-primary" %>
     <% end %>
+    </section>
+
 </section>
 
 
 <section class="flash_section">
-  <h3>FLASH MSGS HERE</h3>
   <% flash.each do |name, message| %>
     <%= name.upcase %>: <%= message %>
   <% end %>
@@ -49,6 +52,14 @@
 
 </main>
 
-<footer>FOOTER STUFF HERE</footer>
+<footer>
+  <section>MEET THE DuCKS!!!</section>
+  <section><%= link_to "Diana", "https://github.com/dhan0406", target: :_blank %></section>
+  <section><%= link_to "Caroline", "https://github.com/stupendousC", target: :_blank %></section>
+  <section><%= link_to "Kelsey", "https://github.com/kelsk", target: :_blank %></section>
+  <section><%= link_to "Steph", "https://github.com/Steph0088", target: :_blank %></section>
+</footer>
+
+
 </body>
 </html>
