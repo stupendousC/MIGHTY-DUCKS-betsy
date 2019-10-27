@@ -2,7 +2,7 @@ class Merchant < ApplicationRecord
   has_many :products
   
   validates :name, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   
   def self.build_from_github(auth_hash)
     # assembling Merchant.new() using info from github's auth_hash

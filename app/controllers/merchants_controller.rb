@@ -35,8 +35,15 @@ class MerchantsController < ApplicationController
   def update
     if @merchant.update(merchant_params)
       flash[:success] = "Information was updated"
+      
+      if @merchant.name != session[:merchant_name]
+        # I want the nav buttons to reflect the new name
+        session[:merchant_name] = @merchant.name
+      end
+      
       redirect_to merchant_path(@merchant.id)
       return
+      
     else
       flash.now[:error] = "Unable to update"
       flash.now[:error_msgs] = @merchant.errors.full_messages
