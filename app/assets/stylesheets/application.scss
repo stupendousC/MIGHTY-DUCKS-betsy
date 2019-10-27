@@ -5,7 +5,7 @@
 
 //////////////// TEMPORARY,marking sections ONLY! get rid of this when all done!!!
 * {
-   border: 1px dashed white;
+   // border: 1px dashed white;
 }
 
 //////////////// GENERAL REFERENCE ///////////////////
@@ -38,14 +38,29 @@ h1 {
    background-color: #FF4343
 }
 
+.quiet_link {
+   color: black;
+}
+
+.quiet_link:hover {
+   color: black;
+   text-decoration: none;
+}
+
 .img_100_width {
    width: 100vw;
    object-fit: scale-down;
 }
 
+.thumbnail {
+   width: 100%;
+}
+
 .homepage-nav-links {
+   display: flex;
    background-color: lightgreen;
    margin: 0.5rem 0rem;
+   justify-content: space-between;
 }
 
 .flash_section {
@@ -53,8 +68,24 @@ h1 {
    margin: 0.5rem 0rem;
 }
 
+.table-responsive {
+   // Bootstrap: lets u scroll horizontally
+}
 
+.table-striped {
+   // Bootstrap: colors every other row
+}
 
+footer {
+   display: flex;
+   background-color: wheat;
+   margin-top: 1.5rem;
+   justify-content: space-evenly;
+}
+
+footer section {
+   font-family: 'Gorditas', cursive;
+}
 
 
 /// OPTIONAL: Caroline is still toying with this ///

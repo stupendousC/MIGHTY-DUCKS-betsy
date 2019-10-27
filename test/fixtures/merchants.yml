@@ -1,11 +1,11 @@
-ada:
+m1:
   provider: github
   uid: 12345
-  email: ada@adadevelopersacademy.org
-  name: countess_ada
+  email: merchant1@fake.com
+  name: ducks-r-us
 
-grace:
+m2:
   provider: github
   uid: 98765
-  email: grace@hooper.net
-  name: graceful_hopps
+  email: merchant2@fake.com
+  name: neiman duckus
