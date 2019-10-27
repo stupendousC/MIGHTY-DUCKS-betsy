@@ -2,7 +2,7 @@ p1:
   name: product1
   stock: 5
   price: 2000
-  category: c1, c4
+  categories: c1
   merchant: m1
   description: duck socks
   img_url: https://live.staticflickr.com/4081/4906646028_1be7b70d6d_z.jpg
@@ -12,7 +12,6 @@ p2:
   name: product2
   stock: 2
   price: 99
-  category: c4
   merchant: m2
   description: striped socks
   img_url: https://live.staticflickr.com/8325/8380147041_d41c824ba6_z.jpg
@@ -22,7 +21,6 @@ p3:
   name: product3
   stock: 100
   price: 5000
-  category: c2
   merchant: m1
   description: mutant duck
   img_url: https://live.staticflickr.com/2345/1805702317_3def904678.jpg
@@ -32,7 +30,6 @@ p4:
   name: product4
   stock: 1
   price: 100000
-  category: c1
   merchant: m2
   description: evil ducks
   img_url: https://live.staticflickr.com/1203/566154297_84ec445540_z.jpg
