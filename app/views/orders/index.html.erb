@@ -1,18 +1,31 @@
 <h2>
-PLACEHOLDER HTML
+  PLACEHOLDER HTML
 </h2>
 <h4>
-Total orders: <%= @orders.length %>
+  Total orders: <%= @orders.length %>
 </h4>
+
 <% @orders.each do |order| %>
-<p>
-Order id: <%= order.id %>
-</p>
-<p>
-Created on: <%= order.created_at %>
-</p>
-<p>
-Order status: <%= order.status %>
-</p>
-<%= link_to "Edit", edit_order_path(order.id) %>
+  <p>
+    Order id: <%= order.id %>,  
+    Created on: <%= order.created_at %>,
+    Order status: <%= order.status %>
+  </p>
+  <% if session[:order_id] %>
+    <%= link_to "Edit", edit_order_path(order.id) %>
+  <% end %>
+<% end %>
+
+<% if session[:merchant_id] %>
+  <% order_items = OrderItem.by_merchant(session[:merchant_id]) %>
+  <% order_items.each do |item| %>
+  <% product = Product.where(id: item.product_id) %>
+    <li>
+      PRODUCT: <%= product[0].name %>,
+      QTY: <%= item.qty %>,
+      ORDER STATUS: <%= Order.find_by(id: item.order_id).status %>,
+      <% raise %>
+      MERCHANT ID: <%= product[0].merchant_id%>
+    </li>
+  <% end %>
 <% end %>
