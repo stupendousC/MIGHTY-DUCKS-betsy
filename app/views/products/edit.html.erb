@@ -12,7 +12,7 @@
 
   <%# product status is nil by default and it means available%>
   <%= f.label :status %>
-  <%= f.select :status, [["Available", "Available"], ["Unavailable", "Unavailable"]] %>
+  <%= f.select :status, [["Available"],["Unavailable"]] %>
   <%= f.submit "Edit Product", class: "product-form-buttom "%>
 <% end %>
 
