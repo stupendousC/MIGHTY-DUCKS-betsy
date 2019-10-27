@@ -9,3 +9,15 @@ grace:
   uid: 98765
   email: grace@hooper.net
   name: graceful_hopps
+
+# m1:
+#   provider: github
+#   uid: 12345
+#   email: merchant1@fake.com
+#   name: ducks-r-us
+
+# m2:
+#   provider: github
+#   uid: 98765
+#   email: merchant2@fake.com
+#   name: neiman duckus

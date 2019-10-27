@@ -11,10 +11,12 @@ SimpleCov.start do
 end
 SimpleCov.start
 
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-      
+  
   # Add more helper methods to be used by all tests here...
   def setup
     # Once you have enabled test mode, all requests
@@ -22,7 +24,7 @@ class ActiveSupport::TestCase
     # A request to /auth/provider will redirect immediately to /auth/provider/callback.
     OmniAuth.config.test_mode = true
   end
-
+  
   def mock_auth_hash(merchant)
     return {
       provider: merchant.provider,
