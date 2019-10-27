@@ -2,9 +2,7 @@
 
 <h2>Product Details:</h2>
 
-<%= @product.img_url %>
+<%= make_thumbnail_link(@product) %>
 <%= @product.name%>
 $ <%= sprintf('%.2f', @product.price / 100) %>
 <%= @product.description%>
-
-<%# link_to add to cart%>

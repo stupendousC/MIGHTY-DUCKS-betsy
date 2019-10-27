@@ -3,9 +3,6 @@ class ProductsController < ApplicationController
   before_action :require_login, only: [:edit, :update]
 
   def index 
-    #status: nil by default
-    # in product index view page, we only want to show products where status = nil
-
     @products = Product.where(status: "Available")
   end
 
