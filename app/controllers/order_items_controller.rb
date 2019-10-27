@@ -5,10 +5,14 @@ class OrderItemsController < ApplicationController
   end
   
   def create
-    order_item = OrderItem.new(product_id: params[product.id], order_id: session[:order_id], qty: 1, subtotal: params[product.price])
+    # kelsey problems #
+    # no idea why default attribute values don't work! :|
+    order_item = OrderItem.new( order_item_params )
+    # end kelsey problems #
+
     if order_item.save
       flash[:success] = "Item added to order"  
-      redirect_to product_path(params[product.id])
+      redirect_to product_path(params[:product_id])
     else
       flash[:error] = "Could not add item to order"
       redirect_to products_path
@@ -40,4 +44,13 @@ class OrderItemsController < ApplicationController
   
   def destroy; end
   
+
+  # kelsey problems #
+  # am i doing something crazy wrong here?
+  def order_item_params
+    return params.require(:order_item).permit(:product_id, :subtotal, :order_id = Order.create.id, :qty = 1)
+  end
+  # end kelsey problems #
+
+
 end
