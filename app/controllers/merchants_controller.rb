@@ -2,10 +2,6 @@ class MerchantsController < ApplicationController
   
   before_action :require_login, except: [:login]
   
-  def index
-    ### IS THIS NECESSARY???
-  end
-  
   def login
     auth_hash = request.env["omniauth.auth"]
     @merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
@@ -34,25 +30,19 @@ class MerchantsController < ApplicationController
   end
   
   def edit
-    @merchant = Merchant.find_by(id: params[:id])
   end
-
+  
   def update
     if @merchant.update(merchant_params)
       redirect_to merchant_path(@merchant.id)
       flash[:success] = "Information was updated"
     else
-      render edit_book_path
+      flash[:error] = "Unable to update because #{@merchant.errors.full_messages}"
+      render action: "edit"
     end
   end
   
   def show
-    @merchant = current_merchant
-    #@products = @merchant.products
-  end
-  
-  def destroy
-    # UNNECESSARY???
   end
   
   def logout
@@ -69,9 +59,9 @@ class MerchantsController < ApplicationController
   end
   
   def merchant_params
-    return params.require(:merchant).permit(:name, :email, :merchant_id)
+    return params.require(:merchant).permit(:name, :email)
   end
-
+  
   def require_login
     if current_merchant.nil?
       flash[:error] = "You must be logged in to view this section"
