@@ -216,11 +216,12 @@ describe MerchantsController do
       
       ### test the flash msgs, if any
     end
+  end
     
     describe "merchant should be able to see their show page when logged in" do
       it "" do
       end
     end
-  end
+  
 end
 
