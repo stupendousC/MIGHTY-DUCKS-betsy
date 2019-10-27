@@ -4,6 +4,9 @@ describe ApplicationHelper, :helper do
   
   describe "does display_date() work?" do
     it "nominal" do
+      xmas = Date.parse("12-10-2019")
+      p xmax
+      assert(false)
     end
     
     it "edge" do
