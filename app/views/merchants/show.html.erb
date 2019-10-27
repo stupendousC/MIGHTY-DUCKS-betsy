@@ -2,20 +2,19 @@
 
 <section class="two_panels">
 
-<%= render "left_panel" %>
+<%= render "body" %>
 
 <div class="table-responsive table-striped">
   <table class="table">
     <thead>
       <tr>
-        <th>CATEGORIES</th>
         <th>PICTURE</th>
         <th>NAME</th>
         <th>DESCRIPTION</th>
         <th>STOCK</th>
         <th>PRICE</th>
         <th>EDIT</th>
-        <th>ORDERS?</th>
+        <th>DELETE</th>
       </tr>
     </thead>
 
@@ -25,11 +24,11 @@
           <td><%= get_string_of_names(product.categories) %></td>
           <td><%= make_thumbnail_link(product) %></td>
           <td><%= link_to product.name.upcase, product_path(id: product.id) %></td>
-          <td><%= first_x_chars(product.description, x=10) %></td>
+          <td><%= product.description %></td>
           <td><%= product.stock %></td>
           <td><%= usd(product.price) %></td>
           <td><%= link_to "EDIT", edit_product_path(id: product.id) %></td>
-          <td>link to orders that contain these products</td>
+          <td><%= link_to "DELETE", product_path(id: product.id), method: :delete %></td>
         </tr>
       <% end %>
     </tbody>

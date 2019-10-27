@@ -4,8 +4,11 @@
 # status: nil by default
 # when a merchant wants the product to retire, they can edit status: unavailable
 
+
+
 <% @products.each do |product| %>
   <li><%= link_to product.name, product_path(product.id)%>
   
-  $ <%= sprintf('%.2f', product.price / 100) %></li>
+  
+  <%= usd(product.price) %></li>
 <%end%>
