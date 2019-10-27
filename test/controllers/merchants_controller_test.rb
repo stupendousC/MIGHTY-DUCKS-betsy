@@ -171,13 +171,20 @@ describe MerchantsController do
       get edit_merchant_path(merchant.id)
       
       must_respond_with :success
+
+      ### this line doesn't prove that u added the new merchant correctly.  Remember the yml fixtures will add 2 merchants for you already
+      ### so you should be expecting Merchant.count to go from 2 to 3.  
       expect(Merchant.count).must_be :>, 0
+
+      ### flash msgs?
     end
     
     it "responds with redirect when getting the edit page for a non-existing merchant" do
+      ### I think you have to specify (id: -20), did this actually run?
+      ### Also wouldn't there also be a flash msg to test?
       get edit_merchant_path(-20)
       
-      must_respond_with :redirect
+      must_respond_with :redirect ### thsi line is not necessary if you're already testing the next line
       must_redirect_to root_path
     end
   end
@@ -204,8 +211,10 @@ describe MerchantsController do
       expect(updated_merchant.name).must_equal "amal"
       expect(updated_merchant.email).must_equal "hello"
       
-      must_respond_with :redirect
+      must_respond_with :redirect . ### can delete this line
       must_redirect_to merchant_path
+      
+      ### test the flash msgs, if any
     end
     
     describe "merchant should be able to see their show page when logged in" do
