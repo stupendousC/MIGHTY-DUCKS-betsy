@@ -6,7 +6,7 @@ class OrderItemsController < ApplicationController
   
   def create
     # kelsey problems #
-    # no idea why default attribute values don't work in tests? :|
+    # no idea why default attribute values don't work! :|
     order_item = OrderItem.new( order_item_params )
     # end kelsey problems #
 
@@ -48,7 +48,7 @@ class OrderItemsController < ApplicationController
   # kelsey problems #
   # am i doing something crazy wrong here?
   def order_item_params
-    return params.require(:order_item).permit(:product_id, :subtotal, order_id = Order.create.id, qty = 1)
+    return params.require(:order_item).permit(:product_id, :subtotal, :order_id = Order.create.id, :qty = 1)
   end
   # end kelsey problems #
 
