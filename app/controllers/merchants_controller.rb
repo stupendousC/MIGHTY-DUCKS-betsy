@@ -34,11 +34,14 @@ class MerchantsController < ApplicationController
   
   def update
     if @merchant.update(merchant_params)
-      redirect_to merchant_path(@merchant.id)
       flash[:success] = "Information was updated"
+      redirect_to merchant_path(@merchant.id)
+      return
     else
-      flash[:error] = "Unable to update because #{@merchant.errors.full_messages}"
+      flash.now[:error] = "Unable to update"
+      flash.now[:error_msgs] = @merchant.errors.full_messages
       render action: "edit"
+      return
     end
   end
   
@@ -65,7 +68,7 @@ class MerchantsController < ApplicationController
   def require_login
     if current_merchant.nil?
       flash[:error] = "You must be logged in to view this section"
-      redirect_to root_path
+      return redirect_to root_path
     end
   end
 end
