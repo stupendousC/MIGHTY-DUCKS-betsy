@@ -12,10 +12,7 @@ class OrderItem < ApplicationRecord
   
   
   def by_merchant(id)
-    product = Product.find_by(id: self.product_id)
-    if product.merchant_id == id
-      return product
-    end
+    return Product.where(id: self.product_id, merchant_id: id)
   end
   
   private

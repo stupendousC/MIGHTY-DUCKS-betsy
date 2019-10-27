@@ -41,7 +41,7 @@ module ApplicationHelper
     # take a Product instance, and returns erb for a picture of the product's image 
     # which upon clicking will lead u to that product's show page
     # ex: <%= make_thumbnail_link(@product1) %> 
-    if productInstance.class == Product
+    if productInstance.class == Product && productInstance.img_url != nil
       return link_to image_tag(productInstance.img_url, alt: 'picture of #{productInstance.name}', class: 'thumbnail'), product_path(id: productInstance.id)
     else
       return "INVALID"
