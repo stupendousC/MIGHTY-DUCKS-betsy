@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
   
   def order_params
     # not sure whether it will return an order item or a product in the params
-    return params.require(:order).permit(:status => "pending", order_items: [])
+    return params.require(:order).permit(:status, :order_items, :grand_total)
   end
   
 end

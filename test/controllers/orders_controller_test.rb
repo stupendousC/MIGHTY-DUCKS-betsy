@@ -4,21 +4,29 @@ describe OrdersController do
   
   describe "create" do
     it "can create an order" do
+      post orders_path, params: { order: { status: nil } }
+      
+      must_respond_with :redirect
+      expect(flash[:success]).must_equal "Successfully created order"
     end
     
-    it "sets the initial status to 'pending'" do
-      item = OrderItem.create(product_id: 1)
-      order = {
-        order: {
-          # status: "pending"
-          order_items: item
-        }
-      }
-      post orders_path, params: order
-      p Order.first
+    it "sets the initial order status to 'pending'" do
+      post orders_path, params: { order: { grand_total: 212121 } }
+      
+      created_order = Order.find_by(grand_total: 212121)
+      expect(created_order.status).must_equal "pending"
     end
     
   end
+
+  describe "update" do
+  
+    it "can add an order item" do
+      
+    end
+
+  end
+
   
   # describe "VIEW_CART" do
   #   it "can go to view_cart page" do
