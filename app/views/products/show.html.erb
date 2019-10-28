@@ -9,3 +9,6 @@
 <% if @product.merchant_id != session[:merchant_id] %>
 <%= link_to "Add To Cart", order_items_path(order_item: { product_id: @product.id, order_id: (@order ? @order.id : Order.create.id), qty: 1 } ), method: :post, permitted: true %>
 <% end %>
+
+
+<%= link_to "Create Review", new_product_review_path(product_id: @product.id), class:"btn btn-primary" %>
