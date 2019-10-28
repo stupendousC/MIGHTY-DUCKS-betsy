@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   root to: 'homepages#index'
   
   resources :products
-
+  
   resources :categories
-
+  
   resources :merchants, except: [:new, :create] do
     resources :products, only: [:index] 
     resources :orders, only: [:index]
