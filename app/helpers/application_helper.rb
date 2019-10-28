@@ -3,7 +3,7 @@ module ApplicationHelper
   def display_date(date_obj)
     # Returns a date obj as a string, in the format of "Oct 21, 2019"
     if date_obj.class == Date
-      return date_obj.getlocal.strftime("%b %d, %Y") 
+      return date_obj.strftime("%b %d, %Y") 
     else
       return "INVALID DATE"
     end

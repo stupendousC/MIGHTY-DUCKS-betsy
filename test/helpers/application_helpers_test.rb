@@ -2,17 +2,10 @@ require "test_helper"
 
 describe ApplicationHelper, :helper do
   
-  describe "DOES THIS EVEN RUN?" do
-    it "wtf" do
-      # THIS SHOULD FAIL!!!
-      assert(false)
-    end
-  end
-  
   describe "does display_date() work?" do
     it "nominal" do
-      xmas = Date.parse("12-10-2019")
-      assert(display_date(xmas) == "Dec 10, 2019")
+      xmas = Date.parse("26-12-2019")
+      assert(display_date(xmas) == "Dec 26, 2019")
     end
     
     it "edge" do
@@ -53,12 +46,12 @@ describe ApplicationHelper, :helper do
     it "nominal" do
       assert(first_x_chars("A") == "A")
       assert(first_x_chars("ABC") == "ABC")
-      assert(first_x_chars("ABCDE", x=3) == "ABC...")
+      assert(first_x_chars("ABCDE", 3) == "ABC...")
       assert(first_x_chars("ABCDEFG") == "ABCDE...")
     end
     
     it "edge" do
-      bad_args = [nil,[], "garbage", 123]
+      bad_args = [nil,[], 123]
       bad_args.each do |bad|
         assert(first_x_chars(bad) == "INVALID")
       end
@@ -68,7 +61,7 @@ describe ApplicationHelper, :helper do
   describe "does make_thumbnail_link() work?" do
     it "nominal" do
       p1 = products(:p1)
-      expected = "link_to image_tag(https://live.staticflickr.com/4081/4906646028_1be7b70d6d_z.jpg, alt: 'picture of duck socks', class: 'thumbnail'), product_path(id: #{p1.id})"
+      expected = "<a href=\"/products/1060662067\"><img alt=\"picture of \#{productInstance.name}\" class=\"thumbnail\" src=\"https://live.staticflickr.com/4081/4906646028_1be7b70d6d_z.jpg\" /></a>"
       assert(make_thumbnail_link(p1) == expected)
     end
     
