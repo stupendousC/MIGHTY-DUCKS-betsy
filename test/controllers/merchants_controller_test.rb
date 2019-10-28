@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe MerchantsController do
-  describe "auth_callback" do
+  describe "LOGIN" do
     ### Copied from lecture notes, rewritten comments to make better sense to me
     it "logs in an existing merchant and redirects to the root route" do
       # Yml seeds are automatically in the database, since we're testing an existing merchant,
@@ -81,8 +81,7 @@ describe MerchantsController do
         # ASSERT
         must_redirect_to root_path
         assert(flash[:error] == "Could not create new merchant account!")
-        assert(flash[:error_msgs].length == 1)
-        assert(flash[:error_msgs].first == "Name can't be blank")
+        assert(flash[:error_msgs] == ["Name can't be blank"])
         assert(Merchant.count == start_count_before)
         refute(session[:merchant_id])
       end
@@ -97,8 +96,7 @@ describe MerchantsController do
         
         must_redirect_to root_path
         assert(flash[:error] == "Could not create new merchant account!")
-        assert(flash[:error_msgs].length == 1)
-        assert(flash[:error_msgs].first == "Email can't be blank")
+        assert(flash[:error_msgs] == ["Email can't be blank", "Email is invalid"])
         assert(Merchant.count == start_count_before)
         refute(session[:merchant_id])
       end
@@ -106,15 +104,14 @@ describe MerchantsController do
       it "if name is not unique" do
         start_count_before = Merchant.count
         assert(start_count_before == 2)
-        bogus_merchant = Merchant.new(name:"countess_ada", email:"second_email.com", uid: "1217", provider: "github")
+        bogus_merchant = Merchant.new(name:"countess_ada", email:"second@email.com", uid: "1217", provider: "github")
         
         perform_login(bogus_merchant)
         
         must_redirect_to root_path
         
         assert(flash[:error] == "Could not create new merchant account!")
-        assert(flash[:error_msgs].length == 1)
-        assert(flash[:error_msgs].first == "Name has already been taken")
+        assert(flash[:error_msgs] == ["Name has already been taken"])
         assert(Merchant.count == start_count_before)
         refute(session[:merchant_id])
       end
@@ -128,8 +125,7 @@ describe MerchantsController do
         
         must_redirect_to root_path
         assert(flash[:error] == "Could not create new merchant account!")
-        assert(flash[:error_msgs].length == 1)
-        assert(flash[:error_msgs].first == "Email has already been taken")
+        assert(flash[:error_msgs] == ["Email has already been taken"])
         assert(Merchant.count == start_count_before)
         refute(session[:merchant_id])
       end
