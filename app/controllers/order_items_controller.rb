@@ -46,7 +46,7 @@ class OrderItemsController < ApplicationController
         return
       end
     end
-    if params[:qty] > 0
+    if params[:qty] < 0
       flash[:error] = "You cannot order fewer than 1"
       redirect_to edit_order_path(@order.id)
     end
