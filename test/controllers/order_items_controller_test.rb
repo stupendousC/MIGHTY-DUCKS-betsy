@@ -5,19 +5,21 @@ describe OrderItemsController do
   before do 
     @order = Order.find_by(grand_total: 111111)
     @product = Product.find_by(name: "product2")
-    @order_item = OrderItem.create(order_id: @order.id, product_id: @product.id)
+    @order_item = OrderItem.create(product_id: @product.id)
   end
   
   describe "create" do
-    it "can create an Order Item" do
+    it "can create an Order Item with a new Order" do
       params = {
-        product: @product
+        product_id: @product.id
       }
       item = OrderItem.create(params)
-      p item
       
       expect(item.product_id).must_equal @product.id
       expect(item.qty).must_equal 1
+    end
+    
+    it "can create an Order Item in a current Order" do
     end
     
     it "can calculate the subtotal" do

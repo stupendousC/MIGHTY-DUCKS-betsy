@@ -1,6 +1,12 @@
 <h1>View Products by Category: <%= @category.name %> </h1>
 
-<% @products.each do |product| %>
-  <li><%= make_thumbnail_link(product) %>
-  <%= link_to product.name, product_path(product.id)%> <%= usd(product.price) %></li>
-<%end%>
+<div class="container">
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-4">
+        <div class="img"><%= make_thumbnail_link(product)%></div> 
+        <%= link_to product.name, product_path(product.id)%> 
+        <%= usd(product.price) %></div>
+      <% end%>
+  </div>
+</div>
