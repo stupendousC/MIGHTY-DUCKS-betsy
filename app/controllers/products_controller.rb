@@ -9,7 +9,8 @@ class ProductsController < ApplicationController
   def show
     product_id = params[:id]
     @product = Product.find_by(id: product_id)
-    
+    @merchant = Merchant.find(@product.merchant_id )
+
     if @product.nil?
       redirect_to root_path
       return
@@ -63,7 +64,7 @@ class ProductsController < ApplicationController
     @merchant = Merchant.find_by(id: session[:merchant_id])
     @product = Product.find_by(id: params[:id])
     
-    # need to confirm that the product belongs to its merchant
+    # this confirms that the product belongs to its merchant
     unless @product.merchant.id == @merchant.id
       flash[:error] = "You are not authorized to edit this product!"
     end

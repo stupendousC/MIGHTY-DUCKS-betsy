@@ -1,0 +1,9 @@
+<h1>New Category Form</h1>
+
+<ul><%= form_with model: @category, class:"new-category-form" do |f| %>
+  <li><%= f.label :name %>
+  <%= f.text_field :name %></li>
+
+  <%= f.submit "Create a new Category", class: "category-form-buttom "%>
+<% end %>
+</ul>
