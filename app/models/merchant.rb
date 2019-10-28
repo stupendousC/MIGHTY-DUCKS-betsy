@@ -2,7 +2,7 @@ class Merchant < ApplicationRecord
   has_many :products
   
   validates :name, presence: true, uniqueness: true
-
+  
   # email format regex from stackoverflow.com https://stackoverflow.com/questions/4770133/rails-regex-for-email-validation
   validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/ } 
   

@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
   def create 
     @status = "Available"
     @product = Product.new(product_params)
-
+    
     @product.merchant_id = session[:merchant_id]
     
     if @product.save 
@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
     
     if @product.update( product_params )
       flash[:success] = "You successfully updated #{@product.name}"
-      redirect_to product_path(@product.id)
+      redirect_to merchant_path(@merchant)
     else
       render edit_product_path
       return

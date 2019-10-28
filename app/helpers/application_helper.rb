@@ -24,7 +24,7 @@ module ApplicationHelper
     # returns a string of comma-separated names.
     # ex: get_string_of_names([p1, p2, p3]) = "apple, orange, melon"
     
-    if (collection.class == Array) && (collection.length >= 1)
+    if (collection.respond_to? :name) && (collection.length >= 1)
       string = "#{collection.first.name.capitalize}"
     else 
       return "None"
