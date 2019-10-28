@@ -5,10 +5,20 @@ class OrderItemsController < ApplicationController
   end
   
   def create
-    # kelsey problems #
-    # no idea why default attribute values don't work in tests? :|
+    if session[:order_id].nil?
+      # creates a new order if one doesn't exist
+      @order = Order.create
+      @order_id = @order.id
+    else
+      # uses current order if it exists
+      @order_id = session[:order_id]
+    end
+    if @qty.nil?
+      # set qty to 1
+      @qty = 1
+    end
+    
     order_item = OrderItem.new( order_item_params )
-    # end kelsey problems #
     
     if order_item.save
       flash[:success] = "Item added to order"  
@@ -36,6 +46,10 @@ class OrderItemsController < ApplicationController
         return
       end
     end
+    if params[:qty] < 0
+      flash[:error] = "You cannot order fewer than 1"
+      redirect_to edit_order_path(@order.id)
+    end
     if @order_item.update(qty: params[:quantity])
       flash[:success] = "Successfully updated order"
       redirect_to edit_order_path(@order.id)
@@ -50,9 +64,9 @@ class OrderItemsController < ApplicationController
   
   
   def order_item_params
-
-    return params.require(:order_item).permit(:product_id, :subtotal, :order_id, :qty) 
+    
+    return params.require(:order_item).permit(:product_id, :subtotal).merge(qty: @qty, order_id: @order_id) 
   end
-
+  
   
 end
