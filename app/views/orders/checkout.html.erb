@@ -1,35 +1,3 @@
-<h1>CHECKOUT</h1>
-Order: <%= @order.id %>
-  <li class="order-item-header">
-    <span>
-      PRODUCT
-    </span>
-    <span>
-      QTY
-    </span>
-    <span>
-      PRICE
-    </span>
-    <span>
-      SUBTOTAL
-    </span>
-  </li>
-<% @order.order_items.each do |item| %>
-  <% product = Product.find_by(id: item.product_id)%>
-  <li class="order-item">
-    <span>
-      <%= product.name %>
-    </span>
-    <span>
-      <%= item.qty %>
-    </span>
-    <span>
-      <%= product.price %>
-    </span>
-    <span>
-      <%= item.subtotal %>
-    </span>
-  </li>
-  <% end %>
+<h1>CHECKOUT Order: <%= @order.id %></h1>
 
-
+GIMME YOUR $$$
