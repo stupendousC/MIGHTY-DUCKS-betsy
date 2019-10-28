@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   
   resources :products
   
-  resources :merchants, except: [:new, :create, :index, :destroy] do
+  resources :categories
+  
+  resources :merchants, except: [:new, :create] do
     resources :products, only: [:index] 
     resources :orders, only: [:index]
   end
