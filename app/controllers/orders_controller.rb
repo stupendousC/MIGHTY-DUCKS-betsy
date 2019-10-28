@@ -74,7 +74,7 @@ class OrdersController < ApplicationController
   private
   
   def find_order
-    @order = Order.find_by(id: params[:id])
+    @order = Order.find_by(id: session[:order_id])
   end
   
   def order_params

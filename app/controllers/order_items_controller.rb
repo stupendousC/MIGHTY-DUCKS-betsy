@@ -6,13 +6,16 @@ class OrderItemsController < ApplicationController
   
   def create
     # kelsey problems #
-    # no idea why default attribute values don't work! :|
+    # no idea why default attribute values don't work in tests? :|
     order_item = OrderItem.new( order_item_params )
     # end kelsey problems #
     
     if order_item.save
       flash[:success] = "Item added to order"  
-      redirect_to product_path(params[:product_id])
+      if session[:order_id].nil?
+        session[:order_id] = order_item.order_id
+      end
+      redirect_to product_path(order_item.product_id)
     else
       flash[:error] = "Could not add item to order"
       redirect_to products_path
@@ -45,14 +48,11 @@ class OrderItemsController < ApplicationController
   def destroy; end
   
   
-  # kelsey problems #
-  # am i doing something crazy wrong here?
-  def order_item_params
-    # return params.require(:order_item).permit(:product_id, :subtotal, :order_id = Order.create.id, :qty = 1)
-    return params.require(:order_item).permit(:product_id, :subtotal, :order_id, :qty)
-    
-  end
-  # end kelsey problems #
   
+  def order_item_params
+
+    return params.require(:order_item).permit(:product_id, :subtotal, :order_id, :qty) 
+  end
+
   
 end
