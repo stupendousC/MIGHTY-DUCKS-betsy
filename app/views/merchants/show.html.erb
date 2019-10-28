@@ -9,6 +9,7 @@
         <th>NAME</th>
         <th>DESCRIPTION</th>
         <th>STOCK</th>
+        <th>AVAILABILITY</th>
         <th>PRICE</th>
         <th>EDIT</th>
         <th>ORDERS?</th>
@@ -23,9 +24,10 @@
           <td><%= link_to product.name.upcase, product_path(id: product.id) %></td>
           <td><%= first_x_chars(product.description, x=10) %></td>
           <td><%= product.stock %></td>
+          <td><%= product.status %></td>
           <td><%= usd(product.price) %></td>
           <td><%= link_to "EDIT", edit_product_path(id: product.id) %></td>
-          <td>link to orders that contain these products</td>
+          <td><%= link_to "ORDERS", merchant_orders_path(@merchant) %></td>
         </tr>
       <% end %>
     </tbody>
