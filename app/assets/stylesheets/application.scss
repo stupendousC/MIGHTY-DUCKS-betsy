@@ -31,6 +31,13 @@ body {
    margin: 1rem;
 }
 
+.img { 
+   object-fit: cover;
+   height: 200px;
+   width: 300px;
+   overflow: hidden;
+}
+
 h1 {
    font-family: 'Gorditas', cursive;
    font-size: 5rem;

@@ -8,4 +8,14 @@ class Product < ApplicationRecord
   # by default numericality doesn't allow value of nil
   validates :price, numericality: { only_integer: true, greater_than: 0 }
 
+  def self.by_merchant(id)
+    products = Product.all
+    result = []
+    products.each do |product|
+      if Product.find_by(id: product).merchant_id == id
+        result << product
+      end
+    end
+  return result
+  end
 end

@@ -1,5 +1,13 @@
 <h1>PRODUCT INDEX PAGE:</h1>
 
-<% @products.each do |product| %>
-  <li><%= link_to product.name, product_path(product.id)%> <%= usd(product.price) %></li>
-<%end%>
+<%# I'M STILL WORKING ON VIEW PRODUCTS BY SPECIFIC MERCHANT%>
+<div class="container">
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-4">
+        <div class="img"><%= make_thumbnail_link(product)%></div> 
+        <%= link_to product.name, product_path(product.id)%> 
+        <%= usd(product.price) %></div>
+      <% end%>
+  </div>
+</div>

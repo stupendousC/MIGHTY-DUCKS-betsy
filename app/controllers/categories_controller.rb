@@ -1,4 +1,7 @@
 class CategoriesController < ApplicationController
+  
+  def index; end
+  
   def new
     @category = Category.new
   end
@@ -7,6 +10,7 @@ class CategoriesController < ApplicationController
     @category = Category.new
     
   end
+
   def show
     # this would filter by category id selected and show all products that belong to that category
     category_id = params[:id]
@@ -17,6 +21,7 @@ class CategoriesController < ApplicationController
   private
   
   def category_params
-    return params.require()
+    return params.require(:category).permit(:name)
   end
-  
+end
+

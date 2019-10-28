@@ -20,7 +20,25 @@ describe OrdersController do
   end
   
   describe "update" do
+    it "updates the order if an order item is updated" do
+    end
     
+    it "cancels the order if all items are removed from order" do
+    end
+    
+    it "gives an error if the order can't be updated" do
+    end
+  end
+  
+  describe "merchants" do
+    it "can display all orders with items belonging to the logged-in merchant" do
+    end
+    
+    it "will not display an order with no items belonging to the logged-in merchant" do
+    end
+    
+    it "will not display any orders if there is no logged-in merchant" do
+    end
   end
   
   
