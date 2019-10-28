@@ -2,10 +2,6 @@ class MerchantsController < ApplicationController
   
   before_action :require_login, except: [:login]
   
-  def index
-    ### IS THIS NECESSARY???
-  end
-  
   def login
     auth_hash = request.env["omniauth.auth"]
     @merchant = Merchant.find_by(uid: auth_hash[:uid], provider: "github")
@@ -34,25 +30,30 @@ class MerchantsController < ApplicationController
   end
   
   def edit
-    @merchant = Merchant.find_by(id: params[:id])
   end
-
+  
   def update
+    
     if @merchant.update(merchant_params)
-      redirect_to merchant_path(@merchant.id)
       flash[:success] = "Information was updated"
+      
+      if @merchant.name != session[:merchant_name]
+        # I want the nav buttons to reflect the new name
+        session[:merchant_name] = @merchant.name
+      end
+      
+      redirect_to merchant_path(@merchant.id)
+      return
+      
     else
-      render edit_book_path
+      flash.now[:error] = "Unable to update"
+      flash.now[:error_msgs] = @merchant.errors.full_messages
+      render action: "edit"
+      return
     end
   end
   
   def show
-    @merchant = current_merchant
-    #@products = @merchant.products
-  end
-  
-  def destroy
-    # UNNECESSARY???
   end
   
   def logout
@@ -69,13 +70,13 @@ class MerchantsController < ApplicationController
   end
   
   def merchant_params
-    return params.require(:merchant).permit(:name, :email, :merchant_id)
+    return params.require(:merchant).permit(:name, :email)
   end
-
+  
   def require_login
     if current_merchant.nil?
       flash[:error] = "You must be logged in to view this section"
-      redirect_to root_path
+      return redirect_to root_path
     end
   end
 end

@@ -48,12 +48,11 @@ class OrderItemsController < ApplicationController
   def destroy; end
   
   
-  # kelsey problems #
-  # am i doing something crazy wrong here?
-  def order_item_params
-    return params.require(:order_item).permit(:product_id, :subtotal, :order_id, :qty)
-  end
-  # end kelsey problems #
   
+  def order_item_params
+
+    return params.require(:order_item).permit(:product_id, :subtotal, :order_id, :qty) 
+  end
+
   
 end

@@ -1,30 +1,28 @@
 class ProductsController < ApplicationController
-
+  
   before_action :require_login, only: [:edit, :update]
-
+  
   def index 
     @products = Product.where(status: "Available")
   end
-
+  
   def show
     product_id = params[:id]
-
     @product = Product.find_by(id: product_id)
-
+    
     if @product.nil?
       redirect_to root_path
       return
     end
   end
-
+  
   def new
     @product = Product.new
   end
-
+  
   def create 
     @status = "Available"
-    @product = Product.new( product_params)
-
+    @product = Product.new(product_params)
 
     @product.merchant_id = session[:merchant_id]
     
@@ -40,18 +38,17 @@ class ProductsController < ApplicationController
       return
     end
   end
-
+  
   def edit
     @product = Product.find_by(id: params[:id])
   end
-
+  
   def update
     @product = Product.find_by(id: params[:id])
-
+    
     @status = params[:product][:status]
     
     if @product.update( product_params )
-      
       flash[:success] = "You successfully updated #{@product.name}"
       redirect_to product_path(@product.id)
     else
@@ -59,9 +56,9 @@ class ProductsController < ApplicationController
       return
     end
   end
-
+  
   private
-
+  
   def require_login
     @merchant = Merchant.find_by(id: session[:merchant_id])
     @product = Product.find_by(id: params[:id])
@@ -71,7 +68,7 @@ class ProductsController < ApplicationController
       flash[:error] = "You are not authorized to edit this product!"
     end
   end
-
+  
   def product_params
     return params.require(:product).permit(:name, :price, :stock, :img_url, :description, category_ids: []).merge(status: @status)
   end

@@ -1,0 +1,22 @@
+<% if @reviews.errors.any? %>
+  <ul class="errors">
+    <% @review.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%# #the rating should be a number scroll down %>
+
+<%= form_with model: @review, class: review_form_class do |f| %>
+
+  <%= f.label :rating %>
+  <%= f.text_field :rating %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  
+  <%= f.submit submit_button_label, class: "form-button" %>
+
+<% end %>
