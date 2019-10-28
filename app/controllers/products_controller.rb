@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
 
   def create 
     @status = "Available"
-    @product = Product.new( product_params)
+    @product = Product.new(product_params)
 
 
     @product.merchant_id = session[:merchant_id]
