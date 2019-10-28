@@ -18,4 +18,5 @@ class CategoriesController < ApplicationController
 
   def category_params
     return params.require()
+  end
 end
