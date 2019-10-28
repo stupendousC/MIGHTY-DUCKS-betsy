@@ -15,5 +15,3 @@
   <%= f.select :status, [["Available"],["Unavailable"]] %>
   <%= f.submit "Edit Product", class: "product-form-buttom "%>
 <% end %>
-
-<%#= link_to "#{(@product.status == nil)? "(Mark Unvailable)" : "(Mark Available)"}", product_path(@product.id), method: :patch %>
