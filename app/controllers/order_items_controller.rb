@@ -14,9 +14,10 @@ class OrderItemsController < ApplicationController
       @order_id = session[:order_id]
     end
     if @qty.nil?
+      # set qty to 1
       @qty = 1
     end
-
+    
     order_item = OrderItem.new( order_item_params )
     
     if order_item.save
@@ -44,6 +45,10 @@ class OrderItemsController < ApplicationController
         redirect_to root_path
         return
       end
+    end
+    if params[:qty] > 0
+      flash[:error] = "You cannot order fewer than 1"
+      redirect_to edit_order_path(@order.id)
     end
     if @order_item.update(qty: params[:quantity])
       flash[:success] = "Successfully updated order"
