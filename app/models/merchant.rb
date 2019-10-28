@@ -2,9 +2,9 @@ class Merchant < ApplicationRecord
   has_many :products
   
   validates :name, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
-  validates_format_of :email,:with => \A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
+  # email format regex from stackoverflow.com https://stackoverflow.com/questions/4770133/rails-regex-for-email-validation
+  validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@([^@.\s]+\.)+[^@.\s]+\z/ } 
   
   def self.build_from_github(auth_hash)
     # assembling Merchant.new() using info from github's auth_hash
