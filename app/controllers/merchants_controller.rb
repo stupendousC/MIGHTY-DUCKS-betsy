@@ -29,9 +29,6 @@ class MerchantsController < ApplicationController
     return redirect_to root_path
   end
   
-  def edit
-  end
-  
   def update
     
     if @merchant.update(merchant_params)
