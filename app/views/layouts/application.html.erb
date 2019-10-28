@@ -25,20 +25,22 @@
       Products
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
       <% @categories.each do |category|%>
         <% if category.products.count != 0 %>
         <%= link_to category.name, category_path(category.id), class: "dropdown-item" %>
         <% end%>
       <% end %>
+      <%= link_to "View All", products_path, class: "dropdown-item"%>
     </div>
     </div>
     
     <% if session[:order_id] %>
       <%= link_to "Cart", order_path(session[:order_id]), class:"btn btn-primary" %>
     <% end %>
-    </section>
+    
 
-    <section class="users-nav">
+
     <% if session[:merchant_id] %>
       <%= link_to "#{session[:merchant_name]}'s Dashboard", merchant_path(id: session[:merchant_id]), class: "btn btn-primary"%>
       <%= link_to "Log out", logout_path, method: "delete", class: "btn btn-primary" %>
