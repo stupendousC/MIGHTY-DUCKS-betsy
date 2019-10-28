@@ -33,6 +33,7 @@ class MerchantsController < ApplicationController
   end
   
   def update
+    
     if @merchant.update(merchant_params)
       flash[:success] = "Information was updated"
       

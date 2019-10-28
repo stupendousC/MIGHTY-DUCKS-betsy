@@ -1,6 +1,10 @@
 require "test_helper"
 
 describe MerchantsController do
+  
+  let (:ada) { merchants(:ada) }
+  let (:grace) { merchants(:grace) }
+  
   describe "LOGIN" do
     ### Copied from lecture notes, rewritten comments to make better sense to me
     it "logs in an existing merchant and redirects to the root route" do
@@ -157,5 +161,80 @@ describe MerchantsController do
     
   end
   
+  describe "SHOW" do
+    it "if logged in: can go to merchant's own page" do
+      perform_login(ada)
+      
+      expect(session[:merchant_name]).must_equal "countess_ada"
+      get merchant_path(ada)
+      must_respond_with :success
+    end
+    
+    it "if not logged in: send to homepage w/ error msg" do
+      get merchant_path(id: 0)
+      
+      must_redirect_to root_path
+      assert(flash[:error] == "You must be logged in to view this section")
+    end
+  end
+  
+  describe "EDIT" do
+    it "if logged in: can go to merchant's edit page" do
+      perform_login(ada)
+      
+      expect(session[:merchant_name]).must_equal "countess_ada"
+      get edit_merchant_path(ada)
+      must_respond_with :success
+    end
+    
+    it "if not logged in: send to homepage w/ error msg" do
+      get merchant_path(id: 0)
+      
+      must_redirect_to root_path
+      assert(flash[:error] == "You must be logged in to view this section")
+    end
+  end
+  
+  describe "UPDATE" do
+    it "if logged in: can successfully update" do
+      perform_login(ada)
+      good_params = { merchant: { name: "ada v2", email: "ada@v2.com" } }
+      
+      patch merchant_path(ada), params: good_params 
+      expect(flash[:success]).must_equal "Information was updated"
+      expect(session[:merchant_name]).must_equal "ada v2"
+      must_redirect_to merchant_path(ada)
+    end
+    
+    it "if logged in: bogus new info will render same page with error msgs" do
+      perform_login(ada)
+      
+      set_of_bad_params = [
+        { merchant: { name: "", email: "" } },
+        { merchant: { name: "", email: "ada@v2.com" } },
+        { merchant: { name: "ada v2", email: "" } },
+        { merchant: { name: grace.name, email: grace.email } },
+        { merchant: { name: "ada v2", email: grace.email } },
+        { merchant: { name: grace.name, email: "ada@v2.com" } }
+      ]
+      
+      set_of_bad_params.each do |bad_params|
+        patch merchant_path(ada), params: bad_params 
+        expect(flash[:error]).must_equal "Unable to update"
+        # each of the bad cases have diff msgs, which are tested in Model. 
+        # therefore only need to assert their existence here
+        assert(flash[:error_msgs])
+        must_respond_with :success
+      end
+      
+    end
+    
+    it "if not logged in: send to homepage w/ error msg" do
+      patch merchant_path(ada)
+      
+      must_redirect_to root_path
+      assert(flash[:error] == "You must be logged in to view this section")
+    end
+  end
 end
 
