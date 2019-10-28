@@ -1,5 +1,6 @@
 c1: 
   name: Toys
+  products: p1
 
 c2: 
   name: Live Animals
