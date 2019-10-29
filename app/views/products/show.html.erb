@@ -13,5 +13,5 @@
 <%= link_to "Add To Cart", order_items_path(order_item: { product_id: @product.id } ), method: :post, permitted: true %>
 <% end %>
 
-<%= link_to "Create Review", new_product_review_path(product_id: @product.id), class:"btn btn-primary" %>
+<%= link_to "Create Review", new_product_review_path(@product.id), method: :get, class:"btn btn-primary" %>
 
