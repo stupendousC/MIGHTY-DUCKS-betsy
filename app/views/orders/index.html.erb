@@ -13,13 +13,13 @@
 
 <% if session[:merchant_id] %>
   <% order_items = OrderItem.by_merchant(session[:merchant_id]) %>
+  <% raise %>
   <% order_items.each do |item| %>
   <% product = Product.where(id: item.product_id) %>
     <li>
       PRODUCT: <%= product[0].name %>,
       QTY: <%= item.qty %>,
       ORDER STATUS: <%= Order.find_by(id: item.order_id).status %>,
-      <% raise %>
       MERCHANT ID: <%= product[0].merchant_id%>
     </li>
   <% end %>

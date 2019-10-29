@@ -75,6 +75,9 @@ class OrdersController < ApplicationController
   
   def find_order
     @order = Order.find_by(id: session[:order_id])
+    if @order.nil?
+      session[:order_id] = nil
+    end
   end
   
   def order_params
