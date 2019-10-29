@@ -7,7 +7,9 @@ class OrdersController < ApplicationController
   end
   
   # placeholder method
-  def show; end
+  def show
+    ### Check if qtys on order are still valid? before getting sent to payment/checkout page
+  end
   
   def new
     @order = Order.new( order_params )
@@ -52,7 +54,7 @@ class OrdersController < ApplicationController
         # successfully updates order
         @order.order_items.update(qty: params[:order][:quantity])
         flash[:success] = "Successfully updated order"
-        redirect_to order_path(@order.id)
+        redirect_to root_path
       end
     else
       flash[:error] = "Could not update order"
@@ -62,13 +64,21 @@ class OrdersController < ApplicationController
   
   def view_cart
     # this is for the view_cart_path
-    # possibly make this the same as edit? -kk
-    ### Check if qtys on order are still valid? before getting sent to payment/checkout page
+    # possibly make this the same as edit? -kk  
+    ### I AGREE! THIS IS THE SAME AS Order#show, delete I would...
   end
   
   def checkout
     # sending to page for customer to fill out cc info & such
     @customer = Customer.new
+    
+    # check one more time that quantities ordered are still available,
+    # in case customer stayed on the show page for too long, before clicking checkout
+    
+    
+    ### TODO!!!
+    
+    
   end
   
   def purchase
@@ -91,6 +101,17 @@ class OrdersController < ApplicationController
     if @customer.save
       # customer info valid, therefore payment successful
       
+      # update product inventories
+      @order.order_items.each do |order_item|
+        product = order_item.product
+        new_stock = product.stock - order_item.qty
+        unless product.update(stock: new_stock)
+          # someone else is checking out at the same time and beat u to it
+          flash[:error] = "Sorry, someone else snatched up all remaining stock of #{product.name}..."
+          redirect_to order_path(@order)
+        end
+      end
+      
       # save Order info and switch status to "done"
       @order.status = "paid"
       session[:order_id] = nil
@@ -98,11 +119,8 @@ class OrdersController < ApplicationController
       flash[:success] = "Successfully placed order!"
       redirect_to order_path(@order.id)
       
-      # update product inventories
-      
-      ###
-      
     else
+      # invalid payment info given
       flash[:error] = "Could not place order"
       flash[:error_msgs] = @customer.errors.full_messages
       render action: "checkout"
