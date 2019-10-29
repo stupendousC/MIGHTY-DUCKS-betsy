@@ -1,22 +1,18 @@
 
-<h4>
-  Total orders: <%= @orders.length %>
-</h4>
-
-<% @orders.each do |order| %>
-  <p>
-    Order id: <%= order.id %>,  
-    Created on: <%= order.created_at %>,
-    Order status: <%= order.status %>
-  </p>
-<% end %>
 
 <% if session[:merchant_id] %>
+<h4>
+MERCHANT ID: <%= session[:merchant_id] %>
+</h4>
   <% order_items = OrderItem.by_merchant(session[:merchant_id]) %>
-  <% raise %>
+<h4>
+Total orders: <%= order_items.length %>
+</h4>
   <% order_items.each do |item| %>
   <% product = Product.where(id: item.product_id) %>
     <li>
+      ORDER: <%= item.order_id %> 
+      DATE: <%= Order.find_by(id: item.order_id).created_at %>
       PRODUCT: <%= product[0].name %>,
       QTY: <%= item.qty %>,
       ORDER STATUS: <%= Order.find_by(id: item.order_id).status %>,

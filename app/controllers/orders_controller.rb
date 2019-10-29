@@ -71,6 +71,12 @@ class OrdersController < ApplicationController
     end
   end
   
+  def destroy
+    @order.delete
+    flash[:success] = "Successfully deleted order"
+    redirect_to root_path
+  end
+  
   private
   
   def find_order

@@ -24,7 +24,7 @@ class OrderItem < ApplicationRecord
   end
   
   private
-    
+  
   def get_subtotal
     product = Product.find_by(id: self.product_id).price
     self.subtotal = self.qty.to_i * product

@@ -17,6 +17,12 @@ class OrderItemsController < ApplicationController
       # set qty to 1
       @qty = 1
     end
+    product = Product.find_by(id: params[:order_item][:product_id])
+    if product.stock < 1
+      flash[:error] = "Could not add item to order (not enough in stock)"
+      redirect_to product_path(product.id)
+      return
+    end
     
     order_item = OrderItem.new( order_item_params )
     
@@ -34,6 +40,7 @@ class OrderItemsController < ApplicationController
   
   def update
     @order_item = OrderItem.find_by(id: params[:order_id])
+    @product = Product.find_by(id: @order_item.product_id)
     @order = Order.find_by(id: @order_item.order_id)
     if params[:remove] == "1"
       if @order_item.destroy
@@ -48,6 +55,10 @@ class OrderItemsController < ApplicationController
     end
     if params[:quantity].to_i < 0
       flash[:error] = "You cannot order fewer than 1"
+      redirect_to edit_order_path(@order.id)
+      return
+    elsif params[:quantity].to_i > @product.stock.to_i
+      flash[:error] = "Could not update order (not enough in stock)"
       redirect_to edit_order_path(@order.id)
       return
     end
