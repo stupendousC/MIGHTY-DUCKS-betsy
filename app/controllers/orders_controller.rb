@@ -6,9 +6,22 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
   
-  # placeholder method
   def show
+    ### KELSEY I added this whole chunk
     ### Check if qtys on order are still valid? before getting sent to payment/checkout page
+    out_of_stocks = []
+    
+    @order.order_items.each do |order_item|
+      unless order_item.in_stock?
+        out_of_stocks << order_item
+      end
+    end
+    
+    if out_of_stocks.any?
+      flash[:error] = "Uh oh! We ran out of stock on..."
+      flash[:error_msgs] = get_string_of_names(out_of_stocks)
+    end
+    
   end
   
   def new
