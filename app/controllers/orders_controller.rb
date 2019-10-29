@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
   
   def index
     @orders = Order.all
-    @status = "pending"
   end
   
   # placeholder method
@@ -15,7 +14,6 @@ class OrdersController < ApplicationController
   end
   
   def create
-    @status = "pending"
     @order = Order.new( order_params )
     if @order.save
       # sets the session order id
@@ -80,8 +78,7 @@ class OrdersController < ApplicationController
   end
   
   def order_params
-    # not sure whether it will return an order item or a product in the params
-    return params.require(:order).permit(:order_items, :grand_total).merge(status: @status)
+    return params.require(:order).permit(:order_items, :grand_total)
   end
   
 end

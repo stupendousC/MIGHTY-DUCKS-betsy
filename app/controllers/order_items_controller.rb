@@ -46,16 +46,19 @@ class OrderItemsController < ApplicationController
         return
       end
     end
-    if params[:qty] < 0
+    if params[:quantity].to_i < 0
       flash[:error] = "You cannot order fewer than 1"
       redirect_to edit_order_path(@order.id)
+      return
     end
     if @order_item.update(qty: params[:quantity])
       flash[:success] = "Successfully updated order"
       redirect_to edit_order_path(@order.id)
+      return
     else
       flash[:error] = "Could not update order"
-      redirect_to order_path(@order.id)
+      redirect_to edit_order_path(@order.id)
+      return
     end
   end
   

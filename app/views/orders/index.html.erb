@@ -1,6 +1,4 @@
-<h2>
-  PLACEHOLDER HTML
-</h2>
+
 <h4>
   Total orders: <%= @orders.length %>
 </h4>
@@ -11,9 +9,6 @@
     Created on: <%= order.created_at %>,
     Order status: <%= order.status %>
   </p>
-  <% if session[:order_id] %>
-    <%= link_to "Edit", edit_order_path(order.id) %>
-  <% end %>
 <% end %>
 
 <% if session[:merchant_id] %>

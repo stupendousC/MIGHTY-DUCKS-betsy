@@ -1,48 +1,5 @@
 <section class="order-container">
 
-<%# KELSEY is taking out the chunk from line 4 to 44 %>
-<% if session[:merchant_id] %>
-  <!-- displays merchant's open order items -->
-  <li class="order-item-header">
-    <span>
-      PRODUCT
-    </span>
-    <span>
-      QTY
-    </span>
-    <span>
-      PRICE
-    </span>
-    <span>
-      SUBTOTAL
-    </span>
-    <span>
-      ORDER STATUS
-    </span>
-  </li>
-  <% order_items = OrderItem.by_merchant(session[:merchant_id]) %>
-  <% order_items.each do |item| %>
-    <% product = Product.where(id: item.product_id) %>
-    <li class="order-item">
-      <span>
-        <%= product[0].name %>
-      </span>
-      <span>
-        <%= item.qty %>
-      </span>
-      <span>
-        <%= product[0].price %>
-      </span>
-      <span>
-        <%= item.subtotal %>
-      </span>
-      <span>
-        <%= Order.find_by(id: item.id).status %>
-      </span>
-    </li>
-  <% end %>
-<% end %>
-
 <% if session[:order_id] %>
   <!-- displays customer's open order -->
   <h1>SHOPPING CART</h1>
@@ -80,7 +37,7 @@
           <td></td>
           <td></td>
           <td>GRAND TOTAL</td>
-          <td>$$$</td>
+          <td><%= usd(@order.get_grand_total) %></td>
         <tr>
         <tr>
           <td></td>
