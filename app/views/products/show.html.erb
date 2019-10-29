@@ -2,22 +2,27 @@
 
 <h2>Product Details:</h2>
 
-<%= make_thumbnail_link(@product) %>
-<%= @product.name%>
-<%= usd(@product.price) %>
-<%= @product.description%>
+<ul>
+  <%= make_thumbnail_link(@product) %>
+  <li><%= @product.name%></li>
+  <li><%= usd(@product.price)%></li>
+  <li><%= @product.description%></li>
 
-<%= link_to "View Products by Seller " + @merchant.name, merchant_products_path(@merchant.id) %>
-<% if @product.merchant_id != session[:merchant_id] && @product.stock != 0 %>
+  <li><% if @product.merchant_id != session[:merchant_id] && @product.stock != 0 %>
 
-  <%= link_to "Add To Cart", order_items_path(order_item: { product_id: @product.id } ), method: :post, permitted: true %>
-<% end %>
+        <%= link_to "Add To Cart", order_items_path(order_item: { product_id: @product.id } ), method: :post, permitted: true, class:"btn btn-primary"  %>
+      <% end %></li>
 
-<%= link_to "Create Review", new_product_review_path(@product.id), method: :get, class:"btn btn-primary" %>
+  <li><%= link_to "View All Products by Seller " + @merchant.name, merchant_products_path(@merchant.id) %></li>
+  
 
 
 <hr>
 <h3>Caroline added this for her own testing purposes</h3>
 INVENTORY: <%= @product.stock %>
+
+  <li><%= link_to "Write a Review", new_product_review_path(@product.id), method: :get %></li>
+</ul>
+
 
 

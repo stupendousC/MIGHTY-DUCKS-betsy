@@ -10,11 +10,11 @@ grace:
   email: grace@hooper.net
   name: graceful_hopps
 
-# m1:
-#   provider: github
-#   uid: 12345
-#   email: merchant1@fake.com
-#   name: ducks-r-us
+m1:
+  provider: github
+  uid: 12345
+  email: merchant1@fake.com
+  name: ducks-r-us
 
 # m2:
 #   provider: github
