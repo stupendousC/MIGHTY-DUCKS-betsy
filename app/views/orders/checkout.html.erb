@@ -5,7 +5,7 @@
   <p>Ordering #<%= @order.order_items.count%> items</p>
   <p>Grand total: <%= usd(@order.grand_total) %></p>
 </section>
-<%= form_with model: @order, :url => { :action => "purchase" }, method: :post  do |f|%>
+<%= form_with model: @customer, :url => { :controller => "orders", :action => "purchase" }, method: :post  do |f|%>
   <section class="form-group customer">
     <%= f.label :name, class: "form-row" %>
     <%= f.text_field :name, class: "form-control"%>

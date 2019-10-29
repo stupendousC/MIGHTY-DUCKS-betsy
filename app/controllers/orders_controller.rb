@@ -56,49 +56,40 @@ class OrdersController < ApplicationController
   
   def checkout
     # sending to page for customer to fill out cc info & such
+    @customer = Customer.new
   end
   
   def purchase
     # customer fills out cc info @ checkout and gets sent here
     
-    # get info from customer input, apply to @order
-    @customer_info = params[:order]
+    @customer= Customer.new(customer_params)
     
-    @order.name = @customer_info[:name]
-    @order.email = @customer_info[:email]
-    @order.address = @customer_info[:address]
-    @order.city = @customer_info[:city]
-    @order.state = params[:state]
-    @order.zip = @customer_info[:zip]
-    
-    if params[:cc_name_same?]
-      @order.cc_name = @customer_info[:name]
+    # these has to be entered manually b/c they came from outside params[:customer]
+    @customer.state = params[:state]
+    if params[:cc_name_same?] == "true"
+      @customer.cc_name = @customer.name
     else
-      @order.cc_name = @customer_info[:cc_name]
+      @customer.cc_name = params[:cc_name]
     end
-    
-    @order.cc = @customer_info[:cc]
-    @order.cvv = @customer_info[:cvv]
-    @order.cc_company = params[:cc_company]
-    
+    @customer.cc_company = params[:cc_company]
+    @customer.cc_exp_month = params[:month] 
+    @customer.cc_exp_year = params[:year]
     if params[:month] && params[:year]
-      @order.cc_exp = params[:month] + " " + params[:year]
+      @customer.cc_exp = params[:month] + " " + params[:year]
     end
     
-    @order.customer_info_valid?
-    
-    raise
-    # save Order info and switch status to "done"
-    
-    # update product inventories
-    
-    
-    
-    if @customer_info.valid?
+    if @customer.save
+      # customer info valid, therefore payment successful
+      
+      # save Order info and switch status to "done"
       @order.status = :paid
       session[:order_id] = nil
       flash[:success] = "Successfully placed order!"
       redirect_to order_path(@order.id)
+      
+      # update product inventories
+      ###
+      
     else
       flash[:error] = "Could not place order"
       redirect_to order_path(@order.id)
@@ -122,6 +113,10 @@ class OrdersController < ApplicationController
   
   def order_params
     return params.require(:order).permit(:order_items, :grand_total)
+  end
+  
+  def customer_params
+    return params.require(:customer).permit(:name, :email, :address, :city, :zip, :cc, :cvv)
   end
   
 end

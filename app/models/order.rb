@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   before_save :default_status
   
   has_many :order_items  
+  belongs_to :customer
   
   def default_status
     self.status ||= "pending"
