@@ -1,6 +1,7 @@
 require "test_helper"
 require "pry"
 describe Product do
+  
   describe "validations" do
     it "can be valid" do
       new_product = products(:p1)

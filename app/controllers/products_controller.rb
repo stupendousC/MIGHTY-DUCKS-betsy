@@ -11,20 +11,31 @@ class ProductsController < ApplicationController
   def show
     product_id = params[:id]
     @product = Product.find_by(id: product_id)
-    @merchant = Merchant.find(@product.merchant_id )
 
     if @product.nil?
       flash[:error] = "Sorry! That products doesn't exist."
       redirect_to root_path
       return
     end
+
+    @merchant = Merchant.find(@product.merchant_id )
   end
   
   def new
     @product = Product.new
+
+    if session[:merchant_id].nil?
+      flash[:error] = "You must log-in first"
+    end
   end
   
   def create 
+    if session[:merchant_id].nil?
+      flash[:error] = "You must log-in first"
+      redirect_to root_path
+      return
+    end
+
     @status = "Available"
     @product = Product.new(product_params)
     
