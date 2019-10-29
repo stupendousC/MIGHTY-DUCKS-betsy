@@ -8,10 +8,12 @@
 <%= @product.description%>
 
 <%= link_to "View Products by Seller " + @merchant.name, merchant_products_path(@merchant.id) %>
-<% if @product.merchant_id != session[:merchant_id] %>
+<% if @product.merchant_id != session[:merchant_id] && @product.stock != 0 %>
 
-<%= link_to "Add To Cart", order_items_path(order_item: { product_id: @product.id } ), method: :post, permitted: true %>
+  <%= link_to "Add To Cart", order_items_path(order_item: { product_id: @product.id } ), method: :post, permitted: true %>
 <% end %>
 
 <%= link_to "Create Review", new_product_review_path(@product.id), method: :get, class:"btn btn-primary" %>
+
+
 

@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   
   def index 
     @products = Product.where(status: "Available")
-    @products_by_merchant = Product.by_merchant(params[:merchant_id])
+    @products_by_merchant = Product.by_merchant(params[:merchant_id].to_i)
+  
   end
   
   def show
