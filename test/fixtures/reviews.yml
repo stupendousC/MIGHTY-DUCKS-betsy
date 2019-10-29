@@ -1,0 +1,8 @@
+r1:
+  rating: 4
+  comment: "comment on rating one"
+  product: p1
+r2:
+  rating: 3
+  comment: "comment on rating one"
+  product: p1

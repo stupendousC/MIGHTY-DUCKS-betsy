@@ -1,7 +1,14 @@
 require "test_helper"
 
 describe ReviewsController do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe "" do
+    it "a review can be createreview saved" do
+      
+      
+      must_respond_with :success
+      expect(Review.count).must_be :>, 0
+    end
+  end
 end
+review = product(:p1)
+product = review(:r1)
