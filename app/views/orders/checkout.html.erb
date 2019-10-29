@@ -1,34 +1,80 @@
 <h1>GET 'EM GOODIES!</h1>
+<section class="form-group order_summary">
+id:<%= @order.id %>
+order items:<%= @order.order_items.count%>
+</section>
+<%= form_with model: @order, :url => { :action => "purchase" }, method: :post  do |f|%>
+  <section class="form-group customer">
+    <%= f.label :name, class: "form-row" %>
+    <%= f.text_field :name, class: "form-control"%>
+    
+    <%= f.label :email, class: "form-row" %>
+    <%= f.text_field :email, type: "email", class: "form-control"%>
+  
+    <%= f.label :address, class: "form-row" %>
+    <%= f.text_field :address, class: "form-control"%>
 
-<%= @order.id %>
+    <section class="form-row">
+      <section class="form-group col-md-6">
+      <%= f.label :city%>
+      <%= f.text_field :city, class: "form-control" %>
+      </section>
 
-<%= form_with @order do |f|%>
+      <section class="form-group col-md-4">
+      <%= f.label :state%>
+      <%= select_tag :state, options_for_select(us_states), class:"form-control" %>
+      </section>
 
+      <section class="form-group col-md-2">
+      <%= f.label :zip %>
+      <%= f.text_field :zip, class: "form-control"%>
+      </section>
+    </section>
+  </section>
+
+
+  <section class="form-group cc">
+    <section class="form-row">
+      <section class="form-group col-md-6">
+      <%= f.label :cc_name, value="Name on Credit Card", class: "form-row" %>
+      <%= f.text_field :cc_name, class: "form-control"%>
+      </section>
+      <section class="form-group col-md-6">
+      <%= f.label :cc_name, value="Click button if same name as shipping address", class:"form-check-label", class: "form-row" %>
+      <%= check_box_tag "cc_name_same?", true, false %>
+      </section>
+    </section>
+
+    <section class="form-row">
+      <section class="form-group col-md-2">
+      <%= f.label :cc_company, value="Issuer"%>
+      <%= select_tag :cc_company, options_for_select(cc_companies), class:"form-control" %>
+      </section>
+
+      <section class="form-group col-md-4">
+      <%= f.label :cc, value="Credit Card Number"%>
+      <%= f.text_field :cc, class: "form-control" %>
+      </section>
+
+      <section class="form-group col-md-2">
+      <%= f.label :month, value="Expiration"%>
+      <%= select_tag :month, options_for_select(months), class:"form-control" %>
+      </section>
+
+      <section class="form-group col-md-2">
+      <%= f.label :month, value="Year"%>
+      <%= select_tag :month, options_for_select(next_10_years), class:"form-control" %>
+      </section>
+
+      <section class="form-group col-md-2">
+      <%= f.label :cvv, value="CVV" %>
+      <%= f.text_field :cvv, class: "form-control"%>
+      </section>
+
+    </section>
+
+  </section>
+
+  <%= f.submit "COMPLETE ORDER", class: "btn btn-primary" %>
 <% end %>
 
-<form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-
-
-Email Address
-Mailing Address
-Name on credit card
-Credit card number
-Credit cart expiration
-Credit Card CVV (security code)
-Billing zip code
