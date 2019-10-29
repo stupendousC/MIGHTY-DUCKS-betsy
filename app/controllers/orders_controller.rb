@@ -10,12 +10,8 @@ class OrdersController < ApplicationController
     ### KELSEY I added this whole chunk
     ### Check if qtys on order are still valid , not sure if flash or flash.now
     if @order.missing_stock
-      flash[:error] = "Uh oh! We ran out of stock on..."
-      collection = []
-      @order.missing_stock.each do |order_item_instance|
-        collection << order_item_instance.product
-      end
-      flash[:error_msgs] = get_string_of_names(collection)
+      flash.now[:error] = "Uh oh! We ran out of stock on..."
+      flash.now[:error_msgs] = @order.names_from_order_items(@order.missing_stock)
     end
   end
   
@@ -82,12 +78,12 @@ class OrdersController < ApplicationController
     
     # check one more time that quantities ordered are still available,
     # in case customer stayed on the show page for too long, before clicking checkout
-    unless @order.missing_stock
+    if @order.missing_stock
       flash[:error] = "Uh oh! We ran out of stock on..."
-      flash[:error_msgs] = @order.missing_stock[:display_string]
-      redirect_to checkout_path
-      return
+      flash[:error_msgs] = @order.names_from_order_items(@order.missing_stock)
+      redirect_to order_path(@order)
     end
+    
   end
   
   def purchase
