@@ -11,6 +11,7 @@ class ReviewsController < ApplicationController
     
     @review = Review.new(review_params)
   
+    @review.product_id = params[:product][:id]
     #You need to go to the form that will allow you to input information.
   
     if @review.save 
