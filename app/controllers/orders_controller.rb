@@ -18,12 +18,15 @@ class OrdersController < ApplicationController
     if session[:order_id]
       @order = Order.new(order_params)
     else
-      @order = Order.new
+      @order = Order.create
+      session[:order_id] = @order.id
     end
     
     
     ## KELSEY's
     # @order = Order.new( order_params )
+    
+    
     if @order.save
       # sets the session order id
       session[:order_id] = @order.id
@@ -77,8 +80,6 @@ class OrdersController < ApplicationController
     @customer.state = params[:state]
     if params[:cc_name_same?] == "true"
       @customer.cc_name = @customer.name
-    else
-      @customer.cc_name = params[:cc_name]
     end
     @customer.cc_company = params[:cc_company]
     @customer.cc_exp_month = params[:month] 
@@ -98,11 +99,13 @@ class OrdersController < ApplicationController
       redirect_to order_path(@order.id)
       
       # update product inventories
+      
       ###
       
     else
       flash[:error] = "Could not place order"
-      redirect_to order_path(@order.id)
+      flash[:error_msgs] = @customer.errors.full_messages
+      render action: "checkout"
     end
   end
   
@@ -126,7 +129,7 @@ class OrdersController < ApplicationController
   end
   
   def customer_params
-    return params.require(:customer).permit(:name, :email, :address, :city, :zip, :cc, :cvv)
+    return params.require(:customer).permit(:name, :email, :address, :city, :zip, :cc, :cvv, :cc_name)
   end
   
 end

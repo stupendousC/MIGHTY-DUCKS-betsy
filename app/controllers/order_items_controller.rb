@@ -17,6 +17,11 @@ class OrderItemsController < ApplicationController
       @order_id = session[:order_id]
     end
     
+    ## CW: THIS IS WHERE THINGS GOT FUCKED UP
+    unless session[:order_id]
+      raise
+    end
+    
     if @qty.nil?
       # set qty to 1
       @qty = 1
@@ -42,7 +47,6 @@ class OrderItemsController < ApplicationController
       redirect_to products_path
     end
     
-    raise
   end
   
   def update

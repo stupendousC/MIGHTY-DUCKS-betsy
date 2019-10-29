@@ -3,7 +3,7 @@
   <h3>ORDER SUMMARY</h3>
   <p>Order id#<%= @order.id %><p>
   <p>Ordering #<%= @order.order_items.count%> items</p>
-  <p>Grand total: <%= usd(@order.grand_total) %></p>
+  <p>Grand total: <%= usd(@order.get_grand_total) %></p>
 </section>
 <%= form_with model: @customer, :url => { :controller => "orders", :action => "purchase" }, method: :post  do |f|%>
   <section class="form-group customer">
