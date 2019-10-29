@@ -33,4 +33,13 @@ describe OrderItem do
       refute(is_valid)
     end
   end
+
+  describe "relationships" do
+    before do
+      @item = order_items(:oi1)
+    end
+    it "must be connected to an order" do
+      
+    end
+  end
 end

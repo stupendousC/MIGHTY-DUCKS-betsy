@@ -1,5 +1,4 @@
 require "test_helper"
-
 describe OrderItemsController do
   
   before do 
@@ -9,45 +8,118 @@ describe OrderItemsController do
   end
   
   describe "create" do
-    it "can create an Order Item with a new Order" do
-      params = {
-        product_id: @product.id
+    before do 
+      @params = {
+        order_item: {
+          product_id: @product.id
+        }
       }
-      item = OrderItem.create(params)
+    end
+    
+    it "can create an Order Item with a new Order" do      
+      post order_items_path(@params) 
       
+      must_respond_with :redirect
+      expect(flash[:success]).must_equal "Item added to order"
+      
+      item = OrderItem.find_by(product_id: @product.id)
+      order_nil = item.order_id.nil?
+      refute(order_nil)
       expect(item.product_id).must_equal @product.id
-      expect(item.qty).must_equal 1
+      expect(item.qty).must_equal 2
     end
     
     it "can create an Order Item in a current Order" do
+      
+      post order_items_path(@params)
+      item = OrderItem.find_by(product_id: @product.id)
     end
     
-    it "can calculate the subtotal" do
-      expect(@order_item.subtotal).must_be_instance_of Integer
+    it "can calculate the subtotal of a created Order Item" do
+      post order_items_path(@params)
+      item = OrderItem.find_by(product_id: @product.id)
+      # item.save calls the private get_subtotal method
+      item.save
       
-      expect(@order_item.qty).must_equal 1
+      expect(item.qty).must_equal 2
+      expect(item.subtotal).must_equal @product.price * item.qty
       
-      expect(@order_item.subtotal).must_equal @product.price
     end
     
   end
   
-  it "can be updated with an order item" do
-    patch order_path(@order.id), params: {order: { order_items: [@order_item]}}
-    @order.reload
+  describe "update" do
+    before do 
+      @params = {
+        order_item: {
+          product_id: @product.id
+        }
+      }
+      post order_items_path(@params)
+      @item = OrderItem.find_by(product_id: @product.id)
+    end
     
-    expect(@order.order_items.first).must_equal @order_item
-  end
-  
-  it "can be updated with another order item when one already exists" do
-    order_item = OrderItem.create(order_id: @order.id, product_id: @product.id)
     
     
-    patch order_path(@order.id), params: {order: { order_items: [order_item]}}
-    @order.reload
+    it "can update qty of an order item" do
+      
+      item_hash = {
+        quantity: 1
+      }
+
+      patch order_order_item_path(order_id: @item.order_id, id: @item.id), params: item_hash
+      
+      updated_item = OrderItem.find_by(id: @item.id)
+      must_respond_with :redirect
+      
+      expect(flash[:success]).must_include "update"
+      expect(updated_item.qty).must_equal 1
+    end
     
-    expect(@order.order_items.length).must_equal 2
-    expect(@order.order_items.last).must_equal order_item
-  end
-  
+    
+    
+    it "can remove an order item" do
+
+      item_hash = { 
+        remove: "1"
+      }
+      
+      patch order_order_item_path(order_id: @item.order_id, id: @item.id), params: item_hash
+      
+      must_respond_with :redirect
+      expect(@item).must_equal nil
+      
+    end
+    
+    it "will not update qty if requesting greater than in stock" do      
+      original_qty = @item.qty
+      
+      item_hash = {
+        order_item: {
+          qty: 2001
+        }
+      }
+      patch order_order_item_path(order_id: @item.order_id, id: @item.id), params: item_hash
+      
+      must_respond_with :redirect
+      expect(flash[:error]).must_include "Could not update order"
+      expect(@item.qty).must_equal original_qty
+    end
+    
+    it "will not update qty if requesting fewer than 1" do
+      original_qty = @item.qty
+      
+      item_hash = {
+        order_item: {
+          qty: 0
+        }
+      }
+      patch order_order_item_path(order_id: @item.order_id, id: @item.id), params: item_hash
+      
+      must_respond_with :redirect
+      expect(flash[:error]).must_include "Could not update order"
+      expect(@item.qty).must_equal original_qty      
+    end
+    
+  end  
 end

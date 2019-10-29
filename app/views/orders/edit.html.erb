@@ -1,7 +1,7 @@
 <%# <%= form_with model: @order, url: order_path(@order.id) do |f| %>
 <p> Edit Order </p>
 <% @order.order_items.each do |item| %>
-<%= form_with model: @order_item, url: order_order_item_path(item.id), method: :patch do |f| %>
+<%= form_with model: @order_item, url: order_order_item_path(id: item.id, order_id: @order.id), method: :patch do |f| %>
       Item: <%= item.id %>
     <%= f.label :quantity %>
     <%= f.number_field :quantity, value: item.qty %>
