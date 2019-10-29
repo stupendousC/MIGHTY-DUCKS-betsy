@@ -24,4 +24,7 @@ class CategoriesController < ApplicationController
     return params.require(:category).permit(:name)
   end
 end
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
