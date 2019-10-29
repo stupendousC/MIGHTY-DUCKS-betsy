@@ -5,8 +5,8 @@ class Review < ApplicationRecord
   validates :rating, presence: true
   # validates :rating, :inclusion => {:in => [1..5]}
   
-  validates :description, presence: true
-  # validates :description, presence: true, length: {maximum: 255}, on: :create, allow_nil: false
+  validates :comment, presence: true
+  # validates :comment, presence: true, length: {maximum: 255}, on: :create, allow_nil: false
 
   # VALIDATIONS:
   # 1.  Rating must be present

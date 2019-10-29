@@ -60,7 +60,7 @@ class ReviewsController < ApplicationController
   
   private
   def review_params
-    return params.require(:review).permit(:rating, :comment)
+    return params.permit(:rating, :comment, :product_id)
   end
   
   def cant_be_merchant_product
