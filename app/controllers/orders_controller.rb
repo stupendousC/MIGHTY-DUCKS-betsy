@@ -14,7 +14,16 @@ class OrdersController < ApplicationController
   end
   
   def create
-    @order = Order.new( order_params )
+    ## CW's
+    if session[:order_id]
+      @order = Order.new(order_params)
+    else
+      @order = Order.new
+    end
+    
+    
+    ## KELSEY's
+    # @order = Order.new( order_params )
     if @order.save
       # sets the session order id
       session[:order_id] = @order.id
@@ -82,8 +91,9 @@ class OrdersController < ApplicationController
       # customer info valid, therefore payment successful
       
       # save Order info and switch status to "done"
-      @order.status = :paid
+      @order.status = "paid"
       session[:order_id] = nil
+      
       flash[:success] = "Successfully placed order!"
       redirect_to order_path(@order.id)
       

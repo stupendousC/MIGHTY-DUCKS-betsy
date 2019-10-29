@@ -9,14 +9,19 @@ class OrderItemsController < ApplicationController
       # creates a new order if one doesn't exist
       @order = Order.create
       @order_id = @order.id
+      
+      # CW trial: adding here instead
+      session[:order_id] = @order_id
     else
       # uses current order if it exists
       @order_id = session[:order_id]
     end
+    
     if @qty.nil?
       # set qty to 1
       @qty = 1
     end
+    
     product = Product.find_by(id: params[:order_item][:product_id])
     if product.stock < 1
       flash[:error] = "Could not add item to order (not enough in stock)"
@@ -36,6 +41,8 @@ class OrderItemsController < ApplicationController
       flash[:error] = "Could not add item to order"
       redirect_to products_path
     end
+    
+    raise
   end
   
   def update
