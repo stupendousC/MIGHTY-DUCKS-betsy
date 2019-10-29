@@ -33,9 +33,10 @@ class OrdersController < ApplicationController
     if @order.update( order_params )
       if @order.order_items.length == 0
         # sets session to nil if there are no products in the order
+        @order.destroy
         session[:order_id] = nil
         flash[:success] = "Order cancelled: all items removed from cart"
-        redirect_to orders_path
+        redirect_to root_path
       else
         # successfully updates order
         @order.order_items.update(qty: params[:order][:quantity])
@@ -44,7 +45,7 @@ class OrdersController < ApplicationController
       end
     else
       flash[:error] = "Could not update order"
-      redirect_to orders_path
+      redirect_to order_path(@order.id)
     end
   end
   
@@ -72,6 +73,7 @@ class OrdersController < ApplicationController
   end
   
   def destroy
+    @order.order_items.destroy_all
     @order.delete
     flash[:success] = "Successfully deleted order"
     redirect_to root_path
