@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   
   def index 
     @products = Product.where(status: "Available")
+    @products_by_merchant = Product.by_merchant(params[:merchant_id])
   end
   
   def show
@@ -32,8 +33,7 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
       return
     else
-      # refactor so that message will print out nicely instead of with brackets
-      @error = @product.errors.messages[:name]
+      @error = @product.errors.full_messages
       flash.now[:error] = "Error: #{@error}"
       render new_product_path
       return
@@ -67,6 +67,8 @@ class ProductsController < ApplicationController
     # this confirms that the product belongs to its merchant
     unless @product.merchant.id == @merchant.id
       flash[:error] = "You are not authorized to edit this product!"
+      redirect_to products_path
+      return
     end
   end
   
