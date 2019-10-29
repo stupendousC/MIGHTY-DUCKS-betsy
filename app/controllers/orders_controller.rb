@@ -72,6 +72,7 @@ class OrdersController < ApplicationController
   end
   
   def destroy
+    @order.order_items.destroy_all
     @order.delete
     flash[:success] = "Successfully deleted order"
     redirect_to root_path
