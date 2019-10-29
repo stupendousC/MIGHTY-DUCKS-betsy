@@ -51,15 +51,49 @@ class OrdersController < ApplicationController
   def view_cart
     # this is for the view_cart_path
     # possibly make this the same as edit? -kk
+    ### Check if qtys on order are still valid? before getting sent to payment/checkout page
   end
   
   def checkout
-    # ideally the params will include all the info the customer entered into the checkout form
-    @customer_info = params
+    # sending to page for customer to fill out cc info & such
   end
   
   def purchase
-    @customer_info = params
+    # customer fills out cc info @ checkout and gets sent here
+    
+    # get info from customer input, apply to @order
+    @customer_info = params[:order]
+    
+    @order.name = @customer_info[:name]
+    @order.email = @customer_info[:email]
+    @order.address = @customer_info[:address]
+    @order.city = @customer_info[:city]
+    @order.state = params[:state]
+    @order.zip = @customer_info[:zip]
+    
+    if params[:cc_name_same?]
+      @order.cc_name = @customer_info[:name]
+    else
+      @order.cc_name = @customer_info[:cc_name]
+    end
+    
+    @order.cc = @customer_info[:cc]
+    @order.cvv = @customer_info[:cvv]
+    @order.cc_company = params[:cc_company]
+    
+    if params[:month] && params[:year]
+      @order.cc_exp = params[:month] + " " + params[:year]
+    end
+    
+    @order.customer_info_valid?
+    
+    raise
+    # save Order info and switch status to "done"
+    
+    # update product inventories
+    
+    
+    
     if @customer_info.valid?
       @order.status = :paid
       session[:order_id] = nil

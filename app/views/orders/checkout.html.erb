@@ -1,7 +1,9 @@
 <h1>GET 'EM GOODIES!</h1>
 <section class="form-group order_summary">
-id:<%= @order.id %>
-order items:<%= @order.order_items.count%>
+  <h3>ORDER SUMMARY</h3>
+  <p>Order id#<%= @order.id %><p>
+  <p>Ordering #<%= @order.order_items.count%> items</p>
+  <p>Grand total: <%= usd(@order.grand_total) %></p>
 </section>
 <%= form_with model: @order, :url => { :action => "purchase" }, method: :post  do |f|%>
   <section class="form-group customer">
@@ -62,8 +64,8 @@ order items:<%= @order.order_items.count%>
       </section>
 
       <section class="form-group col-md-2">
-      <%= f.label :month, value="Year"%>
-      <%= select_tag :month, options_for_select(next_10_years), class:"form-control" %>
+      <%= f.label :year, value="Year"%>
+      <%= select_tag :year, options_for_select(next_10_years), class:"form-control" %>
       </section>
 
       <section class="form-group col-md-2">
