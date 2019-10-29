@@ -9,4 +9,5 @@ class ApplicationController < ActionController::Base
   def category_index
     @categories = Category.all
   end
+
 end
