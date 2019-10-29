@@ -24,10 +24,12 @@ module ApplicationHelper
     # returns a string of comma-separated names.
     # ex: get_string_of_names([p1, p2, p3]) = "apple, orange, melon"
     
-    if (collection.respond_to? :name) && (collection.length >= 1)
-      string = "#{collection.first.name.capitalize}"
-    else 
-      return "None"
+    if (collection.respond_to? :each)
+      if (collection.length >= 1) && (collection.first.respond_to? :name)
+        string = "#{collection.first.name.capitalize}"
+      else 
+        return "None"
+      end
     end
     
     (collection.length - 1).times do |index|
