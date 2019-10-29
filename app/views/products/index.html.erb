@@ -1,13 +1,29 @@
-<h1>PRODUCT INDEX PAGE:</h1>
+<% if params[:merchant_id] %>
+  <% merchant = Merchant.find(params[:merchant_id]) %>
+  <h1>PRODUCTS BY: <%= merchant.name %></h1>
+<%else%>
+  <h1>PRODUCT INDEX PAGE</h1>
+<%end%>
 
-<%# I'M STILL WORKING ON VIEW PRODUCTS BY SPECIFIC MERCHANT%>
+
 <div class="container">
-  <div class="row">
-    <% @products.each do |product| %>
+    <div class="row">
+
+  <% if params[:merchant_id] %>
+    <% @products_by_merchant.each do |product| %>
       <div class="col-md-4">
-        <div class="img"><%= make_thumbnail_link(product)%></div> 
+        <div class="product_img_index"><%= make_thumbnail_link(product)%></div> 
         <%= link_to product.name, product_path(product.id)%> 
         <%= usd(product.price) %></div>
-      <% end%>
+        <% end%></div>
+  <%else %>
+    <div class="row">
+    <% @products.each do |product| %>
+        <div class="col-md-4">
+        <div class="product_img_index"><%= make_thumbnail_link(product)%></div> 
+        <%= link_to product.name, product_path(product.id)%> 
+        <%= usd(product.price) %></div>
+    <% end%>
+        </div>
+    <% end%>
   </div>
-</div>

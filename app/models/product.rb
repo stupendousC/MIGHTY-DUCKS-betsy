@@ -12,10 +12,11 @@ class Product < ApplicationRecord
     products = Product.all
     result = []
     products.each do |product|
-      if Product.find_by(id: product).merchant_id == id
+      if Product.find_by(id: product.id).merchant_id == id
         result << product
       end
     end
-  return result
+    return result
   end
+
 end

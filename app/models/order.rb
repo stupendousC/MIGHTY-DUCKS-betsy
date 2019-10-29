@@ -1,13 +1,21 @@
 class Order < ApplicationRecord
   
+  before_save :default_status
+  
   has_many :order_items  
   
+  def default_status
+    self.status ||= "pending"
+  end
   
-  private
   
   def get_grand_total
-    # I think it goes here b/c business logic?
-    # call this only upon payment? at same time as flipping status from 'pending' to 'done'?
+    self.status = "paid"
+    total = 0
+    self.order_items.each do |item|
+      total += item.subtotal
+    end
+    return total
   end
   
 end

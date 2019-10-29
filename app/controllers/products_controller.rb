@@ -1,27 +1,41 @@
 class ProductsController < ApplicationController
   
-  before_action :require_login, only: [:edit, :update]
+  before_action :require_login, only: [:new, :create, :edit, :update]
+  before_action :require_product_ownership, only: [:edit, :update]
   
   def index 
     @products = Product.where(status: "Available")
+    @products_by_merchant = Product.by_merchant(params[:merchant_id].to_i)
   end
   
   def show
     product_id = params[:id]
     @product = Product.find_by(id: product_id)
-    @merchant = Merchant.find(@product.merchant_id )
 
     if @product.nil?
+      flash[:error] = "Sorry! That products doesn't exist."
       redirect_to root_path
       return
     end
+
+    @merchant = Merchant.find(@product.merchant_id )
   end
   
   def new
     @product = Product.new
+
+    if session[:merchant_id].nil?
+      flash[:error] = "You must log-in first"
+    end
   end
   
   def create 
+    if session[:merchant_id].nil?
+      flash[:error] = "You must log-in first"
+      redirect_to root_path
+      return
+    end
+
     @status = "Available"
     @product = Product.new(product_params)
     
@@ -32,27 +46,24 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
       return
     else
-      # refactor so that message will print out nicely instead of with brackets
-      @error = @product.errors.messages[:name]
+      @error = @product.errors.full_messages
       flash.now[:error] = "Error: #{@error}"
-      render new_product_path
+      render action: "new"
       return
     end
   end
   
-  def edit
-    @product = Product.find_by(id: params[:id])
-  end
+  def edit; end
   
   def update
-    @product = Product.find_by(id: params[:id])
-    
     @status = params[:product][:status]
     
-    if @product.update( product_params )
+    if @product.update(product_params)
       flash[:success] = "You successfully updated #{@product.name}"
       redirect_to merchant_path(@merchant)
     else
+      flash[:error] = "Unable to update #{@product.name}"
+      flash[:error_msgs] = @product.error.full_messages
       render edit_product_path
       return
     end
@@ -62,11 +73,21 @@ class ProductsController < ApplicationController
   
   def require_login
     @merchant = Merchant.find_by(id: session[:merchant_id])
+
+    if @merchant.nil?
+      flash[:error] = "Please log-in first"
+      return redirect_to root_path
+    end
+  end
+
+  def require_product_ownership
     @product = Product.find_by(id: params[:id])
     
     # this confirms that the product belongs to its merchant
     unless @product.merchant.id == @merchant.id
       flash[:error] = "You are not authorized to edit this product!"
+      redirect_to root_path
+      return
     end
   end
   
