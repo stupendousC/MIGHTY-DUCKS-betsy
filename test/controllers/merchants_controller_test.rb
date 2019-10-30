@@ -11,7 +11,6 @@ describe MerchantsController do
       # Yml seeds are automatically in the database, since we're testing an existing merchant,
       # we're not expecting Merchant.count to change in this block
       start_count_before = Merchant.count
-      assert(start_count_before == 2)
       
       # Get a merchant from the fixtures, which we KNOW is in the db
       merchant = merchants(:grace)
@@ -42,7 +41,6 @@ describe MerchantsController do
       # new merchant, therefore making new data here, b/c yml are already created in db
       # now expecting Merchant.count to change in this block
       start_count_before = Merchant.count
-      assert(start_count_before == 2)
       
       # Make a new merchant
       new_merchant = Merchant.new(name:"new person", email:"nobody@nobody.com", uid: "1357", provider: "github")
@@ -75,7 +73,6 @@ describe MerchantsController do
       it "if name == nil" do
         # Arrange
         start_count_before = Merchant.count
-        assert(start_count_before == 2)
         
         bogus_merchant = Merchant.new(name:nil, email:"nobody@nobody.com", uid: "1357", provider: "github")
         
@@ -92,7 +89,6 @@ describe MerchantsController do
       
       it "if email == nil" do
         start_count_before = Merchant.count
-        assert(start_count_before == 2)
         
         bogus_merchant = Merchant.new(name:"nobody", email:nil, uid: "1357", provider: "github")
         
@@ -107,7 +103,6 @@ describe MerchantsController do
       
       it "if name is not unique" do
         start_count_before = Merchant.count
-        assert(start_count_before == 2)
         bogus_merchant = Merchant.new(name:"countess_ada", email:"second@email.com", uid: "1217", provider: "github")
         
         perform_login(bogus_merchant)
@@ -122,7 +117,6 @@ describe MerchantsController do
       
       it "if email is not unique" do
         start_count_before = Merchant.count
-        assert(start_count_before == 2)
         bogus_merchant = Merchant.new(name:"Nobody", email:"ada@adadevelopersacademy.org", uid: "1217", provider: "github")
         
         perform_login(bogus_merchant)
@@ -210,30 +204,30 @@ describe MerchantsController do
       perform_login(ada)
       
       set_of_bad_params = [
-        { merchant: { name: "", email: "" } },
-        { merchant: { name: "", email: "ada@v2.com" } },
-        { merchant: { name: "ada v2", email: "" } },
-        { merchant: { name: grace.name, email: grace.email } },
-        { merchant: { name: "ada v2", email: grace.email } },
-        { merchant: { name: grace.name, email: "ada@v2.com" } }
-      ]
-      
-      set_of_bad_params.each do |bad_params|
-        patch merchant_path(ada), params: bad_params 
-        expect(flash[:error]).must_equal "Unable to update"
-        # each of the bad cases have diff msgs, which are tested in Model. 
-        # therefore only need to assert their existence here
-        assert(flash[:error_msgs])
-        must_respond_with :success
-      end
-      
+      { merchant: { name: "", email: "" } },
+      { merchant: { name: "", email: "ada@v2.com" } },
+      { merchant: { name: "ada v2", email: "" } },
+      { merchant: { name: grace.name, email: grace.email } },
+      { merchant: { name: "ada v2", email: grace.email } },
+      { merchant: { name: grace.name, email: "ada@v2.com" } }
+    ]
+    
+    set_of_bad_params.each do |bad_params|
+      patch merchant_path(ada), params: bad_params 
+      expect(flash[:error]).must_equal "Unable to update"
+      # each of the bad cases have diff msgs, which are tested in Model. 
+      # therefore only need to assert their existence here
+      assert(flash[:error_msgs])
+      must_respond_with :success
     end
     
-    it "if not logged in: send to homepage w/ error msg" do
-      patch merchant_path(ada)
-      
-      must_redirect_to root_path
-      assert(flash[:error] == "You must be logged in to view this section")
-    end
   end
+  
+  it "if not logged in: send to homepage w/ error msg" do
+    patch merchant_path(ada)
+    
+    must_redirect_to root_path
+    assert(flash[:error] == "You must be logged in to view this section")
+  end
+end
 end

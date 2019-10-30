@@ -27,9 +27,11 @@ module ApplicationHelper
     if (collection.respond_to? :each)
       if (collection.length >= 1) && (collection.first.respond_to? :name)
         string = "#{collection.first.name.capitalize}"
-      else 
+      else
         return "None"
       end
+    else 
+      return "Invalid collection"
     end
     
     (collection.length - 1).times do |index|
