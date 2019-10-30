@@ -1,3 +1,81 @@
-<h1>CHECKOUT Order: <%= @order.id %></h1>
+<h1>GET 'EM GOODIES!</h1>
+<section class="form-group order_summary">
+  <h3>ORDER SUMMARY</h3>
+  <p>Order id#<%= @order.id %><p>
+  <p>Grand total: <%= usd(@order.get_grand_total) %></p>
+</section>
+<%= form_with model: @customer, :url => { :controller => "orders", :action => "purchase" }, method: :post  do |f|%>
+  <section class="form-group customer">
+    <%= f.label :name, class: "form-row" %>
+    <%= f.text_field :name, class: "form-control"%>
+    
+    <%= f.label :email, class: "form-row" %>
+    <%= f.text_field :email, type: "email", class: "form-control"%>
+  
+    <%= f.label :address, class: "form-row" %>
+    <%= f.text_field :address, class: "form-control"%>
 
-GIMME YOUR $$$
+    <section class="form-row">
+      <section class="form-group col-md-6">
+      <%= f.label :city%>
+      <%= f.text_field :city, class: "form-control" %>
+      </section>
+
+      <section class="form-group col-md-4">
+      <%= f.label :state%>
+      <%= select_tag :state, options_for_select(us_states), class:"form-control" %>
+      </section>
+
+      <section class="form-group col-md-2">
+      <%= f.label :zip %>
+      <%= f.text_field :zip, class: "form-control"%>
+      </section>
+    </section>
+  </section>
+
+
+  <section class="form-group cc">
+    <section class="form-row">
+      <section class="form-group col-md-6">
+      <%= f.label :cc_name, value="Name on Credit Card", class: "form-row" %>
+      <%= f.text_field :cc_name, class: "form-control"%>
+      </section>
+      <section class="form-group col-md-6">
+      <%= f.label :cc_name, value="Click button if same name as shipping address", class:"form-check-label", class: "form-row" %>
+      <%= check_box_tag "cc_name_same?", true, false %>
+      </section>
+    </section>
+
+    <section class="form-row">
+      <section class="form-group col-md-2">
+      <%= f.label :cc_company, value="Issuer"%>
+      <%= select_tag :cc_company, options_for_select(cc_companies), class:"form-control" %>
+      </section>
+
+      <section class="form-group col-md-4">
+      <%= f.label :cc, value="Credit Card Number"%>
+      <%= f.text_field :cc, class: "form-control" %>
+      </section>
+
+      <section class="form-group col-md-2">
+      <%= f.label :month, value="Expiration"%>
+      <%= select_tag :month, options_for_select(months), class:"form-control" %>
+      </section>
+
+      <section class="form-group col-md-2">
+      <%= f.label :year, value="Year"%>
+      <%= select_tag :year, options_for_select(next_10_years), class:"form-control" %>
+      </section>
+
+      <section class="form-group col-md-2">
+      <%= f.label :cvv, value="CVV" %>
+      <%= f.text_field :cvv, class: "form-control"%>
+      </section>
+
+    </section>
+
+  </section>
+
+  <%= f.submit "COMPLETE ORDER", class: "btn btn-primary" %>
+<% end %>
+
