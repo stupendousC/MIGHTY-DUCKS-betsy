@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   
-  before_action :find_order
+  before_action :find_order, except: [:order_confirmation]
   
   def index
     @orders = Order.all
@@ -129,16 +129,34 @@ class OrdersController < ApplicationController
       @order.update(status: "paid", customer_id: @customer.id)
       session[:order_id] = nil
       
-      flash[:success] = "Successfully placed order!  CONFIRMATION SCREEN!!!!"
-      ### WHAT IF I assign a temporary session for the user_id??? that goes to nil as soon as I leave show page?
-      ### WHAT IF I leave session[:order_id] for 1 more http cycle? make erasing it an AFTER_ACTION???
-      redirect_to order_path(@order)
+      flash[:success] = "Successfully placed order!"
+      add_confirmed_order_id_to_session(@order.id) 
+      redirect_to orders_confirmation_path(@order.id)
       
     else
       # invalid payment info given
       flash[:error] = "Could not place order"
       flash[:error_msgs] = @customer.errors.full_messages
       render action: "checkout"
+    end
+  end
+  
+  def order_confirmation
+    if session[:order_confirmed]
+      if session[:order_confirmed] == params[:id].to_i
+        @order = Order.find_by(id: session[:order_confirmed])
+        unless @order.status == "paid"
+          flash[:error] = "You haven't completed the order yet"
+          redirect_to order_path(id: @order.id)
+        end
+      else
+        flash[:error] = "That was not your order"
+        return redirect_to root_path
+      end
+      
+    else
+      flash[:error] = "You're not authorized to see this page"
+      return redirect_to root_path
     end
   end
   
@@ -163,6 +181,17 @@ class OrdersController < ApplicationController
   
   def customer_params
     return params.require(:customer).permit(:name, :email, :address, :city, :zip, :cc1, :cc2, :cc3, :cc4, :cvv, :cc_name)
+  end
+  
+  def add_confirmed_order_id_to_session(order_id)
+    session[:order_confirmed] = order_id
+    
+    ### THIS IS IN CASE CUSTOMER MAKES SEVERAL PURCHASES IN SAME SESSION, BUT IT'S TRICKY...
+    # if session[:orderS_confirmed] 
+    #   session[:orderS_confirmed] << order_id
+    # else
+    #   session[:orderS_confirmed] = [order_id]
+    # end
   end
   
 end
