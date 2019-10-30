@@ -3,7 +3,12 @@ class OrdersController < ApplicationController
   before_action :find_order, except: [:order_confirmation]
   
   def index
-    @orders = Order.all
+    if session[:merchant_id]
+      @orders = Order.all
+    else
+      flash[:error] = "You must be logged in as a merchant"
+      return redirect_to root_path
+    end
   end
   
   
