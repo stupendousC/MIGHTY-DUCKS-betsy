@@ -21,13 +21,13 @@ class ReviewsController < ApplicationController
     @review.product = product
    
     if @review.save 
-      flash[:success] = "#{@product.name}successfully reviewed"
-      redirect_to product_path(@product.id)
+      flash[:success] = "#{@review.product.name} successfully reviewed"
+      redirect_to product_path(@review.product.id)
       return
     else
       @error = @review.errors.full_messages
       flash[:error] = "#{@error}"
-      redirect_to product_path(@product.id)
+      redirect_to product_path(@review.product.id)
       return
     end
   end

@@ -30,8 +30,12 @@
   <%= link_to "Write a Review", new_product_review_path(@product.id), method: :get, class: "btn btn-info" %>
   </section>
 </div>
+
 </div>
 </section>
-
-
-
+<section class= "reviews-container">
+    <%@product.reviews.each do |review|%>
+      <h4><%= "Rating: #{review.rating}"%></h4>
+      <div class="comment-container"><%= "Comment: #{review.comment}"%></div>
+    <%end%>
+  </section>
