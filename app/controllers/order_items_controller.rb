@@ -57,6 +57,11 @@ class OrderItemsController < ApplicationController
   
   def update
     @order_item = OrderItem.find_by(id: params[:id])
+    if @order_item.nil? || @order_item.order_id != @order.id
+      flash[:error] = "That order item does not exist"
+      redirect_to root_path
+      return
+    end
     @product = Product.find_by(id: @order_item.product_id)
     @order = Order.find_by(id: @order_item.order_id)
     
@@ -67,7 +72,7 @@ class OrderItemsController < ApplicationController
         redirect_to edit_order_path(@order.id)
         return
       else 
-        flash[:error] = "That order item does not exist"
+        flash[:error] = "Could not remove order item"
         redirect_to root_path
         return
       end
@@ -96,9 +101,7 @@ class OrderItemsController < ApplicationController
     end
   end
   
-  def destroy
-    session[:order_id] = nil
-  end
+  def destroy; end
   
   
   

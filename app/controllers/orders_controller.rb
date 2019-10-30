@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   end
   
   
-  def show   
+  def show
     if params[:id].to_i <= 0
       # if someone entered in bogus order id, like -5000
       flash[:error] = "That order does not exist"
@@ -171,6 +171,7 @@ class OrdersController < ApplicationController
   def destroy
     @order.order_items.destroy_all
     @order.delete
+    session[:order_id] = nil
     flash[:success] = "Successfully deleted order"
     redirect_to root_path
   end
