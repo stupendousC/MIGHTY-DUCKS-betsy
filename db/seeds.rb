@@ -26,7 +26,8 @@ c3 = Category.find_by(name: "Food").id
 c4 = Category.find_by(name: "Miscellaneous").id
 
 
-products = [ 
+products = 
+[ 
   { name: "duck socks", stock: 5, price: 2000, category_ids: [c1, c4], merchant: m1, description: "real spiffy!", img_url: "https://live.staticflickr.com/4081/4906646028_1be7b70d6d_z.jpg"},
   { name: "striped socks", stock: 5, price: 1500, category_ids: [c4], merchant: m1, description: "stripe it up real good y'all!", img_url: "https://live.staticflickr.com/8325/8380147041_d41c824ba6_z.jpg"},
   { name: "mutant duck", stock: 1, price: 99, category_ids: [c2], merchant: m1, description: "a true abomination, he'll probably eat you in your sleep, but think about how cool it looks to have an alligator duck!  Be the envy of your friends and buy it now!  Please!!!", img_url: "https://live.staticflickr.com/2345/1805702317_3def904678.jpg"},
@@ -69,3 +70,8 @@ products = [
 products.each do |product|
   Product.create(name: product[:name], stock: product[:stock], price: product[:price], category_ids: product[:category_ids], merchant: product[:merchant], status: "Available", description: product[:description], img_url: product[:img_url])
 end
+
+c1 = Customer.create(name: "WAITING FOR PURCHASE", email: "x", address: "x", city: "x", zip: 12345, cc_name: "x", cc: 123, cc_exp_month: "x", cc_exp_year: "x", cc_exp: "x", ccv: 123, cc_company: "x")
+c2 = Customer.create(name: "spiderman", email: "s@p.com", address: "spider web", city: "nyc", zip: 12345, cc_name: "peter parker", cc: 123, cc_exp_month: "jan", cc_exp_year: "2020", cc_exp: "jan 2020", ccv: 123, cc_company: "amex")
+        
+        
