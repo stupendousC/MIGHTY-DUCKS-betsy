@@ -9,7 +9,12 @@ class OrdersController < ApplicationController
   def show
     ### KELSEY I added this whole chunk
     ### Check if qtys on order are still valid , not sure if flash or flash.now
-    if @order.missing_stock
+    if @order.nil?
+      flash[:error] = "That order does not exist"
+      redirect_to root_path
+      return
+    end
+    if @order && @order.missing_stock
       flash.now[:error] = "Uh oh! We ran out of stock on..."
       flash.now[:error_msgs] = @order.names_from_order_items(@order.missing_stock)
     end

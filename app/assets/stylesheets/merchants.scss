@@ -1,3 +1,14 @@
 // Place all the styles related to the merchants controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.merchant-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+.merchant-order-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 1fr 2fr;
+}
