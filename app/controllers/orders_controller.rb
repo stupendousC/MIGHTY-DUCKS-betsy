@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
   
-
+  
   def show    ### KELSEY I added this whole chunk
     if params[:id].to_i <= 0
       # if someone entered in bogus order id, like -5000
@@ -128,7 +128,7 @@ class OrdersController < ApplicationController
       end
       
       # save Order info and switch status to "done"
-      @order.status = "paid"
+      @order.update(:status => "paid")
       session[:order_id] = nil
       
       flash[:success] = "Successfully placed order!  CONFIRMATION SCREEN!!!!"
@@ -147,6 +147,7 @@ class OrdersController < ApplicationController
   def destroy
     @order.order_items.destroy_all
     @order.delete
+    session[:order_id] = nil
     flash[:success] = "Successfully deleted order"
     redirect_to root_path
   end
