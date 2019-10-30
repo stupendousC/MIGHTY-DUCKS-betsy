@@ -4,7 +4,7 @@
   <!-- displays customer's open order -->
   <h1>SHOPPING CART</h1>
   <h3>Order: <%= @order.id %></h3>
-<div class="table-responsive table-striped">
+<section class="table-responsive table-striped">
   <table class="table">
     <thead>
       <tr>
@@ -49,7 +49,7 @@
         <tr>
     </tbody>
   </table>
-</div>
+</section>
 
 <%= link_to "Delete Cart", order_path(order: { id: @order.id } ), method: :delete %>
 

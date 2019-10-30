@@ -4,48 +4,39 @@
 <%= render "merchants/dashboard" %>
 
 <h4 class="merchant-info">
-<span>
-MERCHANT NAME: <%= @merchant.name %>
-</span>
-<span>
-MERCHANT ID: <%= session[:merchant_id] %>
-</span>
-</h4>
-  <% order_items = OrderItem.by_merchant(session[:merchant_id]) %>
-<h4>
+<% order_items = OrderItem.by_merchant(session[:merchant_id]) %>
 Total orders: <%= order_items.length %>
 </h4>
-<li class="merchant-order-item">
-  <span>
-  ORDER
-  </span>
-  <span>
-  DATE
-  </span>
-  <span>
-  PRODUCT
-  </span>
-  <span>
-  QTY
-  </span>
-  <span>
-  ORDER STATUS
-  </span>
 
-</li>
-  <% order_items.each do |item| %>
-  <% product = Product.where(id: item.product_id) %>
-    <li class="merchant-order-item">
-      <span> <%= item.order_id %> 
-    </span>
-      <span> <%= display_date(Order.find_by(id: item.order_id).created_at.to_date) %>
-    </span>
-      <span> <%= link_to product[0].name, product_path(product[0].id) %>
-    </span>
-      <span> <%= item.qty %>
-    </span>
-      <span> <%= Order.find_by(id: item.order_id).status %>
-      </span>
-      </li>
-  <% end %>
+<section class="table-responsive table-striped merchant-order-item">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ORDER</th>
+        <th>DATE</th>
+        <th>PRODUCT</th>
+        <th>QTY</th>
+        <th>ORDER STATUS</th>
+        <th>CUSTOMER</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% order_items.each do |item| %>
+        <% product = Product.where(id: item.product_id) %>
+        <tr>
+          <td><%= item.order_id  %></td>
+          <td><%= display_date(Order.find_by(id: item.order_id).created_at.to_date) %></td>
+          <td><%= link_to product[0].name, product_path(product[0].id) %></td>
+          <td><%= item.qty %></td>
+          <td><%= Order.find_by(id: item.order_id).status %></td>
+          <td><%=  %></td>
+      <% end %>
+    </tbody>
+
+  </table>
+</section>
+
+
+
 <% end %>

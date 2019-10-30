@@ -17,6 +17,7 @@ class OrderItemsController < ApplicationController
     else
       # uses current order if it exists
       @order_id = session[:order_id]
+      # @order = Order.find_by(id: session[:order_id])
       current_item = @order.order_items.find_by(product_id: order_item_params[:product_id])
       # checks if item is already in order, updates by 1 if so
       if current_item
@@ -49,7 +50,6 @@ class OrderItemsController < ApplicationController
       redirect_to product_path(order_item.product_id)
     else
       flash[:error] = "Could not add item to order"
-      raise
       redirect_to products_path
     end
     

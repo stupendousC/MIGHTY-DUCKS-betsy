@@ -29,19 +29,16 @@ class OrdersController < ApplicationController
   end
   
   def create
-    ## CW's
-    # if session[:order_id]
-    #   @order = Order.new(order_params)
-    # else
-    #   @order = Order.new
-    #   session[:order_id] = @order.id
-    # end
+    # CW's
+    if session[:order_id]
+      @order = Order.new(order_params)
+    else
+      @order = Order.new
+      session[:order_id] = @order.id
+    end
     
     ## KELSEY's
-    @order = Order.new( order_params )
-    
-    
-    
+    # @order = Order.new( order_params )
     
     if @order.save
       # sets the session order id
