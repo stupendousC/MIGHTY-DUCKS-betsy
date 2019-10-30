@@ -44,10 +44,14 @@ class Order < ApplicationRecord
   
   def names_from_order_items(array_of_order_items)
     collection = []
-    array_of_order_items.each do |order_item_instance|
-      collection << order_item_instance.product
+    if array_of_order_items.respond_to? :each
+      array_of_order_items.each do |order_item_instance|
+        collection << order_item_instance.product
+      end
+      return get_string_of_names(collection)
+    else
+      return "Invalid argument, expecting an array of Order Item instances"
     end
-    return get_string_of_names(collection)
   end
   
   
