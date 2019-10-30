@@ -8,7 +8,7 @@ Total order-items: <%= @order_items.length %>
 <section class="table-responsive table-striped">
   <table class="table">
     <thead>
-      <tr class="merchant-order-item">
+      <tr>
         <th>ORDER</th>
         <th>DATE</th>
         <th>PRODUCT</th>
@@ -21,9 +21,9 @@ Total order-items: <%= @order_items.length %>
 
     <tbody>
       <% @order_items.each do |item| %>
-        <tr class="merchant-order-item">
+        <tr>
           <td><%= item.order_id  %></td>
-          <td><%= display_date(Order.find_by(id: item.order_id).updated_at.to_date) %></td>
+          <td><%= display_date(item.order.updated_at.to_date) %></td>
           <td><%= item.product.name.titleize %></td>
           <td><%= item.qty %></td>
           <td><%= usd(item.subtotal) %></td>
