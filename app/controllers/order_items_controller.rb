@@ -15,6 +15,12 @@ class OrderItemsController < ApplicationController
     else
       # uses current order if it exists
       @order_id = session[:order_id]
+      current_item = @order.order_items.find_by(product_id: order_item_params[:product_id])
+      # checks if item is already in order, updates by 1 if so
+      if current_item
+        orig_qty = current_item[:qty]
+        current_item[:qty] += 1
+      end
     end
     
     if @qty.nil?
