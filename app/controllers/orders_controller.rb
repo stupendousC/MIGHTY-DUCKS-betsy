@@ -1,10 +1,13 @@
 class OrdersController < ApplicationController
   
-  before_action :find_order, except: [:order_confirmation]
+  before_action :find_order, except: [:index, :order_confirmation]
   
   def index
     if session[:merchant_id]
-      @orders = Order.all
+      # sending only the relevant order_items and orders 
+      @order_items = OrderItem.by_merchant(session[:merchant_id])
+      @orders = @order_items.map { |order_item| order_item.order }
+      @orders.uniq!
     else
       flash[:error] = "You must be logged in as a merchant"
       return redirect_to root_path
@@ -12,7 +15,7 @@ class OrdersController < ApplicationController
   end
   
   
-  def show    ### KELSEY I added this whole chunk
+  def show   
     if params[:id].to_i <= 0
       # if someone entered in bogus order id, like -5000
       flash[:error] = "That order does not exist"
