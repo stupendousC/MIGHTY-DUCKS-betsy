@@ -34,3 +34,11 @@ p4:
   img_url: https://live.staticflickr.com/1203/566154297_84ec445540_z.jpg
   categories: c2
 
+
+p5:
+  name: orderitemtestproduct
+  stock: 10
+  price: 25
+  merchant: m1
+  description: ducktales
+  img_url: https://cataas.com/cat

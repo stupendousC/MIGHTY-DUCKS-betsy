@@ -23,19 +23,9 @@ class ProductsController < ApplicationController
   
   def new
     @product = Product.new
-
-    if session[:merchant_id].nil?
-      flash[:error] = "You must log-in first"
-    end
   end
   
   def create 
-    if session[:merchant_id].nil?
-      flash[:error] = "You must log-in first"
-      redirect_to root_path
-      return
-    end
-
     @status = "Available"
     @product = Product.new(product_params)
     
@@ -53,7 +43,10 @@ class ProductsController < ApplicationController
     end
   end
   
-  def edit; end
+  def edit
+    @product = Product.find_by(id: params[:id])
+    render_404 unless @product
+  end
   
   def update
     @status = params[:product][:status]
