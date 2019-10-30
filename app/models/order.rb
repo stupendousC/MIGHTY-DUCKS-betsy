@@ -5,7 +5,10 @@ class Order < ApplicationRecord
   
   before_save :default_status
   
-  has_many :order_items  
+  has_many :order_items
+  
+  # assign to temporary default "customer" until purchase finalized 
+  belongs_to :customer
   
   def default_status
     self.status ||= "pending"

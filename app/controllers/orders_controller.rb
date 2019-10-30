@@ -128,7 +128,7 @@ class OrdersController < ApplicationController
       end
       
       # save Order info and switch status to "done"
-      @order.update(status: "paid")
+      @order.update(status: "paid", customer_id: @customer.id)
       session[:order_id] = nil
       
       flash[:success] = "Successfully placed order!  CONFIRMATION SCREEN!!!!"

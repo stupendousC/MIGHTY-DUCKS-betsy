@@ -9,6 +9,13 @@ describe Order do
   let(:p2) { products(:p2) }
   let (:empty_order) { Order.create() }
   
+  describe "RELATIONSHIPS" do
+    it "can have many order_items" do
+    end
+
+    
+  end
+  
   describe "KELSEY: get_grand_total()" do
     it "nominal" do
     end
