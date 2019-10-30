@@ -35,13 +35,15 @@ describe Order do
       assert(o1.missing_stock.include? oi1)
     end
     
-    it "if order has no items, what does missing_stock() return?" do 
-      
+    it "if order has no items, missing_stock() returns nil" do 
+      empty_order = Order.create()
+      expect(empty_order.missing_stock).must_be_nil
     end
   end
   
   describe "CAROLINE: names_from_order_items()" do
-    it "nominal" do
+    it "Can return string of " do
+      
     end
     
     it "edge" do
