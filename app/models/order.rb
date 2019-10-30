@@ -5,7 +5,10 @@ class Order < ApplicationRecord
   
   before_save :default_status
   
-  has_many :order_items  
+  has_many :order_items
+  
+  # assign to temporary default "customer" until purchase finalized 
+  # belongs_to :customer
   
   def default_status
     self.status ||= "pending"
@@ -13,10 +16,6 @@ class Order < ApplicationRecord
   
   
   def get_grand_total
-    # Kelsey, can we PLEASE do this AFTER payment? 
-    # cuz we'll need to display this for viewing show.html
-    # self.status = "paid"
-    
     total = 0
     self.order_items.each do |item|
       total += item.subtotal
@@ -44,10 +43,14 @@ class Order < ApplicationRecord
   
   def names_from_order_items(array_of_order_items)
     collection = []
-    array_of_order_items.each do |order_item_instance|
-      collection << order_item_instance.product
+    if array_of_order_items.respond_to? :each
+      array_of_order_items.each do |order_item_instance|
+        collection << order_item_instance.product
+      end
+      return get_string_of_names(collection)
+    else
+      return "Invalid argument, expecting an array of Order Item instances"
     end
-    return get_string_of_names(collection)
   end
   
   
