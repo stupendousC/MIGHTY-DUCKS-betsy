@@ -52,9 +52,21 @@
       <%= select_tag :cc_company, options_for_select(cc_companies), class:"form-control" %>
       </section>
 
-      <section class="form-group col-md-4">
-      <%= f.label :cc, value="Credit Card Number"%>
-      <%= f.text_field :cc, class: "form-control" %>
+      <section class="form-group col-md-1">
+      <%= f.label :cc1, value="CC 1"%>
+      <%= f.text_field :cc1, class: "form-control" %>
+      </section>
+      <section class="form-group col-md-1">
+      <%= f.label :cc2, value="CC 2"%>
+      <%= f.text_field :cc2, class: "form-control" %>
+      </section>
+      <section class="form-group col-md-1">
+      <%= f.label :cc3, value="CC 3"%>
+      <%= f.text_field :cc3, class: "form-control" %>
+      </section>
+      <section class="form-group col-md-1">
+      <%= f.label :cc4, value="CC 4"%>
+      <%= f.text_field :cc4, class: "form-control" %>
       </section>
 
       <section class="form-group col-md-2">

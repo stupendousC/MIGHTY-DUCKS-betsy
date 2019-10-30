@@ -30,16 +30,17 @@ class OrdersController < ApplicationController
   
   def create
     ## CW's
-    if session[:order_id]
-      @order = Order.new(order_params)
-    else
-      @order = Order.create
-      session[:order_id] = @order.id
-    end
-    
+    # if session[:order_id]
+    #   @order = Order.new(order_params)
+    # else
+    #   @order = Order.new
+    #   session[:order_id] = @order.id
+    # end
     
     ## KELSEY's
-    # @order = Order.new( order_params )
+    @order = Order.new( order_params )
+    
+    
     
     
     if @order.save
@@ -164,7 +165,7 @@ class OrdersController < ApplicationController
   end
   
   def customer_params
-    return params.require(:customer).permit(:name, :email, :address, :city, :zip, :cc, :cvv, :cc_name)
+    return params.require(:customer).permit(:name, :email, :address, :city, :zip, :cc1, :cc2, :cc3, :cc4, :cvv, :cc_name)
   end
   
 end

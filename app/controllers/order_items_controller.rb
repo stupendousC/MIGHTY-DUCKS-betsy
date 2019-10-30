@@ -49,6 +49,7 @@ class OrderItemsController < ApplicationController
       redirect_to product_path(order_item.product_id)
     else
       flash[:error] = "Could not add item to order"
+      raise
       redirect_to products_path
     end
     
