@@ -24,8 +24,6 @@ class Order < ApplicationRecord
     return total
   end
   
-  
-  #### Caroline will test this
   def missing_stock
     # Checks if all order_items are in stock, return nil if yes
     # else, return [out_of_stocks order_items] 
@@ -44,7 +42,6 @@ class Order < ApplicationRecord
     end
   end
   
-  #### Caroline will test this
   def names_from_order_items(array_of_order_items)
     collection = []
     array_of_order_items.each do |order_item_instance|
