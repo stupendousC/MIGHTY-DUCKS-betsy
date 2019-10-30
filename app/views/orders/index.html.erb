@@ -3,6 +3,23 @@
 
 <h4 class="merchant-info">
 Total order-items: <%= @order_items.length %>
+
+<br><br>Total Revenue<br>
+  Total Revenue by status<br>
+  Total number of orders by status<br>
+  Filter orders displayed by status<br>
+  Link to each individual order<br>
+<br>
+  A list of orders including at least one of my products:<br>
+  Link to transition the order item to marked as shipped<br>
+  The current status of the order ("pending", "paid", "complete", "cancelled")
+<br><br><br>
+View an individual order to see the user's:<br>
+  Name
+  Email address
+  Mailing address
+  Last four digits of their credit card
+  Credit card expiration date
 </h4>
 
 <section class="table-responsive table-striped">
@@ -24,7 +41,7 @@ Total order-items: <%= @order_items.length %>
         <tr>
           <td><%= item.order_id  %></td>
           <td><%= display_date(item.order.updated_at.to_date) %></td>
-          <td><%= item.product.name.titleize %></td>
+          <td><%= link_to item.product.name.titleize, product_path(item.product) %></td>
           <td><%= item.qty %></td>
           <td><%= usd(item.subtotal) %></td>
           <td><%= order_status(item) %></td>

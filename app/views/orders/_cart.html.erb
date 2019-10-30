@@ -1,5 +1,5 @@
 <h1><%= title %></h1>
-<h3>Order: <%= @order.id %></h3>
+<h3>Order id# <%= @order.id %></h3>
 
 <section class="table-responsive table-striped">
   <table class="table">
@@ -10,7 +10,7 @@
         <th>QTY</th>
         <th>PRICE</th>
 
-        <% unless title == "ORDER CONFIRMATION" %>
+        <% if title == "SHOPPING CART" %>
           <th>EDIT</th>
         <% end %>
 
@@ -28,7 +28,7 @@
           <td><%= item.qty %></td>
           <td><%= usd(product.price) %></td>
 
-          <% unless title == "ORDER CONFIRMATION" %>
+          <% if title == "SHOPPING CART" %>
             <td><%= link_to "Edit Order", edit_order_path(@order.id) %></td>
           <% end %>
 
@@ -40,7 +40,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <% unless title == "ORDER CONFIRMATION" %>
+          <% if title == "SHOPPING CART" %>
             <td></td>
           <% end %>
 
