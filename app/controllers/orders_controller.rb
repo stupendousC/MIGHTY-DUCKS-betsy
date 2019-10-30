@@ -156,15 +156,6 @@ class OrdersController < ApplicationController
     end
   end
   
-  # CW experiment: what if I want to distinguish between bogus orders (like order#-1000)?
-  # vs. actual placed orders (that just happen to NOT belong to the current browsing customer)?
-  # def find_order
-  #   @order = Order.find_by(id: session[:order_id])
-  #   if @order.nil?
-  #     session[:order_id] = nil
-  #   end
-  # end
-  
   def order_params
     return params.require(:order).permit(:order_items, :grand_total)
   end
