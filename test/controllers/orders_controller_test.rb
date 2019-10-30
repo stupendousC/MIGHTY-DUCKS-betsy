@@ -30,6 +30,8 @@ describe OrdersController do
     end
   end
   
+  
+  ### PROBABLY CAROLINE's JOB TO DO THIS
   describe "merchants" do
     it "can display all orders with items belonging to the logged-in merchant" do
     end
@@ -41,7 +43,7 @@ describe OrdersController do
     end
   end
   
-  
+  ### HEY KELSEY, I THINK WE CAN GET RID OF VIEW_CART???
   # describe "VIEW_CART" do
   #   it "can go to view_cart page" do
   #     get view_cart_path
@@ -49,12 +51,20 @@ describe OrdersController do
   #   end
   # end
   
-  # describe "CHECKOUT" do
-  #   it "can go to checkout page" do
-  #     get checkout_path
-  #     must_respond_with :success
-  #   end
+  describe "CAROLINE: show" do
+  end
   
-  # end
+  
+  
+  describe "CAROLINE: checkout" do
+    it "can go to checkout page" do
+      get checkout_path
+      must_respond_with :success
+    end
+    
+  end
+  
+  describe "CAROLINE: purchase" do
+  end
   
 end

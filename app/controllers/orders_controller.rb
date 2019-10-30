@@ -130,8 +130,10 @@ class OrdersController < ApplicationController
       @order.status = "paid"
       session[:order_id] = nil
       
-      flash[:success] = "Successfully placed order!"
-      redirect_to root_path
+      flash[:success] = "Successfully placed order!  CONFIRMATION SCREEN!!!!"
+      ### WHAT IF I assign a temporary session for the user_id??? that goes to nil as soon as I leave show page?
+      ### WHAT IF I leave session[:order_id] for 1 more http cycle? make erasing it an AFTER_ACTION???
+      redirect_to order_path(@order)
       
     else
       # invalid payment info given
