@@ -12,7 +12,8 @@
     <link href="https://fonts.googleapis.com/css?family=Alegreya:900|Bubblegum+Sans|Capriola|Gorditas:700|Knewave|Lemon|Modak|Sriracha&display=swap" rel="stylesheet">
   </head>
 
-  <body>
+<!-- added class 'sample' as a sample color scheme -kk -->
+  <body class="sample">
 
   <h1><%= link_to "MIGHTY DUCKS", root_path, class: "quiet_link" %></h1>
 
@@ -35,6 +36,7 @@
     </div>
     </div>
     
+    <div class="user-links">
     <% if session[:order_id] %>
       <%= link_to "Cart", order_path(session[:order_id]), class:"btn btn-primary" %>
     <% end %>
@@ -47,6 +49,7 @@
     <% else %>
     <%= link_to "Login with Github", github_login_path, class:"btn btn-primary" %>
     <% end %>
+    </div>
     </section>
 
 </section>

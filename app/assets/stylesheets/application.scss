@@ -108,3 +108,34 @@ footer section {
 
 }
 /// end OPTIONAL: Caroline is still toying with this ///
+
+:root {
+  --cream: #FFE3B3;
+  --gold: #FFC872;
+  --skyblue: #30A0E0;
+  --seablue: #006BBB; 
+}
+
+.sample {
+  background-color: white;
+
+  .homepage-nav-links {
+    background-color: var(--cream);
+  }
+  h1 {
+    background-color: white;
+  }
+  main h1 {
+    background-color: white;
+    color: var(--skyblue);
+    text-align: left;
+    font-size: 3rem;
+  }
+
+  .order_summary {
+    background-color: var(--cream);
+  }
+  .customer {
+    background-color: var(--gold);
+  }
+}
