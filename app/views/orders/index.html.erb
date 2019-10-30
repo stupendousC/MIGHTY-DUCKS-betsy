@@ -8,10 +8,10 @@
 Total orders: <%= order_items.length %>
 </h4>
 
-<section class="table-responsive table-striped merchant-order-item">
+<section class="table-responsive table-striped">
   <table class="table">
     <thead>
-      <tr>
+      <tr class="merchant-order-item">
         <th>ORDER</th>
         <th>DATE</th>
         <th>PRODUCT</th>
@@ -24,7 +24,7 @@ Total orders: <%= order_items.length %>
     <tbody>
       <% order_items.each do |item| %>
         <% product = Product.where(id: item.product_id) %>
-        <tr>
+        <tr class="merchant-order-item">
           <td><%= item.order_id  %></td>
           <td><%= display_date(Order.find_by(id: item.order_id).created_at.to_date) %></td>
           <td><%= link_to product[0].name, product_path(product[0].id) %></td>
