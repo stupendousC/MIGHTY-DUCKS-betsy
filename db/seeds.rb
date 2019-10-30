@@ -69,3 +69,6 @@ products = [
 products.each do |product|
   Product.create(name: product[:name], stock: product[:stock], price: product[:price], category_ids: product[:category_ids], merchant: product[:merchant], status: "Available", description: product[:description], img_url: product[:img_url])
 end
+
+
+Review.create(product: Product.find_by(name: "doggy duck"), rating: 1, comment: "It scares me at night")
