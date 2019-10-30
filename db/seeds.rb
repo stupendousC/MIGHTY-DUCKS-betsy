@@ -71,7 +71,6 @@ products.each do |product|
   Product.create(name: product[:name], stock: product[:stock], price: product[:price], category_ids: product[:category_ids], merchant: product[:merchant], status: "Available", description: product[:description], img_url: product[:img_url])
 end
 
-c1 = Customer.create(name: "WAITING FOR PURCHASE", email: "x", address: "x", city: "x", zip: 12345, cc_name: "x", cc: 123, cc_exp_month: "x", cc_exp_year: "x", cc_exp: "x", ccv: 123, cc_company: "x")
-c2 = Customer.create(name: "spiderman", email: "s@p.com", address: "spider web", city: "nyc", zip: 12345, cc_name: "peter parker", cc: 123, cc_exp_month: "jan", cc_exp_year: "2020", cc_exp: "jan 2020", ccv: 123, cc_company: "amex")
-        
-        
+c1 = Customer.create(name: "WAITING FOR PURCHASE", email: "x", address: "x", city: "x", zip: 12345, cc_name: "x", cc1: 1111, cc2: 2222, cc3: 3333, cc4: 4444, cc_exp_month: "x", cc_exp_year: "x", cc_exp: "x", cvv: 123, cc_company: "x")
+c2 = Customer.create(name: "spiderman", email: "s@p.com", address: "spider web", city: "nyc", zip: 12345, cc_name: "peter parker", cc1: 1234, cc2: 5678, cc3: 8765, cc4: 4321, cc_exp_month: "jan", cc_exp_year: "2020", cc_exp: "jan 2020", cvv: 123, cc_company: "amex")
+
