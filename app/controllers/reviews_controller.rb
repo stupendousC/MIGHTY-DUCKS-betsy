@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
     unless product
       flash[:error] = "product doesn't exist"
       head :bad_request
-      redirect_to product_path(@product.id)
+      redirect_to product_path(product.id)
       #redirect with error
       return
     end
@@ -21,13 +21,13 @@ class ReviewsController < ApplicationController
     @review.product = product
    
     if @review.save 
-      flash[:success] = "#{@product.name}successfully reviewed"
-      redirect_to product_path(@product.id)
+      flash[:success] = "#{product.name} successfully reviewed"
+      redirect_to product_path(product.id)
       return
     else
       @error = @review.errors.full_messages
       flash[:error] = "#{@error}"
-      redirect_to product_path(@product.id)
+      redirect_to product_path(product.id)
       return
     end
   end

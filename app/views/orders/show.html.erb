@@ -1,60 +1,12 @@
 <section class="order-container">
 
 <% if session[:order_id] %>
+
   <!-- displays customer's open order -->
-  <h1>SHOPPING CART</h1>
-  <h3>Order: <%= @order.id %></h3>
-<div class="table-responsive table-striped">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>PICTURE</th>
-        <th>NAME</th>
-        <th>QTY</th>
-        <th>PRICE</th>
-        <th>EDIT</th>
-        <th>SUBTOTAL</th>
-      </tr>
-    </thead>
+  <%= render partial: "cart", locals:{title: "SHOPPING CART"} %>
 
-    <tbody>
-      <% @order.order_items.each do |item| %>
-        <% product = Product.find_by(id: item.product_id)%>
-        <tr>
-          <td><%= make_thumbnail_link(product) %></td>
-          <td><%= link_to product.name.upcase, product_path(id: product.id) %></td>
-  
-          <td><%= item.qty %></td>
-          <td><%= usd(product.price) %></td>
-          <td><%= link_to "Edit Order", edit_order_path(@order.id) %></td>
-          <td><%= usd(item.subtotal) %></td>
-        </tr>
-      <% end %>
-
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>GRAND TOTAL</td>
-          <td><%= usd(@order.get_grand_total) %></td>
-        <tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><%= link_to "Checkout", checkout_path(id: @order.id) %></td>
-        <tr>
-    </tbody>
-  </table>
-</div>
-
-<%= link_to "Delete Cart", order_path(order: { id: @order.id } ), method: :delete %>
-
-  
-  
+  <%= link_to "Checkout", checkout_path(id: @order.id), class:"btn btn-primary"  %>
+  <%= link_to "Delete Cart", order_path(order: { id: @order.id } ), method: :delete, class:"btn btn-primary"  %>
 
 <% end %>
 

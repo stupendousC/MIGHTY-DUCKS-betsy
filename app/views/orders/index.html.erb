@@ -1,51 +1,40 @@
-
-
 <% if session[:merchant_id] %>
 <%= render "merchants/dashboard" %>
 
 <h4 class="merchant-info">
-<span>
-MERCHANT NAME: <%= @merchant.name %>
-</span>
-<span>
-MERCHANT ID: <%= session[:merchant_id] %>
-</span>
+Total order-items: <%= @order_items.length %>
 </h4>
-  <% order_items = OrderItem.by_merchant(session[:merchant_id]) %>
-<h4>
-Total orders: <%= order_items.length %>
-</h4>
-<li class="merchant-order-item">
-  <span>
-  ORDER
-  </span>
-  <span>
-  DATE
-  </span>
-  <span>
-  PRODUCT
-  </span>
-  <span>
-  QTY
-  </span>
-  <span>
-  ORDER STATUS
-  </span>
 
-</li>
-  <% order_items.each do |item| %>
-  <% product = Product.where(id: item.product_id) %>
-    <li class="merchant-order-item">
-      <span> <%= item.order_id %> 
-    </span>
-      <span> <%= display_date(Order.find_by(id: item.order_id).created_at.to_date) %>
-    </span>
-      <span> <%= link_to product[0].name, product_path(product[0].id) %>
-    </span>
-      <span> <%= item.qty %>
-    </span>
-      <span> <%= Order.find_by(id: item.order_id).status %>
-      </span>
-      </li>
-  <% end %>
+<section class="table-responsive table-striped">
+  <table class="table">
+    <thead>
+      <tr class="merchant-order-item">
+        <th>ORDER</th>
+        <th>DATE</th>
+        <th>PRODUCT</th>
+        <th>QTY</th>
+        <th>SUBTOTAL</th>
+        <th>ORDER STATUS</th>
+        <th>CUSTOMER</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @order_items.each do |item| %>
+        <tr class="merchant-order-item">
+          <td><%= item.order_id  %></td>
+          <td><%= display_date(Order.find_by(id: item.order_id).updated_at.to_date) %></td>
+          <td><%= item.product.name.titleize %></td>
+          <td><%= item.qty %></td>
+          <td><%= usd(item.subtotal) %></td>
+          <td><%= order_status(item) %></td>
+          <td><%= customer_name(item) %></td>
+      <% end %>
+    </tbody>
+
+  </table>
+</section>
+
+
+
 <% end %>

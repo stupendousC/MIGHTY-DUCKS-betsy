@@ -10,25 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 2019_10_30_173325) do
 
-ActiveRecord::Schema.define(version: 2019_10_29_195357) do
-  
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-  
+
   create_table "categories_products", force: :cascade do |t|
     t.bigint "category_id"
     t.bigint "product_id"
     t.index ["category_id"], name: "index_categories_products_on_category_id"
     t.index ["product_id"], name: "index_categories_products_on_product_id"
   end
-  
+
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 2019_10_29_195357) do
     t.string "state"
     t.integer "zip"
     t.string "cc_name"
-    t.integer "cc"
     t.string "cc_exp_month"
     t.string "cc_exp_year"
     t.string "cc_exp"
@@ -45,8 +44,12 @@ ActiveRecord::Schema.define(version: 2019_10_29_195357) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cc_company"
+    t.integer "cc1"
+    t.integer "cc2"
+    t.integer "cc3"
+    t.integer "cc4"
   end
-  
+
   create_table "merchants", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -55,7 +58,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_195357) do
     t.string "uid"
     t.string "provider"
   end
-  
+
   create_table "order_items", force: :cascade do |t|
     t.integer "qty"
     t.integer "subtotal"
@@ -66,7 +69,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_195357) do
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
-  
+
   create_table "orders", force: :cascade do |t|
     t.integer "grand_total"
     t.string "status"
@@ -75,7 +78,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_195357) do
     t.bigint "customer_id"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
-  
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -88,7 +91,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_195357) do
     t.bigint "merchant_id"
     t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
-  
+
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
     t.string "comment"
@@ -97,7 +100,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_195357) do
     t.bigint "product_id"
     t.index ["product_id"], name: "index_reviews_on_product_id"
   end
-  
+
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "customers"

@@ -1,13 +1,21 @@
 class OrdersController < ApplicationController
   
-  before_action :find_order
+  before_action :find_order, except: [:index, :order_confirmation]
   
   def index
-    @orders = Order.all
+    if session[:merchant_id]
+      # sending only the relevant order_items and orders 
+      @order_items = OrderItem.by_merchant(session[:merchant_id])
+      @orders = @order_items.map { |order_item| order_item.order }
+      @orders.uniq!
+    else
+      flash[:error] = "You must be logged in as a merchant"
+      return redirect_to root_path
+    end
   end
   
   
-  def show    ### KELSEY I added this whole chunk
+  def show
     if params[:id].to_i <= 0
       # if someone entered in bogus order id, like -5000
       flash[:error] = "That order does not exist"
@@ -29,18 +37,16 @@ class OrdersController < ApplicationController
   end
   
   def create
-    ## CW's
+    # CW's
     if session[:order_id]
       @order = Order.new(order_params)
     else
-      @order = Order.create
+      @order = Order.new
       session[:order_id] = @order.id
     end
     
-    
     ## KELSEY's
     # @order = Order.new( order_params )
-    
     
     if @order.save
       # sets the session order id
@@ -128,19 +134,37 @@ class OrdersController < ApplicationController
       end
       
       # save Order info and switch status to "done"
-      @order.update(:status => "paid")
+      @order.update(status: "paid", customer_id: @customer.id)
       session[:order_id] = nil
       
-      flash[:success] = "Successfully placed order!  CONFIRMATION SCREEN!!!!"
-      ### WHAT IF I assign a temporary session for the user_id??? that goes to nil as soon as I leave show page?
-      ### WHAT IF I leave session[:order_id] for 1 more http cycle? make erasing it an AFTER_ACTION???
-      redirect_to order_path(@order)
+      flash[:success] = "Successfully placed order!"
+      add_confirmed_order_id_to_session(@order.id) 
+      redirect_to orders_confirmation_path(@order.id)
       
     else
       # invalid payment info given
       flash[:error] = "Could not place order"
       flash[:error_msgs] = @customer.errors.full_messages
       render action: "checkout"
+    end
+  end
+  
+  def order_confirmation
+    if session[:order_confirmed]
+      if session[:order_confirmed] == params[:id].to_i
+        @order = Order.find_by(id: session[:order_confirmed])
+        unless @order.status == "paid"
+          flash[:error] = "You haven't completed the order yet"
+          redirect_to order_path(id: @order.id)
+        end
+      else
+        flash[:error] = "That was not your order"
+        return redirect_to root_path
+      end
+      
+    else
+      flash[:error] = "You're not authorized to see this page"
+      return redirect_to root_path
     end
   end
   
@@ -165,7 +189,18 @@ class OrdersController < ApplicationController
   end
   
   def customer_params
-    return params.require(:customer).permit(:name, :email, :address, :city, :zip, :cc, :cvv, :cc_name)
+    return params.require(:customer).permit(:name, :email, :address, :city, :zip, :cc1, :cc2, :cc3, :cc4, :cvv, :cc_name)
+  end
+  
+  def add_confirmed_order_id_to_session(order_id)
+    session[:order_confirmed] = order_id
+    
+    ### THIS IS IN CASE CUSTOMER MAKES SEVERAL PURCHASES IN SAME SESSION, BUT IT'S TRICKY...
+    # if session[:orderS_confirmed] 
+    #   session[:orderS_confirmed] << order_id
+    # else
+    #   session[:orderS_confirmed] = [order_id]
+    # end
   end
   
 end

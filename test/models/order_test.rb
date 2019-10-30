@@ -7,6 +7,14 @@ describe Order do
   let(:oi2) { order_items(:oi2) }
   let(:p1) { products(:p1) }
   let(:p2) { products(:p2) }
+  let (:empty_order) { Order.create() }
+  
+  describe "RELATIONSHIPS" do
+    it "can have many order_items" do
+    end
+
+    
+  end
   
   describe "KELSEY: get_grand_total()" do
     it "nominal" do
@@ -16,7 +24,7 @@ describe Order do
     end
   end
   
-  describe "CAROLINE: missing_stock()" do
+  describe "missing_stock()" do
     it "if no missing stock, return nil" do
       expect(o1.missing_stock).must_be_nil
     end
@@ -35,16 +43,23 @@ describe Order do
       assert(o1.missing_stock.include? oi1)
     end
     
-    it "if order has no items, what does missing_stock() return?" do 
-      
+    it "if order has no items, missing_stock() returns nil" do 
+      expect(empty_order.missing_stock).must_be_nil
     end
   end
   
-  describe "CAROLINE: names_from_order_items()" do
-    it "nominal" do
+  describe "names_from_order_items()" do
+    it "Can return string of order_item's product names" do
+      expect(o1.names_from_order_items([oi1, oi2])).must_equal "Product1, Product2"
+      expect(o1.names_from_order_items([oi1])).must_equal "Product1"
     end
     
-    it "edge" do
+    it "If order has 0 order_items, returns 'None'" do
+      expect(empty_order.names_from_order_items([])).must_equal "None"
+    end
+    
+    it "If bogus argument used, returns expected error statement" do
+      expect(o1.names_from_order_items("garbage")).must_equal "Invalid argument, expecting an array of Order Item instances"
     end
   end
   

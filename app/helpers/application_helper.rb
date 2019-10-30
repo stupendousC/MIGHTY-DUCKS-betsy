@@ -68,5 +68,28 @@ module ApplicationHelper
     end
   end
   
+  def customer_from_order_item(order_item)
+    customer_id = order_item.order.customer_id
+    if !customer_id
+      return "Pending customer input"
+    else
+      customer = Customer.find_by(id: customer_id)
+      if customer
+        return customer
+      else
+        return "Unexpected error, order_item can't be assigned bogus customer_id"
+      end
+    end
+  end
+  
+  def customer_name(order_item)
+    name = customer_from_order_item(order_item).name.titleize
+    return name
+  end
+  
+  def order_status(order_item)
+    return Order.find_by(id: order_item.order_id).status.capitalize
+  end
+  
 end
 
