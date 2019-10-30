@@ -6,18 +6,15 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
   
-  def show    ### KELSEY I added this whole chunk
-    if params[:id].to_i <= 0
-      # if someone entered in bogus order id, like -5000
+  def show
+    ### KELSEY I added this whole chunk
+    ### Check if qtys on order are still valid , not sure if flash or flash.now
+    if @order.nil?
       flash[:error] = "That order does not exist"
-      return redirect_to root_path
-    elsif @order.nil?
-      # if someone tries to access someone else's cart
-      flash[:error] = "Sorry, that order is unavailable for viewing"
-      return redirect_to root_path
+      redirect_to root_path
+      return
     end
-    
-    if @order.missing_stock
+    if @order && @order.missing_stock
       flash.now[:error] = "Uh oh! We ran out of stock on..."
       flash.now[:error_msgs] = @order.names_from_order_items(@order.missing_stock)
     end
