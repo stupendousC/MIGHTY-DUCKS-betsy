@@ -1,7 +1,29 @@
 require "test_helper"
 
 describe Order do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  
+  describe "KELSEY: get_grand_total()" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
+  describe "CAROLINE: missing_stock()" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
+  describe "CAROLINE: names_from_order_items()" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
 end
