@@ -33,6 +33,10 @@ describe OrderItemsController do
       
       post order_items_path(@params)
       item = OrderItem.find_by(product_id: @product.id)
+      
+      post order_items_path(@params)
+      must_respond_with :redirect
+      expect(item.qty).must_equal 2
     end
     
     it "can calculate the subtotal of a created Order Item" do
@@ -66,7 +70,7 @@ describe OrderItemsController do
       item_hash = {
         quantity: 1
       }
-
+      
       patch order_order_item_path(order_id: @item.order_id, id: @item.id), params: item_hash
       
       updated_item = OrderItem.find_by(id: @item.id)
@@ -79,7 +83,7 @@ describe OrderItemsController do
     
     
     it "can remove an order item" do
-
+      
       item_hash = { 
         remove: "1"
       }
