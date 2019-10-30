@@ -5,6 +5,8 @@ class OrderItemsController < ApplicationController
   end
   
   def create
+    product = Product.find_by(id: params[:order_item][:product_id])
+    
     if session[:order_id].nil?
       # creates a new order if one doesn't exist
       @order = Order.create
@@ -15,6 +17,15 @@ class OrderItemsController < ApplicationController
     else
       # uses current order if it exists
       @order_id = session[:order_id]
+      current_item = @order.order_items.find_by(product_id: order_item_params[:product_id])
+      # checks if item is already in order, updates by 1 if so
+      if current_item
+        current_item[:qty] += 1
+        current_item.save
+        flash[:success] = "Successfully updated order item"
+        redirect_to product_path(product.id)
+        return
+      end
     end
     
     if @qty.nil?
@@ -22,7 +33,6 @@ class OrderItemsController < ApplicationController
       @qty = 1
     end
     
-    product = Product.find_by(id: params[:order_item][:product_id])
     if product.stock < 1 || product.status == "Unavailable"
       flash[:error] = "Could not add item to order (not enough in stock)"
       redirect_to product_path(product.id)
@@ -75,7 +85,7 @@ class OrderItemsController < ApplicationController
     end
     # will let user update qty
     if @order_item.update(qty: params[:quantity])
-      flash[:success] = "Successfully updated order"
+      flash[:success] = "Successfully updated order item"
       redirect_to edit_order_path(@order.id)
       return
     else
@@ -85,7 +95,9 @@ class OrderItemsController < ApplicationController
     end
   end
   
-  def destroy; end
+  def destroy
+    session[:order_id] = nil
+  end
   
   
   

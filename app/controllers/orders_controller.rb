@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
   
+
   def show    ### KELSEY I added this whole chunk
     if params[:id].to_i <= 0
       # if someone entered in bogus order id, like -5000
