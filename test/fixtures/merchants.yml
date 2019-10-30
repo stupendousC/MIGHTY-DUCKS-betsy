@@ -16,8 +16,8 @@ m1:
   email: merchant1@fake.com
   name: ducks-r-us
 
-# m2:
-#   provider: github
-#   uid: 98765
-#   email: merchant2@fake.com
-#   name: neiman duckus
+m2:
+  provider: github
+  uid: 98765
+  email: merchant2@fake.com
+  name: neiman duckus

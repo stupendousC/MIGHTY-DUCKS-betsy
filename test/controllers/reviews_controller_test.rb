@@ -10,5 +10,5 @@ describe ReviewsController do
     end
   end
 end
-review = product(:p1)
-product = review(:r1)
+# review = product(:p1)
+# product = review(:r1)
