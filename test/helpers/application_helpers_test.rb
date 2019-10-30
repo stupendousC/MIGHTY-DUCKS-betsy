@@ -35,9 +35,11 @@ describe ApplicationHelper, :helper do
     end
     
     it "edge" do
-      bad_args = [nil,[], "garbage", 123]
+      expect(get_string_of_names([])).must_equal "None"
+      
+      bad_args = [nil, "garbage", 123]
       bad_args.each do |bad|
-        assert(get_string_of_names(bad) == "None")
+        expect(get_string_of_names(bad)).must_equal "Invalid collection"
       end
     end
   end
@@ -61,7 +63,7 @@ describe ApplicationHelper, :helper do
   describe "does make_thumbnail_link() work?" do
     it "nominal" do
       p1 = products(:p1)
-      expected = "<a href=\"/products/1060662067\"><img alt=\"picture of \#{productInstance.name}\" class=\"thumbnail\" src=\"https://live.staticflickr.com/4081/4906646028_1be7b70d6d_z.jpg\" /></a>"
+      expected = "<a href=\"/products/1060662067\"><img alt=\"picture of product1\" class=\"thumbnail\" src=\"https://live.staticflickr.com/4081/4906646028_1be7b70d6d_z.jpg\" /></a>"
       assert(make_thumbnail_link(p1) == expected)
     end
     
