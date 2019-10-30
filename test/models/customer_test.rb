@@ -1,7 +1,17 @@
 require "test_helper"
 
 describe Customer do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe "Relationships" do
+    it "can have more than 1 order" do
+    end
+  end
+  
+  describe "Validation" do
+    it "can make Customer instance with good inputs" do
+    end
+    
+    it "won't make Customer instance with bad inputs" do
+    end
+    
+  end
 end
