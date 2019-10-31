@@ -53,6 +53,10 @@ class MerchantsController < ApplicationController
   def show
   end
   
+  def report
+    @hello = "HI"
+  end
+  
   def logout
     session[:merchant_id] = nil
     session[:merchant_name] = nil

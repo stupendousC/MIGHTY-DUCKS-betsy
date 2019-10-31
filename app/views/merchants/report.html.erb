@@ -1,0 +1,9 @@
+<%= render "dashboard" %>
+
+MERCHANT REPORT HERE!!!
+<%= session[:merchant_name] %>
+<% if @merchant %>
+  <%= @merchant.name %>
+<% end %>
+
+<%= @hello %>

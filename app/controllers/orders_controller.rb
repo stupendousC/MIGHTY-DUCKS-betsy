@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   
-  before_action :find_order, except: [:index, :order_confirmation]
+  before_action :find_order, except: [:index, :order_confirmation, :order_summary]
   
   def index
     if session[:merchant_id]
