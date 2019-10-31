@@ -53,9 +53,6 @@ class MerchantsController < ApplicationController
   def show
   end
   
-  def report
-  end
-  
   def logout
     session[:merchant_id] = nil
     session[:merchant_name] = nil

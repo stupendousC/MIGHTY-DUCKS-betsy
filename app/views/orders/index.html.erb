@@ -45,10 +45,41 @@ ALL YOUR ORDERS
           <% end %>
       <% end %>
     </tbody>
-
   </table>
 </section>
 <% end %>
+
+
+
+
+<h1>REPURPOSE THIS BUTTON Filter orders displayed by status!<br></h1>
+<section class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Products
+      </button>
+      <section class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+      <% @categories.each do |category|%>
+        <% if category.products.count != 0 %>
+        <%= link_to category.name, category_path(category.id), class: "dropdown-item" %>
+        <% end%>
+      <% end %>
+      <%= link_to "View All", products_path, class: "dropdown-item"%>
+    </section>
+    </section>
+
+
+
+
+<hr>
+<h4 class="merchant-info">
+  TOTAL Revenue: <%= usd(total_price_of_array(@order_items)) %><br>
+  TOTAL # of orders: <%= @orders.count %><br>
+  <br>
+  Total Revenue for status<br>
+  Total # of orders by status<br>
+  
+</h4>
 
 
 <% if @spotlight_customer %>
@@ -74,3 +105,6 @@ ALL YOUR ORDERS
       </section>
     </section>
 <%end %>
+
+
+

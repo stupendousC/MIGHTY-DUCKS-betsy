@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     resources :products, only: [:index] 
     resources :orders, only: [:index]
   end
-  get "/merchants/:id/reports", to: "merchants#report", as: "merchant_report"
   patch "/merchant/:id/orders", to: "orders#status_ship", as: "status_ship"
   
   get "/auth/github", as: "github_login"
