@@ -2,27 +2,27 @@ oi1:
   order: o1
   product: p1
   qty: 1
-  subtotal: 2000
+  subtotal: nil
 oi2:
   order: o1
   product: p2
   qty: 2
-  subtotal: 20
+  subtotal: nil
 oi3:
   order: o2
   product: p1
   qty: 3
-  subtotal: 6000
+  subtotal: nil
 oi4:
   order: o2
   product: p2
   qty: 4
-  subtotal: 40
+  subtotal: nil
 oi5:
   order: o2
   product: p3
   qty: 5
-  subtotal: 25000
+  subtotal: nil
 oi6:
   order: o4
   product: p4
