@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
     @categories = Category.all
   end
   
-
+  def filter_by_merchant(orders_array)
+    # needs to have status per order item
+  end
   
 end

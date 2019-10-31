@@ -10,8 +10,28 @@ class OrdersController < ApplicationController
       @orders = @order_items.map { |order_item| order_item.order }
       @orders.uniq!
       
+      
+      # if merchant wants to FILTER BY ORDER STATUS
+      @statuses = %w[ALL SHIPPED PAID PENDING]
+      if params[:status_selected]
+        statuses_index = params[:status_selected].to_i
+        
+        # @orders and @order_items will get filtered depending on status selected
+        database_status = @statuses[statuses_index].downcase
+        if database_status == "all"
+          # leave @orders as is
+          return
+        else
+          @orders = @orders.select { |order| order.status == database_status }
+          
+          # raise
+          # @order_items = @order.map { |order| order_item.product.merchant == @merchant}
+          
+        end
+      end
+      
+      # if merchant wants a CUSTOMER SPOTLIGHT
       if params[:order_item_id]
-        # merchant also wants a spotlight on customer
         order_item = OrderItem.find_by(id: params[:order_item_id])
         
         unless order_item
