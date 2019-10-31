@@ -45,6 +45,13 @@ describe OrderItemsController do
       expect(item.order_id).must_equal Order.last.id
     end
     
+    it "can update the quantity of a current Order Item" do
+      expect{post order_items_path(@params)}.must_differ "OrderItem.count", 1
+      expect{post order_items_path(@params)}.must_differ "OrderItem.count", 0
+      must_respond_with :redirect
+      expect(flash[:success]).must_equal "Successfully updated order item"      
+    end
+    
     it "can calculate the subtotal of a created Order Item" do
       post order_items_path(@params)
       item = OrderItem.find_by(product_id: @product.id)
@@ -53,6 +60,20 @@ describe OrderItemsController do
       
       expect(item.qty).must_equal 1
       expect(item.subtotal).must_equal @product.price * item.qty
+    end
+    
+    it "will not create an Order Item if product stock is less than 1" do
+      @product.update(stock: 0)
+      
+      expect{ post order_items_path(@params) }.must_differ "OrderItem.count", 0
+      must_respond_with :redirect
+    end
+    
+    it "will not create an Order Item if product status is unavailable" do
+      @product.update(status: "Unavailable")
+      
+      expect{ post order_items_path(@params) }.must_differ "OrderItem.count", 0
+      must_respond_with :redirect
     end
     
     it "will not create an Order Item with an invalid Product Id" do
@@ -114,12 +135,10 @@ describe OrderItemsController do
     
     it "will not update qty if requesting greater than in stock" do      
       original_qty = @item.qty
-      
       item_hash = {
-        order_item: {
-          qty: 2001
-        }
+        quantity: "2222"
       }
+      
       patch order_order_item_path(order_id: @item.order_id, id: @item.id), params: item_hash
       
       must_respond_with :redirect
@@ -131,14 +150,13 @@ describe OrderItemsController do
       original_qty = @item.qty
       
       item_hash = {
-        order_item: {
-          qty: 0
-        }
+        quantity: "-10"
       }
+      
       patch order_order_item_path(order_id: @item.order_id, id: @item.id), params: item_hash
       
       must_respond_with :redirect
-      expect(flash[:error]).must_include "Could not update order"
+      expect(flash[:error]).must_include "You cannot order fewer than 1"
       expect(@item.qty).must_equal original_qty      
     end
     
