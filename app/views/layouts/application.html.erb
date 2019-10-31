@@ -38,7 +38,8 @@
     
     <div class="user-links">
     <% if session[:order_id] %>
-      <%= link_to "Cart", order_path(session[:order_id]), class:"btn btn-primary" %>
+      <%=  %>
+      <%= link_to (image_tag("shopping_cart-24px.svg")), order_path(session[:order_id]), class:"btn btn-primary" %>
     <% end %>
     
 
