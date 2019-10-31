@@ -95,5 +95,24 @@ module ApplicationHelper
     return Order.find_by(id: order_item.order_id).status.capitalize
   end
   
+  
+  def total_price_of_array(array)
+    # arrays must be either [order_item instances] or [orders instances]
+    if array.respond_to? :each
+      if array.first.respond_to? :subtotal
+        # arrays are [order_item instances]
+        return array.sum { |order_item| order_item.subtotal }
+      elsif array.first.respond_to? :grand_total
+        # arrays are [orders instances]
+        return array.sum { |order| order.grand_total }
+      else
+        raise ArgumentError, "Array objects don't have subtotal or grand_total attributes"
+      end
+    else
+      raise ArgumentError, "Must be arrays, of OrderItems or Orders instances"
+    end
+    
+  end
+  
 end
 
