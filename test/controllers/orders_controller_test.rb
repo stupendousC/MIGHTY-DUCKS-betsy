@@ -2,6 +2,8 @@ require "test_helper"
 
 describe OrdersController do
   
+  let(:m1) { merchants(:m1) }
+  
   describe "create" do
     it "can create an order" do
       post orders_path, params: { order: { status: nil } }
@@ -43,13 +45,17 @@ describe OrdersController do
     end
   end
   
-  ### HEY KELSEY, I THINK WE CAN GET RID OF VIEW_CART???
-  # describe "VIEW_CART" do
-  #   it "can go to view_cart page" do
-  #     get view_cart_path
-  #     must_respond_with :success
-  #   end
-  # end
+  describe "CAROLINE: index" do
+    it "If not logged in: redirect w/ flash msg" do
+      get orders_path
+      expect(session[:merchant_id]).must_be_nil
+      expect(flash[:error]).must_equal "You must be logged in as a merchant"
+      must_redirect_to root_path
+    end
+    
+    describe "If logged in, can proceed..." do
+    end
+  end
   
   describe "CAROLINE: show" do
   end
@@ -65,6 +71,9 @@ describe OrdersController do
   end
   
   describe "CAROLINE: purchase" do
+  end
+  
+  describe "CAROLINE: order_confirmation" do
   end
   
 end

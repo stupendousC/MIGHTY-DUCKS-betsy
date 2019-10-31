@@ -26,8 +26,6 @@ Rails.application.routes.draw do
   end
   resources :order_items, only: [:create]
   
-  # LET'S DELETE THIS LINE? GARBAGE I THINK
-  # get "/orders/view_cart", to: "orders#view_cart", as: "view_cart"
   
   get "/orders/:id/order_confirmation", to: "orders#order_confirmation", as: "orders_confirmation"
   post "/orders/purchase", to: "orders#purchase", as: "purchase"
