@@ -10,17 +10,34 @@ describe Order do
   let (:empty_order) { Order.create() }
   
   describe "RELATIONSHIPS" do
-    it "can have many order_items" do
+    it "can have many order items" do      
+      o1.order_items << oi1
+      o1.order_items << oi2
+      assert(o1.order_items.length > 1)
     end
-
-    
   end
   
-  describe "KELSEY: get_grand_total()" do
-    it "nominal" do
+  describe "default status" do
+    it "sets the status of an order to 'pending'" do
+      o1.status = nil
+      o1.default_status
+      expect(o1.status).must_equal "pending"
+    end
+  end
+  
+  describe "get_grand_total" do
+    it "can get the grand total" do
+      total = 0
+      o1.order_items.each do |item|
+        total += item.subtotal
+      end
+      expect(o1.get_grand_total).must_equal total
     end
     
-    it "edge" do
+    it "returns a grand total of 0 for a cart with no items" do
+      o1.order_items.destroy_all
+      o1.reload
+      expect(o1.get_grand_total).must_equal 0
     end
   end
   

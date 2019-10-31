@@ -7,7 +7,6 @@ c1:
   zip: 98001
   cc_company: visa
   cc_name: customer1
-  cc: 12345
   cc_exp_month: jan
   cc_exp_year: 2020
   cvv: 111
