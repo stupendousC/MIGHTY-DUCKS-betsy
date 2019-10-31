@@ -1,17 +1,28 @@
 class OrdersController < ApplicationController
   
-  before_action :find_order, except: [:index, :order_confirmation]
+  before_action :find_order, except: [:index, :order_confirmation, :order_summary]
   
   def index
     if session[:merchant_id]
+      # for merchants' eyes only
       # sending only the relevant order_items and orders 
       @order_items = OrderItem.by_merchant(session[:merchant_id])
       @orders = @order_items.map { |order_item| order_item.order }
       @orders.uniq!
+      
+      if params[:get_customer_via_order_id]
+        # merchant also wants a spotlight on customer
+        order = Order.find_by(id: params[:get_customer_via_order_id])
+        @spotlight_customer = Customer.find_by(id: order.customer_id)
+        # why did I look up customer this way? b/c if I estab Order's model to "belong_to: customer", then i'll have to have the customer's info beforehand, and that's not possible when customer may just be window shopping 
+        # I also couldn't figure out an easier way, plz enlighten me if you know how - Caroline
+      end
+      
     else
       flash[:error] = "You must be logged in as a merchant"
       return redirect_to root_path
     end
+    
   end
   
   
@@ -72,12 +83,6 @@ class OrdersController < ApplicationController
       flash[:error] = "Could not update order"
       redirect_to order_path(@order.id)
     end
-  end
-  
-  def view_cart
-    # this is for the view_cart_path
-    # possibly make this the same as edit? -kk  
-    ### I AGREE! THIS IS THE SAME AS Order#show, delete I would...
   end
   
   def checkout
@@ -166,6 +171,25 @@ class OrdersController < ApplicationController
     session[:order_id] = nil
     flash[:success] = "Successfully deleted order"
     redirect_to root_path
+  end
+  
+  
+  def status_ship
+    # merchant clicked on "ship it!" button in dashboard
+    # we'll flip Order instance's status to "shipped"
+    # return to same page
+    order_item_id = params[:id].to_i
+    order = OrderItem.find_by(id: order_item_id).order
+    if order
+      if order.status == "paid"
+        order.update(status: "shipped")
+        flash[:success] = "Order ##{order.id} status set to 'Shipped'"
+        return redirect_to merchant_orders_path(merchant_id: session[:merchant_id])
+      end
+    else
+      flash[:error] = "Order not found"
+    end
+    
   end
   
   private

@@ -23,3 +23,9 @@ oi5:
   product: p3
   qty: 5
   subtotal: nil
+oi6:
+  order: o4
+  product: p4
+  qty: 1
+  subtotal: 100000
+  
