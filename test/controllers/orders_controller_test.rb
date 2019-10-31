@@ -3,23 +3,43 @@ require "test_helper"
 describe OrdersController do
   
   let(:m1) { merchants(:m1) }
-  describe "index" do
-    before do
-      @merchant = merchants("m1")
-    end
-    it "can access an order with an order item for a merchant" do
-      perform_login(@merchant)
-      
+  let(:o1) { orders(:o1) }
+  let(:o2) { orders(:o2) }
+  let(:c1) { customers(:c1) }
+  
+  describe "CAROLINE: index" do
+    it "If not logged in: redirect w/ flash msg" do
       get orders_path
-      must_respond_with :success      
+      expect(session[:merchant_id]).must_be_nil
+      expect(flash[:error]).must_equal "You must be logged in as a merchant"
+      must_redirect_to root_path
     end
     
-    it "will not access specific orders without a logged in merchant" do
-      get orders_path
+    describe "If logged in, can proceed..." do
       
-      must_redirect_to :root
-      expect(flash[:error]).must_include "You must be logged in"
+      it "can see page" do
+        perform_login(m1)
+        get orders_path
+        must_respond_with :success      
+      end
+      
+      it "logged-in merchant can see a specific customer info on page" do
+        # fixtures: o2 has oi3/4/5, is shipped to c1 by m1 & m2
+        perform_login(m1)
+        order = Order.find_by(id: o2.id)
+        expect(order.customer).must_equal c1
+        
+        ### CANNOT FIGURE IT OUT -CAROLINE
+        get orders_path, params: { get_customer_via_order_id: o2.id }
+        expect(@spotlight_customer).must_equal c1
+        must_respond_with :success      
+      end
+      
+      it "logged-in merchant cannot see a customer that didn't buy anything from them" do 
+      end
+      
     end
+    
   end
   
   describe "show" do
@@ -30,8 +50,23 @@ describe OrdersController do
       
       must_respond_with :redirect
       #this test doesn't work because it expects to be logged in as a merchant
-      #but we shouldn't have to be logged in as a merchant
+      #but we shouldn't have to be logged in as a merchant # 
     end   
+    
+    describe "Not logged in guest..." do
+      ### KELSEY IS DOING THIS
+      it "order doesn't belong to guest, can't see page" do
+        
+      end
+      
+      it "order DOES belong to guest, can see page" do
+      end
+    end
+    
+    describe "Logged in merchant..." do
+      
+    end
+    
   end
   
   describe "create" do
@@ -72,6 +107,14 @@ describe OrdersController do
   end
   
   
+  
+  
+  
+  
+  
+  
+  
+  
   ### PROBABLY CAROLINE's JOB TO DO THIS
   describe "merchants" do
     it "can display all orders with items belonging to the logged-in merchant" do
@@ -84,17 +127,7 @@ describe OrdersController do
     end
   end
   
-  describe "CAROLINE: index" do
-    it "If not logged in: redirect w/ flash msg" do
-      get orders_path
-      expect(session[:merchant_id]).must_be_nil
-      expect(flash[:error]).must_equal "You must be logged in as a merchant"
-      must_redirect_to root_path
-    end
-    
-    describe "If logged in, can proceed..." do
-    end
-  end
+  
   
   
   describe "CAROLINE: show" do

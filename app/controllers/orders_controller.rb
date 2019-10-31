@@ -12,10 +12,8 @@ class OrdersController < ApplicationController
       
       if params[:get_customer_via_order_id]
         # merchant also wants a spotlight on customer
-        order = Order.find_by(id: params[:get_customer_via_order_id])
-        @spotlight_customer = Customer.find_by(id: order.customer_id)
-        # why did I look up customer this way? b/c if I estab Order's model to "belong_to: customer", then i'll have to have the customer's info beforehand, and that's not possible when customer may just be window shopping 
-        # I also couldn't figure out an easier way, plz enlighten me if you know how - Caroline
+        @order = Order.find_by(id: params[:get_customer_via_order_id])
+        @spotlight_customer = @order.customer
       end
       
     else
