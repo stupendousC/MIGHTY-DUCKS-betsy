@@ -117,19 +117,15 @@ describe ApplicationHelper, :helper do
     end
   end
   
-  describe "does order_status() work?" do
-    it "nominal" do
-      
-      
-      
-      
+  describe "does order_status(order_item) work?" do
+    it "nominal cases" do
+      expect(order_status(oi1)).must_equal "Pending"
+      expect(order_status(oi3)).must_equal "Shipped"
+      expect(order_status(oi6)).must_equal "Paid"
     end
     
-    it "edge" do
-      
-      
-      
-      
+    it "bogus arguments will return error statement" do
+      expect(order_status("garbage")).must_equal "Invalid, expecting order_item instance"
     end
   end
   
