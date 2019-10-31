@@ -95,3 +95,6 @@ o2.update!(customer_id: c2.id)
 
 
 Review.create(product: Product.find_by(name: "doggy duck"), rating: 1, comment: "It scares me at night")
+Review.create(product: Product.find_by(name: "weirdo duck"), rating: 5, comment: "TOTALLY legit review! wow, so professionally made, it's easily worth 10 times what they're selling for!")
+Review.create(product: Product.find_by(name: "weirdo duck"), rating: 1, comment: "Ok, idk what the person above is talking about, this duck is hella fugs...")
+Review.create(product: Product.find_by(name: "weirdo duck"), rating: 5, comment: "Obviously this other person is totally jelly because they are a competing merchant selling subpar ducks!  Buy my ducks!  I mean, buy Kelsey's ducks!")
