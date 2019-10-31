@@ -95,9 +95,5 @@ module ApplicationHelper
     return Order.find_by(id: order_item.order_id).status.capitalize
   end
   
-  def orders_of_merchant(merchant_id) 
-    Orders.where()
-  end
-  
 end
 
