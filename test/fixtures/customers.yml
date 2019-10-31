@@ -7,13 +7,10 @@ c1:
   zip: 98001
   cc_company: visa
   cc_name: customer1
-<<<<<<< HEAD
   cc1: 1111
   cc2: 2222
   cc3: 3333
   cc4: 4444
-=======
->>>>>>> 8ee23ef... Order & order item model tests passing
   cc_exp_month: jan
   cc_exp_year: 2020
   cvv: 111
