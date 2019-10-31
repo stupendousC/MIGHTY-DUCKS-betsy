@@ -2,24 +2,7 @@
 <%= render "merchants/dashboard" %>
 
 <h4 class="merchant-info">
-Total order-items: <%= @order_items.length %>
-
-<br><br>Total Revenue<br>
-  Total Revenue by status<br>
-  Total number of orders by status<br>
-  Filter orders displayed by status<br>
-  Link to each individual order<br>
-<br>
-  A list of orders including at least one of my products:<br>
-  Link to transition the order item to marked as shipped<br>
-  The current status of the order ("pending", "paid", "complete", "cancelled")
-<br><br><br>
-View an individual order to see the user's:<br>
-  Name
-  Email address
-  Mailing address
-  Last four digits of their credit card
-  Credit card expiration date
+ALL YOUR ORDERS
 </h4>
 
 <section class="table-responsive table-striped">
@@ -32,6 +15,7 @@ View an individual order to see the user's:<br>
         <th>QTY</th>
         <th>SUBTOTAL</th>
         <th>ORDER STATUS</th>
+        <th>SHIPPED?</th>
         <th>CUSTOMER</th>
       </tr>
     </thead>
@@ -39,19 +23,61 @@ View an individual order to see the user's:<br>
     <tbody>
       <% @order_items.each do |item| %>
         <tr>
-          <td><%= item.order_id  %></td>
+          <td><%= link_to item.order_id,  merchant_orders_path(@merchant, merchant_access_order: item.order_id) %></td>
           <td><%= display_date(item.order.updated_at.to_date) %></td>
           <td><%= link_to item.product.name.titleize, product_path(item.product) %></td>
           <td><%= item.qty %></td>
           <td><%= usd(item.subtotal) %></td>
           <td><%= order_status(item) %></td>
+          <% if order_status(item) == "Paid" %>
+            <td><%= button_to "Ship it!", status_ship_path(merchant_id: params[:merchant_id], id: item.id), method: :patch %></td>
+          <% elsif order_status(item) == "Shipped" %>
+            <td><- Yep!</td>
+          <% else %>
+            <td>Pending</td>
+          <% end %>
           <td><%= customer_name(item) %></td>
       <% end %>
     </tbody>
 
   </table>
 </section>
-
-
-
 <% end %>
+
+<hr>
+
+<% if @spotlight_order && @spotlight_customer%>
+  <h4 class="merchant-info">
+    INDIVIDUAL ORDER SPOTLIGHT
+  </h4>
+
+  <section class="merchant_order_spotlight">
+    <section class="order_spotlight">
+    <%= @spotlight_order.attributes%>
+    </section>
+  </section>
+    
+    
+
+    <section class="card customer_spotlight" >
+      <section class="card-body">
+        <h5 class="card-title">CUSTOMER</h5>
+        <section class="two_columns">
+        <p>NAME:</p>
+        <p><%= @spotlight_customer.name.titleize %></p>
+        <p>EMAIL:</p>
+        <p><%= @spotlight_customer.email %></p>
+        <p>ADDRESS:</p>
+        <p><%= @spotlight_customer.address.titleize %></p>
+        <p></p>
+        <p><%= @spotlight_customer.city.capitalize %>, <%= @spotlight_customer.state.upcase %> <%= @spotlight_customer.zip %></p>
+        <p>CREDIT CARD:</p>
+        <p>************<%= @spotlight_customer.cc4 %></p>
+        <p>CC NAME:</p>
+        <p><%= @spotlight_customer.cc_name.titleize %></p>
+        <p>EXP DATE:</p>
+        <p><%= @spotlight_customer.cc_exp.capitalize %></p>
+      </section>
+    </section>
+
+<%end %>
