@@ -39,7 +39,7 @@ ALL YOUR ORDERS
           <% end %>
 
           <% if order_status(item) != "Pending" %>
-            <td><%= link_to customer_name(item), merchant_orders_path(@merchant, get_customer_via_order_id: item.order_id) %></td>
+            <td><%= link_to customer_name(item), merchant_orders_path(@merchant, order_item_id: item.id) %></td>
           <% else %>
             <td>Pending</td>
           <% end %>

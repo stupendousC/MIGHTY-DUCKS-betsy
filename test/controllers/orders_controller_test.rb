@@ -29,13 +29,14 @@ describe OrdersController do
         order = Order.find_by(id: o2.id)
         expect(order.customer).must_equal c1
         
-        ### CANNOT FIGURE IT OUT -CAROLINE
-        get orders_path, params: { get_customer_via_order_id: o2.id }
+        puts "CANNOT FIGURE IT OUT -CAROLINE"
+        get orders_path, params: { order_item: o2 }
         expect(@spotlight_customer).must_equal c1
         must_respond_with :success      
       end
       
       it "logged-in merchant cannot see a customer that didn't buy anything from them" do 
+        
       end
       
     end
@@ -65,18 +66,13 @@ describe OrdersController do
     end
     
     describe "Logged in merchant..." do
-      
-    end
-    
-      must_respond_with :success
-    end   
-    
-    it "will respond with an error if order does not exist" do
-      id = "badid"
-      get order_path(id)
-      
-      must_respond_with :redirect
-      expect(flash[:error]).must_include "That order does not exist"
+      it "will respond with an error if order does not exist" do
+        id = "badid"
+        get order_path(id)
+        
+        must_respond_with :redirect
+        expect(flash[:error]).must_include "That order does not exist"
+      end
     end
   end
   

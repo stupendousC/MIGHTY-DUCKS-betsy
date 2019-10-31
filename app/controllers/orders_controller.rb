@@ -10,10 +10,15 @@ class OrdersController < ApplicationController
       @orders = @order_items.map { |order_item| order_item.order }
       @orders.uniq!
       
-      if params[:get_customer_via_order_id]
+      if params[:order_item_id]
         # merchant also wants a spotlight on customer
-        @order = Order.find_by(id: params[:get_customer_via_order_id])
-        @spotlight_customer = @order.customer
+        if params[:order_item_id].product.merchant.id == session[:merchant_id]
+          @order = Order.find_by(id: params[:order_item_id])
+          @spotlight_customer = @order.customer
+        else
+          flash[:error] = "Can't show you customer info for an order item that you don't own"
+          return redirect_to orders_path
+        end
       end
       
     else
