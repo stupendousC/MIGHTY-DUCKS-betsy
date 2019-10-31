@@ -92,7 +92,11 @@ module ApplicationHelper
   end
   
   def order_status(order_item)
-    return Order.find_by(id: order_item.order_id).status.capitalize
+    if order_item.class == OrderItem
+      return Order.find_by(id: order_item.order_id).status.capitalize
+    else
+      return "Invalid, expecting order_item instance"
+    end
   end
   
   
