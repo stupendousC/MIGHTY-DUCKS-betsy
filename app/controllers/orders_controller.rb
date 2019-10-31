@@ -75,18 +75,10 @@ class OrdersController < ApplicationController
   
   def update
     if @order.update( order_params )
-      if @order.order_items.length == 0
-        # sets session to nil if there are no products in the order
-        @order.destroy
-        session[:order_id] = nil
-        flash[:success] = "Order cancelled: all items removed from cart"
-        redirect_to root_path
-      else
-        # successfully updates order
-        @order.order_items.update(qty: params[:order][:quantity])
-        flash[:success] = "Successfully updated order"
-        redirect_to root_path
-      end
+      # successfully updates order
+      @order.order_items.update(qty: params[:order][:quantity])
+      flash[:success] = "Successfully updated order"
+      redirect_to root_path
     else
       flash[:error] = "Could not update order"
       redirect_to order_path(@order.id)
@@ -203,6 +195,9 @@ class OrdersController < ApplicationController
   private
   def find_order
     @order = Order.find_by(id: session[:order_id])
+    if @order.nil?
+      @order = Order.find_by(id: params[:id])
+    end
     if @order.nil?
       session[:order_id] = nil
     end
