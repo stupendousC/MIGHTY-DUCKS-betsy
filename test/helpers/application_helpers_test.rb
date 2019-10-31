@@ -1,6 +1,13 @@
 require "test_helper"
 
 describe ApplicationHelper, :helper do
+  let(:oi1) { order_items(:oi1) }
+  let(:oi3) { order_items(:oi3) }
+  let(:o1) { orders(:o1) }
+  let(:o2) { orders(:o2) }
+  let(:oi6) { order_items(:oi6) }
+  let(:c1) { customers(:c1) }
+  let(:c2) { customers(:c2) }
   
   describe "does display_date() work?" do
     it "nominal" do
@@ -75,17 +82,31 @@ describe ApplicationHelper, :helper do
   
   describe "does customer_from_order_item() work?" do
     it "nominal" do
+      puts "Caroline puts false on purpose"
+      assert(false)
     end
     
     it "edge" do
+      puts "Caroline puts false on purpose"
+      assert(false)
     end
   end
   
-  describe "does customer_name() work?" do
-    it "nominal" do
+  describe "does customer_name(order_item) work?" do
+    it "If order pending, get pending statement" do
+      expect(customer_name(oi1)).must_equal "Pending customer input"
     end
     
-    it "edge" do
+    it "If order paid, can get customer name" do
+      expect(customer_name(oi6)).must_equal c2.name.capitalize
+    end
+    
+    it "If order shipped, can get customer name" do
+      expect(customer_name(oi3)).must_equal c1.name.capitalize
+    end
+    
+    it "If bogus input, return Invalid statement" do
+      expect(customer_name("garbage")).must_equal "Invalid order_item instance"
     end
   end
   
