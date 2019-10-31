@@ -2,24 +2,30 @@ oi1:
   order: o1
   product: p1
   qty: 1
-  subtotal: p1.price * qty
+  subtotal: 2000
 oi2:
   order: o1
   product: p2
   qty: 2
-  subtotal: p2.price * qty
+  subtotal: 20
 oi3:
   order: o2
   product: p1
   qty: 3
-  subtotal: p1.price * qty
+  subtotal: 6000
 oi4:
   order: o2
   product: p2
   qty: 4
-  subtotal: p2.price * qty
+  subtotal: 40
 oi5:
   order: o2
   product: p3
   qty: 5
-  subtotal: p3.price * qty
+  subtotal: 25000
+oi6:
+  order: o4
+  product: p4
+  qty: 1
+  subtotal: 100000
+  
