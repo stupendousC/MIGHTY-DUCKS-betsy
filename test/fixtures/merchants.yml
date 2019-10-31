@@ -18,6 +18,6 @@ m1:
 
 m2:
   provider: github
-  uid: 11111
+  uid: 98766
   email: merchant2@fake.com
   name: neiman duckus

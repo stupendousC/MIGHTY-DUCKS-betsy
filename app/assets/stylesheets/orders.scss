@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-.customer, .order_spotlight{
+.customer {
   background-color: lightcoral;
   padding: 1rem;
 }
@@ -13,14 +13,7 @@
   padding: 1rem;
 }
 
-.order_summary, .customer_spotlight {
+.order_summary {
   background-color: lightgreen;
   padding: 1rem;
 }
-
-.two_columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-
