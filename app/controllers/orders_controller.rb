@@ -12,7 +12,14 @@ class OrdersController < ApplicationController
       
       if params[:order_item_id]
         # merchant also wants a spotlight on customer
-        if params[:order_item_id].product.merchant.id == session[:merchant_id]
+        order_item = OrderItem.find_by(id: params[:order_item_id])
+        
+        unless order_item
+          flash[:error] = "That order item doesn't even exist"
+          return redirect_to orders_path
+        end
+        
+        if order_item.product.merchant.id == session[:merchant_id]
           @order = Order.find_by(id: params[:order_item_id])
           @spotlight_customer = @order.customer
         else
