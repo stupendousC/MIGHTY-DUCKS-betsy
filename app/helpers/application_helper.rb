@@ -69,16 +69,12 @@ module ApplicationHelper
   end
   
   def customer_from_order_item(order_item)
+    # called by customer_name() below, which checked the argument
     customer_id = order_item.order.customer_id
     if !customer_id
       return "Pending customer input"
     else
-      customer = Customer.find_by(id: customer_id)
-      if customer
-        return customer
-      else
-        return "Unexpected error, order_item can't be assigned bogus customer_id"
-      end
+      return Customer.find_by(id: customer_id)
     end
   end
   
