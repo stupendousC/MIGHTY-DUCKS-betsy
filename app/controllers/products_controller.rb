@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   
   def index 
     @products = Product.where(status: "Available")
-    @products_by_merchant = Product.by_merchant(params[:merchant_id].to_i)
+    @products_by_merchant = Product.by_merchant(params[:merchant_id])
   end
   
   def show
@@ -75,7 +75,6 @@ class ProductsController < ApplicationController
 
   def require_product_ownership
     @product = Product.find_by(id: params[:id])
-    
     # this confirms that the product belongs to its merchant
     unless @product.merchant.id == @merchant.id
       flash[:error] = "You are not authorized to edit this product!"
