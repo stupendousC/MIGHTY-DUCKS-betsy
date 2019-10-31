@@ -14,7 +14,12 @@ ALL YOUR ORDERS
         <th>PRODUCT</th>
         <th>QTY</th>
         <th>SUBTOTAL</th>
-        <th>ORDER STATUS</th>
+        <th>
+          <% @status = %w[ALL SHIPPED PAID PENDING]%>
+          <%= select_tag "ORDER STATUS", raw("<option>#{@status[0]}</option><option>#{@status[1]}</option><option>#{@status[2]}</option><option>#{@status[3]}</option>"), class: "btn btn-info dropdown-toggle" %>
+          
+
+        </th>
         <th>SHIPPED?</th>
         <th>CUSTOMER</th>
       </tr>
@@ -48,27 +53,6 @@ ALL YOUR ORDERS
   </table>
 </section>
 <% end %>
-
-
-
-
-<h1>REPURPOSE THIS BUTTON Filter orders displayed by status!</h1>
-<section class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Products
-      </button>
-      <section class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-      <% @categories.each do |category|%>
-        <% if category.products.count != 0 %>
-        <%= link_to category.name, category_path(category.id), class: "dropdown-item" %>
-        <% end%>
-      <% end %>
-      <%= link_to "View All", products_path, class: "dropdown-item"%>
-    </section>
-    </section>
-
-
 
 
 <hr>
