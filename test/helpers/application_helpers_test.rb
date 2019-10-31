@@ -80,15 +80,22 @@ describe ApplicationHelper, :helper do
     end
   end
   
-  describe "does customer_from_order_item() work?" do
-    it "nominal" do
-      puts "Caroline puts false on purpose"
-      assert(false)
+  describe "does customer_from_order_item(order_item) work?" do
+    it "If order pending, get pending statement" do
+      expect(customer_from_order_item(oi1)).must_equal "Pending customer input"
     end
     
-    it "edge" do
-      puts "Caroline puts false on purpose"
-      assert(false)
+    it "If order paid, can get customer instance" do
+      expect(customer_from_order_item(oi6)).must_equal c2
+    end
+    
+    it "If order shipped, can get customer instance" do
+      expect(customer_from_order_item(oi3)).must_equal c1
+    end
+    
+    it "Edge case?" do
+      # no need, this is only called by customer_name() which checked for edge cases already
+      assert(true)
     end
   end
   
@@ -112,17 +119,34 @@ describe ApplicationHelper, :helper do
   
   describe "does order_status() work?" do
     it "nominal" do
+      
+      
+      
+      
     end
     
     it "edge" do
+      
+      
+      
+      
     end
   end
   
   describe "does total_price_of_array() work?" do
     it "nominal" do
+      
+      
+      
+      
+      
     end
     
     it "edge" do
+      
+      
+      
+      
     end
   end
 end
