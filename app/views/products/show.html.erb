@@ -33,9 +33,19 @@
 
 </div>
 </section>
-<section class= "reviews-container">
+
+<section class="container">
+<h3 class="padding-top-20px"> Reviews </h3>
+<div class="row">
     <%@product.reviews.each do |review|%>
+      <div class="col-md-6 padding-top-20px">
       <h4><%= "Rating: #{review.rating}"%></h4>
-      <div class="comment-container"><%= "Comment: #{review.comment}"%></div>
+      <% (review.rating).times do %>
+        <%= image_tag("https://live.staticflickr.com/65535/48980725428_924195d3d5_b.jpg", width: "25px") %>
+      <% end %>
+      <h4><%= "Created on: #{display_date(review.created_at.to_date)}"%></h4>
+      </div>
+      <div class="col-md-6 padding-top-20px"><%= "Comment: #{review.comment}"%></div>
     <%end%>
+  </div>
   </section>
