@@ -1,15 +1,9 @@
 o1:
   status: pending
-  grand_total: 2020
+  grand_total: 111111
 o2:
-  status: shipped
-  grand_total: 31040
-  customer: c1
+  status: pending
+  grand_total: 222222
 o3:
   status: pending
-  grand_total: 0
-o4:
-  status: paid
-  grand_total: 100000
-  customer: c2
-
+  grand_total: 333333

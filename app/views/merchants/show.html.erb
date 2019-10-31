@@ -12,6 +12,7 @@
         <th>AVAILABILITY</th>
         <th>PRICE</th>
         <th>EDIT</th>
+        <th>ORDERS?</th>
       </tr>
     </thead>
 
@@ -26,6 +27,7 @@
           <td><%= product.status %></td>
           <td><%= usd(product.price) %></td>
           <td><%= link_to "EDIT", edit_product_path(id: product.id) %></td>
+          <td><%= link_to "ORDERS", merchant_orders_path(@merchant) %></td>
         </tr>
       <% end %>
     </tbody>

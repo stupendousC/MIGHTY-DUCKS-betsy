@@ -10,7 +10,7 @@ p1:
 p2:
   name: product2
   stock: 2
-  price: 10
+  price: 99
   merchant: m2
   description: striped socks
   img_url: https://live.staticflickr.com/8325/8380147041_d41c824ba6_z.jpg

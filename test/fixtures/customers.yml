@@ -15,19 +15,3 @@ c1:
   cc_exp_year: 2020
   cvv: 111
 
-c2:
-  name: customer2
-  email: customer2@betsy.com
-  address: 222 fake street
-  city: seattle
-  state: WA
-  zip: 22222
-  cc_company: amex
-  cc_name: customer2
-  cc1: 1212
-  cc2: 2323
-  cc3: 3434
-  cc4: 4545
-  cc_exp_month: mar
-  cc_exp_year: 2022
-  cvv: 222

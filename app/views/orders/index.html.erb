@@ -2,109 +2,39 @@
 <%= render "merchants/dashboard" %>
 
 <h4 class="merchant-info">
-ALL YOUR ORDERS
+Total order-items: <%= @order_items.length %>
 </h4>
 
 <section class="table-responsive table-striped">
   <table class="table">
     <thead>
-      <tr>
+      <tr class="merchant-order-item">
         <th>ORDER</th>
         <th>DATE</th>
         <th>PRODUCT</th>
         <th>QTY</th>
         <th>SUBTOTAL</th>
         <th>ORDER STATUS</th>
-        <th>SHIPPED?</th>
         <th>CUSTOMER</th>
       </tr>
     </thead>
 
     <tbody>
       <% @order_items.each do |item| %>
-        <tr>
-          <td><%= item.order_id %></td>
-          <td><%= display_date(item.order.updated_at.to_date) %></td>
-          <td><%= link_to item.product.name.titleize, product_path(item.product) %></td>
+        <tr class="merchant-order-item">
+          <td><%= item.order_id  %></td>
+          <td><%= display_date(Order.find_by(id: item.order_id).updated_at.to_date) %></td>
+          <td><%= item.product.name.titleize %></td>
           <td><%= item.qty %></td>
           <td><%= usd(item.subtotal) %></td>
           <td><%= order_status(item) %></td>
-
-          <% if order_status(item) == "Paid" %>
-            <td><%= button_to "Ship it!", status_ship_path(merchant_id: params[:merchant_id], id: item.id), method: :patch %></td>
-          <% elsif order_status(item) == "Shipped" %>
-            <td><- Yep!</td>
-          <% else %>
-            <td>Pending</td>
-          <% end %>
-
-          <% if order_status(item) != "Pending" %>
-            <td><%= link_to customer_name(item), merchant_orders_path(@merchant, get_customer_via_order_id: item.order_id) %></td>
-          <% else %>
-            <td>Pending</td>
-          <% end %>
+          <td><%= customer_name(item) %></td>
       <% end %>
     </tbody>
+
   </table>
 </section>
+
+
+
 <% end %>
-
-
-
-
-<h1>REPURPOSE THIS BUTTON Filter orders displayed by status!<br></h1>
-<section class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Products
-      </button>
-      <section class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-      <% @categories.each do |category|%>
-        <% if category.products.count != 0 %>
-        <%= link_to category.name, category_path(category.id), class: "dropdown-item" %>
-        <% end%>
-      <% end %>
-      <%= link_to "View All", products_path, class: "dropdown-item"%>
-    </section>
-    </section>
-
-
-
-
-<hr>
-<h4 class="merchant-info">
-  TOTAL Revenue: <%= usd(total_price_of_array(@order_items)) %><br>
-  TOTAL # of orders: <%= @orders.count %><br>
-  <br>
-  Total Revenue for status<br>
-  Total # of orders by status<br>
-  
-</h4>
-
-
-<% if @spotlight_customer %>
-    <section class="card customer_spotlight" >
-      <section class="card-body">
-        <h4 class="merchant-info card-title">CUSTOMER SPOTLIGHT</h4>
-        <section class="two_columns">
-          <p>NAME:</p>
-          <p><%= @spotlight_customer.name.titleize %></p>
-          <p>EMAIL:</p>
-          <p><%= @spotlight_customer.email %></p>
-          <p>ADDRESS:</p>
-          <p><%= @spotlight_customer.address.titleize %></p>
-          <p></p>
-          <p><%= @spotlight_customer.city.capitalize %>, <%= @spotlight_customer.state.upcase %> <%= @spotlight_customer.zip %></p>
-          <p>CREDIT CARD:</p>
-          <p>************<%= @spotlight_customer.cc4 %></p>
-          <p>CC NAME:</p>
-          <p><%= @spotlight_customer.cc_name.titleize %></p>
-          <p>EXP DATE:</p>
-          <p><%= @spotlight_customer.cc_exp.capitalize %></p>
-        </section>
-      </section>
-    </section>
-<%end %>
-
-
-
