@@ -13,7 +13,7 @@ describe MerchantsController do
       start_count_before = Merchant.count
       
       # Get a merchant from the fixtures, which we KNOW is in the db
-      merchant = merchants(:grace)
+      merchant = merchants(:m1)
       
       # Tell OmniAuth to use this merchant's info when it sees an auth callback from github
       # this will fake a hashie to look as if it came from github
@@ -28,10 +28,10 @@ describe MerchantsController do
       
       # following the ctrller logic, we should end up here
       must_redirect_to root_path
-      assert(flash[:success] == "Logged in as returning merchant #{merchant.name}")
+      expect(flash[:success]).must_equal "Logged in as returning merchant #{merchant.name}"
       
       # check that the merchant ID was set as expected
-      assert(session[:merchant_id] == merchant.id)
+      expect(session[:merchant_id]).must_equal merchant.id
       
       # Should *not* have created a new merchant
       assert(Merchant.count == start_count_before)

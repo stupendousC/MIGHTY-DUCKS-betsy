@@ -7,8 +7,9 @@ class Order < ApplicationRecord
   
   has_many :order_items
   
-  # assign to temporary default "customer" until purchase finalized 
-  # belongs_to :customer
+  # customer won't give info until @ checkout 
+  belongs_to :customer, optional: true
+  # explanation: https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
   
   def default_status
     self.status ||= "pending"
@@ -52,6 +53,5 @@ class Order < ApplicationRecord
       return "Invalid argument, expecting an array of Order Item instances"
     end
   end
-  
   
 end
