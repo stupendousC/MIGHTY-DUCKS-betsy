@@ -2,6 +2,9 @@ require "test_helper"
 
 describe OrdersController do
   
+
+  let(:m1) { merchants(:m1) }
+
   describe "index" do
     before do
       @merchant = merchants("m1")
@@ -32,6 +35,7 @@ describe OrdersController do
       #but we shouldn't have to be logged in as a merchant
     end   
   end
+
   
   describe "create" do
     it "can create an order" do
@@ -83,7 +87,19 @@ describe OrdersController do
     end
   end
   
-  
+
+  describe "CAROLINE: index" do
+    it "If not logged in: redirect w/ flash msg" do
+      get orders_path
+      expect(session[:merchant_id]).must_be_nil
+      expect(flash[:error]).must_equal "You must be logged in as a merchant"
+      must_redirect_to root_path
+    end
+    
+    describe "If logged in, can proceed..." do
+    end
+  end
+
   
   describe "CAROLINE: show" do
   end
@@ -99,6 +115,9 @@ describe OrdersController do
   end
   
   describe "CAROLINE: purchase" do
+  end
+  
+  describe "CAROLINE: order_confirmation" do
   end
   
 end

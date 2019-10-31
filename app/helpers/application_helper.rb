@@ -69,26 +69,53 @@ module ApplicationHelper
   end
   
   def customer_from_order_item(order_item)
+    # called by customer_name() below, which checked the argument
     customer_id = order_item.order.customer_id
     if !customer_id
       return "Pending customer input"
     else
-      customer = Customer.find_by(id: customer_id)
-      if customer
-        return customer
-      else
-        return "Unexpected error, order_item can't be assigned bogus customer_id"
-      end
+      return Customer.find_by(id: customer_id)
     end
   end
   
   def customer_name(order_item)
-    name = customer_from_order_item(order_item).name.titleize
-    return name
+    unless order_item.respond_to? :order
+      return "Invalid order_item instance"
+    end
+    
+    customer_or_not = customer_from_order_item(order_item)
+    if customer_or_not.respond_to? :name
+      return customer_or_not.name.titleize    
+    else
+      return customer_or_not
+    end
   end
   
   def order_status(order_item)
-    return Order.find_by(id: order_item.order_id).status.capitalize
+    if order_item.class == OrderItem
+      return Order.find_by(id: order_item.order_id).status.capitalize
+    else
+      return "Invalid, expecting order_item instance"
+    end
+  end
+  
+  
+  def total_price_of_array(array)
+    # arrays must be either [order_item instances] or [orders instances]
+    if array.respond_to? :each
+      if array.first.respond_to? :subtotal
+        # arrays are [order_item instances]
+        return array.sum { |order_item| order_item.subtotal }
+      elsif array.first.respond_to? :grand_total
+        # arrays are [orders instances]
+        return array.sum { |order| order.grand_total }
+      else
+        raise ArgumentError, "Array objects don't have subtotal or grand_total attributes"
+      end
+    else
+      raise ArgumentError, "Must be arrays, of OrderItems or Orders instances"
+    end
+    
   end
   
 end
