@@ -24,11 +24,9 @@ class OrderItem < ApplicationRecord
   # I'm also using this as a final check before customer leaves checkout.html
   def in_stock?
     # checking order_item.qty against its product's stock
-    return (self.product.stock >= self.qty)
+    return (Product.find_by(id: self.product_id).stock >= self.qty)
   end
   
-  
-  private
   
   def get_subtotal
     product = Product.find_by(id: self.product_id).price
