@@ -1,5 +1,5 @@
 require "test_helper"
-
+require "pry"
 describe ProductsController do
 
   describe "#index action" do
@@ -16,7 +16,7 @@ describe ProductsController do
       get products_path
       
       must_respond_with :success
-      expect(Product.count).must_equal 4
+      expect(Product.count).must_equal 5
     end
   end
   
@@ -36,29 +36,14 @@ describe ProductsController do
     end
   end
 
-  describe  "guests can" do
-    describe "#new action" do
-      it "FAIL will not allow and responds with redirect" do
-        get new_product_path
-        
-        must_redirect_to root_path
-        assert(flash[:error] = "You must log-in first")
-      end
-    end
-
-    describe "#create action" do
-      it "will not allow and responds with redirect" do
-      get products_path
-
-      must_redirect_to root_path
-      assert(flash[:error] = "You must log-in first")
-      end
-    end
-  end
-
 
   describe "logged-in merchants can" do
     let(:existing_product) {products(:p1)}
+    
+    before do
+      @m1 = merchants(:m1)
+      perform_login(@m1)
+    end
 
     describe "#new action" do
       it "creates a new product with valid category data" do
@@ -86,15 +71,16 @@ describe ProductsController do
     end
 
     describe "#edit action" do
-      it "FAIL responds with success for an existing product id" do
+      it "responds with success for an existing product id" do
+        @merchant = @m1
+
         get edit_product_path(existing_product.id)
 
         must_respond_with :success
       end
 
       it "FAIL responds with 404 for an invalid product id" do
-        # invalid_id = existing_product.id
-        # existing_product.destroy
+        @merchant = @m1
 
         get edit_product_path(-200)
 
@@ -104,21 +90,51 @@ describe ProductsController do
 
     describe "#update action" do
       it "can successfully update data on a valid product" do
+        # @m1 = merchants(:m1)
+        # perform_login(@m1)
+        @merchant = @m1
+
         updates = { product: { price: 5000 } }
         
         expect {
-          put product_path(existing_product.id), params: updates
+          put product_path(existing_product), params: updates
         }.wont_change "Product.count"
         
         updated_product = Product.find_by(id: existing_product.id)
+        # p updated_product.attributes
+        # p existing_product.attributes
+        # p flash
 
         updated_product.price.must_equal 5000
         must_respond_with :redirect
-        must_redirect_to product_path(existing_product.id)
+        must_redirect_to merchant_path(id: @merchant.id)
 
+      end
+
+      it "doesn't update the product info when data is invalid" do
+        skip
+      end
+    end
+  end #logged-in merchants describe
+
+  describe  "GUESTS can" do
+    describe "#new action" do
+      it "FAIL will not allow and responds with redirect" do
+        get new_product_path
+        
+        must_redirect_to root_path
+        assert(flash[:error] = "You must log-in first")
       end
     end
 
+    describe "#create action" do
+      it "will not allow and responds with redirect" do
+      get products_path
+
+      # must_redirect_to root_path
+      assert(flash[:error] = "You must log-in first")
+      end
+    end
   end
 
 
