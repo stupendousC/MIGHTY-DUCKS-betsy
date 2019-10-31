@@ -54,7 +54,6 @@ class MerchantsController < ApplicationController
   end
   
   def report
-    @hello = "HI"
   end
   
   def logout

@@ -83,12 +83,20 @@ module ApplicationHelper
   end
   
   def customer_name(order_item)
-    name = customer_from_order_item(order_item).name.titleize
-    return name
+    customer_or_not = customer_from_order_item(order_item)
+    if customer_or_not.respond_to? :name
+      return customer_or_not.name.titleize    
+    else
+      return customer_or_not
+    end
   end
   
   def order_status(order_item)
     return Order.find_by(id: order_item.order_id).status.capitalize
+  end
+  
+  def orders_of_merchant(merchant_id) 
+    Orders.where()
   end
   
 end

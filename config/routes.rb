@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :orders, only: [:index]
   end
   get "/merchants/:id/reports", to: "merchants#report", as: "merchant_report"
+  patch "/merchant/:id/orders", to: "orders#status_ship", as: "status_ship"
   
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#login", as: "auth_callback"
@@ -26,10 +27,9 @@ Rails.application.routes.draw do
   end
   resources :order_items, only: [:create]
   
-  get "/orders/view_cart", to: "orders#view_cart", as: "view_cart"
+  # LET'S DELETE THIS LINE? GARBAGE I THINK
+  # get "/orders/view_cart", to: "orders#view_cart", as: "view_cart"
   
   get "/orders/:id/order_confirmation", to: "orders#order_confirmation", as: "orders_confirmation"
   post "/orders/purchase", to: "orders#purchase", as: "purchase"
-  ### did NOT make a route for reviews b/c we can just embed both all the reviews AND the new review form in the products/:id show page?
-  
 end
