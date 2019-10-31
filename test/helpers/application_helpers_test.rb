@@ -130,19 +130,20 @@ describe ApplicationHelper, :helper do
   end
   
   describe "does total_price_of_array() work?" do
-    it "nominal" do
-      
-      
-      
-      
-      
+    it "return correct value with [order_item instances]" do
+      expect(total_price_of_array([oi1, oi3])).must_equal (oi1.subtotal + oi3.subtotal)
     end
     
-    it "edge" do
-      
-      
-      
-      
+    it "return correct value with [orders instances]" do
+      expect(total_price_of_array([o1, o2])).must_equal (o1.grand_total + o2.grand_total)
+    end
+    
+    it "if empty array, raise error" do
+      expect{total_price_of_array([])}.must_raise ArgumentError
+    end
+    
+    it "if not an array, raise error" do
+      expect{total_price_of_array("garbage")}.must_raise ArgumentError
     end
   end
 end
