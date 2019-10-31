@@ -72,4 +72,36 @@ describe ApplicationHelper, :helper do
       assert(make_thumbnail_link(Product.new()) == "NO IMG AVAILABLE")
     end
   end
+  
+  describe "does customer_from_order_item() work?" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
+  describe "does customer_name() work?" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
+  describe "does order_status() work?" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
+  
+  describe "does total_price_of_array() work?" do
+    it "nominal" do
+    end
+    
+    it "edge" do
+    end
+  end
 end
