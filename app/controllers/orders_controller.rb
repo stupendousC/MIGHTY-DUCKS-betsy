@@ -93,12 +93,6 @@ class OrdersController < ApplicationController
     end
   end
   
-  def view_cart
-    # this is for the view_cart_path
-    # possibly make this the same as edit? -kk  
-    ### I AGREE! THIS IS THE SAME AS Order#show, delete I would...
-  end
-  
   def checkout
     # sending to page for customer to fill out cc info & such
     @customer = Customer.new
