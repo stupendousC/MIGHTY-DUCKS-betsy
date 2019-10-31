@@ -7,11 +7,11 @@ describe Customer do
   
   describe "Relationships" do
     it "can have more than 1 order" do
-      assert(c1.orders.count == 0)
+      assert(c1.orders.count > 0)
+      before = c1.orders.count
       
       c1.orders << o1
-      c1.orders << o2
-      assert(c1.orders.count == 2)
+      assert(c1.orders.count == before + 1)
     end
   end
   
