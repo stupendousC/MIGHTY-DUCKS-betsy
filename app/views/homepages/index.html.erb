@@ -1,5 +1,4 @@
 
-
 <section id="duck-carousel" class="carousel slide carousel-center" data-ride="carousel">
   <h3 class="padding-20px">
   <a class="carousel-control-prev" href="#duck-carousel" role="button" data-slide="prev">
@@ -16,7 +15,7 @@
   <div class="carousel-inner">
     <% @products = Product.all %>
     <div class="carousel-item active">
-      <%= link_to (image_tag(@products[0].img_url,  alt: @products[0].name)), product_path(@products[1].id), class: "d-block w-100" %>
+      <%= link_to (image_tag(@products[0].img_url,  alt: @products[0].name)), product_path(@products[0].id), class: "d-block w-100" %>
     </div>
     <div class="carousel-item">
     <%= link_to (image_tag(@products[2].img_url, alt: @products[2].name)), product_path(@products[2].id), class: "d-block w-100" %>
