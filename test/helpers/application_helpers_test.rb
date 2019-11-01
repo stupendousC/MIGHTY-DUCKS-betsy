@@ -138,8 +138,8 @@ describe ApplicationHelper, :helper do
       expect(total_price_of_array([o1, o2])).must_equal (o1.grand_total + o2.grand_total)
     end
     
-    it "if empty array, raise error" do
-      expect{total_price_of_array([])}.must_raise ArgumentError
+    it "if empty array, return 0" do
+      expect(total_price_of_array([])).must_equal 0
     end
     
     it "if not an array, raise error" do

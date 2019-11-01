@@ -3,6 +3,7 @@ require "test_helper"
 describe OrdersController do
   
   let(:m1) { merchants(:m1) }
+  let(:m2) { merchants(:m2) }
   let(:o1) { orders(:o1) }
   let(:o2) { orders(:o2) }
   let(:c1) { customers(:c1) }
@@ -26,24 +27,36 @@ describe OrdersController do
         must_respond_with :success      
       end
       
+      it "merchant can filter by all 4 different statuses" do
+        # params= 0,1,2,3 bc the dragdown menu uses index of @statuses = %w[ALL SHIPPED PAID PENDING]
+        4.times do |i|
+          get orders_path, params: {status_selected: i}
+          must_respond_with :success 
+        end
+      end
+      
       it "merchant can see a specific customer info on page" do
         # fixtures: o2 has oi3/4/5, is shipped to c1 by m1 & m2
-        
         order = Order.find_by(id: o2.id)
+        expect(order.order_items).must_include oi3
         expect(order.customer).must_equal c1
-        skip
-        puts "CANNOT FIGURE IT OUT -CAROLINE"
-        get orders_path, params:{ order_item_id: oi3.id}
-        expect(@spotlight_customer).must_equal c1
-        must_respond_with :success      
+        
+        get orders_path, params: {order_item_id: oi3.id}
+        must_respond_with :success 
       end
       
       it "merchant cannot see a customer that didn't buy anything from them" do 
-        skip
+        not_your_order = orders(:o4)
+        not_your_order_item = not_your_order.order_items.first
+        get orders_path, params: {order_item_id: not_your_order_item.id}
+        must_redirect_to orders_path
+        expect(flash[:error]).must_equal "Can't show you customer info for an order item that you don't own"
       end
       
       it "merchant cannot see a customer from a bogus order_item_id" do 
-        skip
+        get orders_path, params: {order_item_id: 0}
+        must_redirect_to orders_path
+        expect(flash[:error]).must_equal "That order item doesn't even exist"
       end
       
     end
