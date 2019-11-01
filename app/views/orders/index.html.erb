@@ -63,15 +63,10 @@ ALL YOUR ORDERS
 <% end %>
 
 
-<hr>
 <h4 class="merchant-info">
-  we'll incorporate these 2 lines as STATUS: ALL<br>
-  TOTAL Revenue: <%= usd(total_price_of_array(@order_items)) %><br>
-  TOTAL # of orders: <%= @orders.count %><br>
-  <br>
-  Total Revenue for status<br>
-  Total # of orders by status<br>
-  
+  <h1>REPORT for status: <%= @database_status.upcase %></h1>
+  Revenue: <%= usd(total_price_of_array(@order_items)) %><br>
+  Number of orders: <%= @orders.count %><br>
 </h4>
 
 <% if @spotlight_customer %>

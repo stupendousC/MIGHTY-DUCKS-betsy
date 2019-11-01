@@ -17,13 +17,18 @@ class OrdersController < ApplicationController
         statuses_index = params[:status_selected].to_i
         
         # @orders and @order_items will get filtered depending on status selected
-        database_status = @statuses[statuses_index].downcase
-        if database_status == "all"
-          # leave @orders as is
+        @database_status = @statuses[statuses_index].downcase
+        if @database_status == "all"
+          # leave @order_items as is
           return
         else
-          @order_items = @order_items.find_all { |order_item| order_item.status == database_status }
+          @order_items = @order_items.find_all { |order_item| order_item.status == @database_status }
+          @orders = @order_items.map { |order_item| order_item.order }
+          @orders.uniq!
         end
+      else
+        # if no status dragdown selected, default is "all"
+        @database_status = "all"
       end
       
       # if merchant wants a CUSTOMER SPOTLIGHT
