@@ -20,8 +20,6 @@ class OrderItem < ApplicationRecord
     return result
   end
   
-  ### KELSEY I ADDED THIS, use this to check everytime orders/:id show page is loaded
-  # I'm also using this as a final check before customer leaves checkout.html
   def in_stock?
     # checking order_item.qty against its product's stock
     return (Product.find_by(id: self.product_id).stock >= self.qty)

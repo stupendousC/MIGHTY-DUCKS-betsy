@@ -19,7 +19,7 @@ class ReviewsController < ApplicationController
     end
     
     @review.product = product
-   
+  
     if @review.save 
       flash[:success] = "#{product.name} successfully reviewed"
       redirect_to product_path(product.id)
