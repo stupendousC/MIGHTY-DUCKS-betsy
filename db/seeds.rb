@@ -108,6 +108,6 @@ Review.create(product: Product.find_by(name: "duck socks"), rating: 5, comment: 
 Review.create(product: Product.find_by(name: "mutant duck"), rating: 5, comment: "Super snuggly, I love my scaly little duck, I take him with me everywhere!")
 Review.create(product: Product.find_by(name: "mutant duck"), rating: 2, comment: "It ate all my goldfish, even though they totally deserved it... swimming around looking all tasty, sheeeeeeeit...")
 Review.create(product: Product.find_by(name: "mutant duck"), rating: 1, comment: "I told my teacher my new pet ate my homework, and was given detention bc they thought I was lying about having an alligator duck, sad kitty face!")
-Review.create(product: Product.find_by(name: "duck socks"), rating: 2, comment: "Well... the description is spot on!  My friends were totally impressed, except I have no friends anymore cuz lil' chompers tried to bite them all...")
+Review.create(product: Product.find_by(name: "mutant duck"), rating: 2, comment: "Well... the description is spot on!  My friends were totally impressed, except I have no friends anymore cuz lil' chompers tried to bite them all...")
 
 # Review.create(product: Product.find_by(name: ""), rating: ?, comment: "")
