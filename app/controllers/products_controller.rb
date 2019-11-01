@@ -56,8 +56,8 @@ class ProductsController < ApplicationController
       redirect_to merchant_path(@merchant)
     else
       flash[:error] = "Unable to update #{@product.name}"
-      flash[:error_msgs] = @product.error.full_messages
-      render edit_product_path
+      # flash[:error_msgs] = @product.errors.full_messages
+      render action: "edit"
       return
     end
   end
