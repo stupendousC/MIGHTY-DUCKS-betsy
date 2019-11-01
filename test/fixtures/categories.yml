@@ -1,12 +1,15 @@
 c1: 
   name: Toys
-  products: p1
+  products: p1, p2
 
 c2: 
   name: Live Animals
+  products: p1
 
 c3:
   name: Food
+  products: p1
 
 c4: 
   name: Miscellaneous
+  products: p1
