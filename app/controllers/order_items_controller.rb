@@ -42,6 +42,9 @@ class OrderItemsController < ApplicationController
     
     order_item = OrderItem.new( order_item_params )
     
+    # CAROLINE added this next line
+    order_item.status = "pending"
+    
     if order_item.save
       flash[:success] = "Item added to order"  
       if session[:order_id].nil?

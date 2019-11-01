@@ -22,11 +22,7 @@ class OrdersController < ApplicationController
           # leave @orders as is
           return
         else
-          @orders = @orders.select { |order| order.status == database_status }
-          
-          # raise
-          # @order_items = @order.map { |order| order_item.product.merchant == @merchant}
-          
+          @order_items = @order_items.find_all { |order_item| order_item.status == database_status }
         end
       end
       
@@ -160,8 +156,11 @@ class OrdersController < ApplicationController
         end
       end
       
-      # save Order info and switch status to "done"
+      # save Order info and switch statuses to "paid"
       @order.update(status: "paid", customer_id: @customer.id)
+      @order.order_items.each do |item|
+        item.update(status: "paid")
+      end
       session[:order_id] = nil
       
       flash[:success] = "Successfully placed order!"
@@ -209,11 +208,11 @@ class OrdersController < ApplicationController
     # we'll flip Order instance's status to "shipped"
     # return to same page
     order_item_id = params[:id].to_i
-    order = OrderItem.find_by(id: order_item_id).order
-    if order
-      if order.status == "paid"
-        order.update(status: "shipped")
-        flash[:success] = "Order ##{order.id} status set to 'Shipped'"
+    order_item = OrderItem.find_by(id: order_item_id)
+    if order_item
+      if order_item.status == "paid"
+        order_item.update(status: "shipped")
+        flash[:success] = "Order Item ##{order_item.id} status set to 'Shipped'"
         return redirect_to merchant_orders_path(merchant_id: session[:merchant_id])
       end
     else

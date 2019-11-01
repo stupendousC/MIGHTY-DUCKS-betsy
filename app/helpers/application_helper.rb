@@ -93,7 +93,8 @@ module ApplicationHelper
   
   def order_status(order_item)
     if order_item.class == OrderItem
-      return Order.find_by(id: order_item.order_id).status.capitalize
+      # return Order.find_by(id: order_item.order_id).status.capitalize
+      return order_item.status.capitalize
     else
       return "Invalid, expecting order_item instance"
     end
@@ -109,6 +110,8 @@ module ApplicationHelper
       elsif array.first.respond_to? :grand_total
         # arrays are [orders instances]
         return array.sum { |order| order.grand_total }
+      elsif array == []
+        return 0
       else
         raise ArgumentError, "Array objects don't have subtotal or grand_total attributes"
       end
