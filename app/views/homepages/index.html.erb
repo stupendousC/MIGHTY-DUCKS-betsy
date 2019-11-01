@@ -24,7 +24,12 @@
         <%= link_to @products[2].name %>
         </h4>
         <blockquote class="slide-review-comment">
-        <%= @products[2].reviews.first.comment %>
+        <% if !@products[2].nil? && @products[2].reviews.length > 0 %>
+          <%= @products[2].reviews.first.comment %>
+        <% else %>
+          <span> We love this great duck product!</span>
+        <% end %>
+
         </blockquote>
       </span>
       </div>
