@@ -1,10 +1,13 @@
+ <section class="form-group">
+
 <%= form_with model: @merchant, class: merchant_form_class do |f| %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :email %>
-  <%= f.text_field :email %>
+  <%= f.label :name, class: "form-row" %>
+  <%= f.text_field :name, class: "form-control" %>
+  <%= f.label :email, class: "form-row" %>
+  <%= f.text_field :email, class: "form-control" %>
 
-  <%= f.submit submit_button_label, class: "merchant-form-button" %>
+</section>
+  <%= f.submit submit_button_label, class: "btn btn-primary merchant-form-button" %>
 
 <% end %>
