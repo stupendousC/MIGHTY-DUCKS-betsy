@@ -173,39 +173,44 @@ describe OrdersController do
     end
   end
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  ### PROBABLY CAROLINE's JOB TO DO THIS
-  describe "merchants" do
-    it "can display all orders with items belonging to the logged-in merchant" do
-    end
-    
-    it "will not display an order with no items belonging to the logged-in merchant" do
-    end
-    
-    it "will not display any orders if there is no logged-in merchant" do
-    end
-  end
-  
-  
-  
   describe "CAROLINE: checkout" do
-    it "can go to checkout page" do
-      # get checkout_path
-      # must_respond_with :success
+    
+    describe "nominal case" do
+      it "if has cart, can go to checkout page" do
+        get root_path
+        session[:order_id] = o1.id
+        
+        get checkout_path
+        p flash # why is this "nothing in cart???"
+        must_respond_with :success
+      end
+    end
+    
+    describe "edge cases" do
+      it "if no cart, can't go to checkout page" do
+        get checkout_path
+        expect(flash[:error]).must_equal "You don't have anything in a shopping cart"
+        must_redirect_to root_path
+      end
+      
+      it "if had a cart then emptied it, can't go to checkout page" do
+        get root_path
+        session[:order_id] = o1.id
+        o1.update(order_items: [])
+        expect(o1.order_items).must_equal []
+        
+        get checkout_path
+        p flash
+        expect(flash[:error]).must_equal "Please actually buy something before you give us your credit card"
+        must_redirect_to root_path
+      end
+      
+      it "if cart already paid for, can't go to checkout page" do
+        paid_order = orders(:o4)
+        get checkout_path(id: paid_order.id)
+        expect(flash[:error]).must_equal "Checkout unavailable for that order"
+        must_redirect_to root_path
+      end
     end
     
   end

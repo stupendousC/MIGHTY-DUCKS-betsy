@@ -123,17 +123,35 @@ class OrdersController < ApplicationController
   end
   
   def checkout
-    # sending to page for customer to fill out cc info & such
-    @customer = Customer.new
     
-    # check one more time that quantities ordered are still available,
-    # in case customer stayed on the show page for too long, before clicking checkout
-    if @order.missing_stock
-      flash[:error] = "Uh oh! We ran out of stock on..."
-      flash[:error_msgs] = @order.names_from_order_items(@order.missing_stock)
-      redirect_to order_path(@order)
+    if @order
+      # sending to page for customer to fill out cc info & such
+      @customer = Customer.new
+      
+      # check one more time that quantities ordered are still available,
+      # in case customer stayed on the show page for too long, before clicking checkout
+      if @order.missing_stock
+        flash[:error] = "Uh oh! We ran out of stock on..."
+        flash[:error_msgs] = @order.names_from_order_items(@order.missing_stock)
+        redirect_to order_path(@order)
+      end
+      
+      # if started a cart but emptied out later
+      if (@order.order_items == []) || !(@order.order_items)
+        flash[:error] = "Please actually buy something before you give us your credit card"
+        redirect_to root_path
+      end
+      
+      # if you're trying to pay for a closed order
+      if @order.status != "pending"
+        flash[:error] = "Checkout unavailable for that order"
+        redirect_to root_path
+      end
+    else
+      # If not even having a cart to begin with
+      flash[:error] = "You don't have anything in a shopping cart"
+      redirect_to root_path
     end
-    
   end
   
   def purchase
