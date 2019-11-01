@@ -173,7 +173,7 @@ describe OrdersController do
     end
   end
   
-  describe "CAROLINE: checkout" do
+  describe "checkout" do
     
     describe "nominal case" do
       it "if has cart, can go to checkout page" do
@@ -230,9 +230,50 @@ describe OrdersController do
   end
   
   describe "CAROLINE: purchase" do
+    describe "if good payment info given..." do
+      it "can save new customer instance with correct attribs" do
+        #TODO
+      end
+      
+      it "correctly updates @order and @order_items statuses" do
+        #TODO
+      end
+      
+      it "sends to order_confirmation page w/ flash msg" do
+        #TODO
+      end   
+      
+    end
+    
+    describe "if bad payment info given..." do
+      it "render same page w/ flash error msgs" do
+        #TODO
+      end
+    end
+    
+    
   end
   
   describe "CAROLINE: order_confirmation" do
+    describe "nominal case" do
+      it "Can view order_confirmation page after payment" do
+        #TODO
+      end
+    end
+    
+    describe "edge case" do
+      it "Cannot view order_confirmation page before payment, if it's your cart" do
+        #TODO
+      end
+      
+      it "Cannot view order_confirmation page before payment, if not your cart" do
+        #TODO    
+      end
+      
+      it "Cannot view order_confirmation page after payment, if not your cart" do
+        #TODO
+      end
+    end
   end
   
 end
