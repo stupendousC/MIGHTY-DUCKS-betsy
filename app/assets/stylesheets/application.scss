@@ -58,6 +58,11 @@ h1 {
   object-fit: scale-down;
 }
 
+.img_bullet {
+  width: 10vw;
+  object-fit: scale-down;
+}
+
 .thumbnail {
   width: 100%;
 }
@@ -72,6 +77,10 @@ h1 {
 .flash_section {
   background-color: skyblue;
   margin: 0.5rem 0rem;
+}
+
+.flash_section * {
+  padding-left: 1rem;
 }
 
 .table-responsive {
@@ -93,6 +102,9 @@ footer section {
   font-family: 'Gorditas', cursive;
 }
 
+.no-bullet li {
+  list-style: none;
+}
 
 /// OPTIONAL: Caroline is still toying with this ///
 
