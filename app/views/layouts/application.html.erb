@@ -57,24 +57,32 @@
 
 
 <section class="flash_section">
+  <section>
+
     <% flash.each do |name, message| %>
 
       <% if name.downcase == "error" %>
+        <p class="centered">
         <%= image_tag("https://live.staticflickr.com/1218/797758643_9f76bfcb1f_m.jpg", class: "img_bullet") %> 
         <%= name.upcase %>: <%= message %>
-        <%= image_tag("https://live.staticflickr.com/1218/797758643_9f76bfcb1f_m.jpg", class: "img_bullet") %> 
+        </p>
+        
       <% elsif name == "error_msgs" %>
-        <ul class="no-bullet">
-        <% message.each do |error_msg|%>
-          <li><%= error_msg %></li>
-        <% end %>
-        </ul>
+          <section class="error_msgs">
+            <ul class="no-bullet">
+            <% message.each do |error_msg|%>
+              <li>>> <%= error_msg %> <<</li>
+            <% end %>
+            </ul>
+          </section>
 
       <% else %>
         <p><%= name.upcase %>: <%= message %></p>
       <% end %>
 
     <% end %>
+
+  </section>
 </section>
 
 <main>

@@ -59,7 +59,7 @@ h1 {
 }
 
 .img_bullet {
-  width: 10vw;
+  width: 5rem;
   object-fit: scale-down;
 }
 
@@ -74,15 +74,27 @@ h1 {
   justify-content: space-between;
 }
 
+.centered {
+  align-content: center;
+}
+
+/// flash section here ///
 .flash_section {
   background-color: skyblue;
   margin: 0.5rem 0rem;
+  display: flex;
 }
 
 .flash_section * {
-  padding-left: 1rem;
+ 
 }
 
+.error_msgs {
+  padding-left: 3.5rem;
+}
+
+
+/// table section here ///
 .table-responsive {
    // Bootstrap: lets u scroll horizontally
 }
