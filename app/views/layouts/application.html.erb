@@ -17,9 +17,9 @@
 
   <h1><%= link_to "MIGHTY DUCKS", root_path, class: "quiet_link" %></h1>
 
+<%= audio_tag("QuackQuack-SoundBible.mp3", id: "quack-audio") %>
 
-
-  <section class="homepage-nav-links">
+  <section class="homepage-nav-links" onclick="playQuack();">
 
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
