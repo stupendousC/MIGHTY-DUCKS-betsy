@@ -15,14 +15,40 @@
   <div class="carousel-inner">
     <% @products = Product.all %>
     <div class="carousel-item active">
-      <%= link_to (image_tag(@products[0].img_url,  alt: @products[0].name)), product_path(@products[0].id), class: "d-block w-100" %>
+      <div class="row">
+      <span class="col-md-6">
+      <%= link_to (image_tag(@products[2].img_url,  alt: @products[2].name)), product_path(@products[2].id), class: "d-block w-100" %>
+      </span>
+      <span class="col-md-6">
+        <h4 class="padding-20px">
+        <%= link_to @products[2].name %>
+        </h4>
+        <blockquote class="slide-review-comment">
+        <%= @products[2].reviews.first.comment %>
+        </blockquote>
+      </span>
+      </div>
     </div>
+    </div>
+    <% @products = Product.all %>
+    <% features = random_product(@products, 5) %>
+    <% features.each do |product| %>
     <div class="carousel-item">
-    <%= link_to (image_tag(@products[2].img_url, alt: @products[2].name)), product_path(@products[2].id), class: "d-block w-100" %>
+      <div class="row">
+      <span class="col-md-6">
+      <%= link_to (image_tag(product.img_url,  alt: product.name)), product_path(product.id), class: "d-block w-100" %>
+      </span>
+      <span class="col-md-6">
+        <h4 class="padding-20px">
+        <%= link_to product.name %>
+        </h4>
+        <blockquote class="slide-review-comment">
+        <%= product.reviews.first %>
+        </blockquote>
+      </span>
+      </div>
     </div>
-    <div class="carousel-item">
-    <%= link_to (image_tag(@products[4].img_url,  alt: @products[4].name)), product_path(@products[4].id), class: "d-block w-100" %>
-    </div>
+    <% end %>
   </div>
 </div>
 </section>

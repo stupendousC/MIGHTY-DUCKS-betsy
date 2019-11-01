@@ -121,5 +121,16 @@ module ApplicationHelper
     
   end
   
+  def random_product(products, count)
+    result = []
+    if count >= @products.length
+      count = @products.length
+    end
+    count.times do |i|
+      result << products[rand(0...products.length)]
+    end
+    return result
+  end
+  
 end
 
