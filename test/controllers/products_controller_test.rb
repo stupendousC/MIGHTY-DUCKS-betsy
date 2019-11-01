@@ -1,5 +1,5 @@
 require "test_helper"
-require "pry"
+
 describe ProductsController do
 
   describe "#index action" do
@@ -84,14 +84,22 @@ describe ProductsController do
 
         get edit_product_path(-200)
 
-        must_respond_with :not_found
+        must_redirect_to root_path
+      end
+
+
+      it "does not allow a merchant to edit a product that they do not own" do
+        @merchant = @m1
+        new_product = products(:p2)
+
+        get edit_product_path(new_product.id)
+
+        must_redirect_to root_path
       end
     end
 
     describe "#update action" do
       it "can successfully update data on a valid product" do
-        # @m1 = merchants(:m1)
-        # perform_login(@m1)
         @merchant = @m1
 
         updates = { product: { price: 5000 } }
@@ -101,25 +109,30 @@ describe ProductsController do
         }.wont_change "Product.count"
         
         updated_product = Product.find_by(id: existing_product.id)
-        # p updated_product.attributes
-        # p existing_product.attributes
-        # p flash
 
         updated_product.price.must_equal 5000
         must_respond_with :redirect
         must_redirect_to merchant_path(id: @merchant.id)
-
       end
 
       it "doesn't update the product info when data is invalid" do
-        skip
+        updates = { product: { price: -1000} }
+        
+        expect {
+          put product_path(existing_product), params: updates
+        }.wont_change "Product.count"
+        
+        updated_product = Product.find_by(id: existing_product.id)     
+
+        updated_product.price.must_equal 2000
+        assert(flash[:error] = "Unable to update product1")
       end
     end
-  end #logged-in merchants describe
+  end
 
-  describe  "GUESTS can" do
+  describe  "GUESTS cannot" do
     describe "#new action" do
-      it "FAIL will not allow and responds with redirect" do
+      it "will not allow and respond with redirect" do
         get new_product_path
         
         must_redirect_to root_path
@@ -128,14 +141,11 @@ describe ProductsController do
     end
 
     describe "#create action" do
-      it "will not allow and responds with redirect" do
+      it "will not allow and respond with redirect" do
       get products_path
 
-      # must_redirect_to root_path
       assert(flash[:error] = "You must log-in first")
       end
     end
   end
-
-
 end
