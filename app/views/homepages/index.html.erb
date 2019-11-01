@@ -29,8 +29,7 @@
       </span>
       </div>
     </div>
-    </div>
-    <% @products = Product.all %>
+
     <% features = random_product(@products, 5) %>
     <% features.each do |product| %>
     <div class="carousel-item">
@@ -43,7 +42,11 @@
         <%= link_to product.name %>
         </h4>
         <blockquote class="slide-review-comment">
-        <%= product.reviews.first %>
+        <% if product.reviews.length > 0 %>
+        <%= product.reviews.first.comment %>
+        <% else %>
+        <span> We love this great duck product!</span>
+        <% end %>
         </blockquote>
       </span>
       </div>
@@ -52,3 +55,5 @@
   </div>
 </div>
 </section>
+
+
