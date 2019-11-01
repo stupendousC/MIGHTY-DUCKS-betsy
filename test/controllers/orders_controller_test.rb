@@ -178,7 +178,7 @@ describe OrdersController do
   end
   
   describe "checkout" do
-
+    
     
     describe "nominal case" do
       it "if has cart, can go to checkout page" do
@@ -232,6 +232,16 @@ describe OrdersController do
       end
     end
     
+  end
+  
+  describe "purchase" do
+    it "can complete a purchase with a valid customer" do
+      @order = Order.last
+      post purchase_path(id: @order.id), params: {customer: {name: "test", email: "test@test.test", address: "123 test", city: "test", zip: "90210", cc1: 4444, cc2: 4444, cc3: 4444, cc4: 4444, cvv: 123, cc_name: "test", month: 10, year: 2020, }}
+      
+      must_respond_with :success
+      
+    end
   end
   
   describe "CAROLINE: purchase" do
