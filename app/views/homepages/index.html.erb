@@ -16,10 +16,10 @@
     <% @products = Product.all %>
     <div class="carousel-item active">
       <div class="row">
-      <span class="col-md-6">
+      <p class="col-md-6">
       <%= link_to (image_tag(@products[2].img_url,  alt: @products[2].name)), product_path(@products[2].id), class: "d-block w-100" %>
-      </span>
-      <span class="col-md-6">
+      </p>
+      <span class="col-md-6 info">
         <h4 class="padding-20px">
         <%= link_to @products[2].name %>
         </h4>

@@ -15,7 +15,7 @@
   padding-right: 10vw;
 }
 .carousel-inner {
-  height: 60vw;
+  min-height: 60vw;
 }
 .padding-20px {
   padding: 20px;
@@ -56,4 +56,11 @@
   &:after {
       content: '\201D';
   }
+}
+
+.carousel-item h4 {
+  background-color: white;
+}
+.carousel-item .slide-review-comment {
+  background-color: white;
 }
