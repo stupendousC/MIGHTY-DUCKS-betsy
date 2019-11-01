@@ -1,11 +1,13 @@
 
 <%# #the rating should be a number scroll down %>
-
+<section class="form-group">
 <%= form_with model: @review , url:product_reviews_path do |f| %>
-  <%= f.label :rating %>
-  <%= f.select :rating, [["★",1],["★★",2],["★★★",3],["★★★★",4],["★★★★★",5]] %>
-  <%= f.label :comment %>
-  <%= f.text_field :comment %>
-  
-  <%= f.submit %>
+
+  <%= f.label :rating, class: "form-row" %>
+  <%= f.select :rating, [["★",1],["★★",2],["★★★",3],["★★★★",4],["★★★★★",5]], class: "form-control" %>
+  <%= f.label :comment, class: "form-row" %>
+  <%= f.text_field :comment, class: "form-control" %>
+  <br>
+  <%= f.submit "Quack!", class: "btn btn-primary"%>
 <% end %>
+</section>
