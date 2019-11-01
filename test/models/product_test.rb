@@ -38,7 +38,7 @@ describe Product do
     end
 
     it "has and belongs to one or many categories" do
-      product = product = products(:p1)
+      product = products(:p1)
 
       expect(product.categories.first.name).must_equal "Toys"
     end
@@ -61,7 +61,7 @@ describe Product do
       m1 = merchants(:m1)
       products = Product.by_merchant(m1.id)
 
-      expect(products.count).must_equal 2
+      expect(products.count).must_equal 3
     end
   end
 end

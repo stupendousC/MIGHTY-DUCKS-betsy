@@ -1,5 +1,5 @@
 require "test_helper"
-require "pry"
+
 describe ProductsController do
 
   describe "#index action" do
