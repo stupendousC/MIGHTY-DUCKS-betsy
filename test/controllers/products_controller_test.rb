@@ -83,7 +83,6 @@ describe ProductsController do
         @merchant = @m1
         
         get edit_product_path(-200)
-        
         must_redirect_to root_path
       end
       
@@ -109,7 +108,6 @@ describe ProductsController do
         }.wont_change "Product.count"
         
         updated_product = Product.find_by(id: existing_product.id)
-        
         updated_product.price.must_equal 5000
         must_respond_with :redirect
         must_redirect_to merchant_path(id: @merchant.id)
@@ -141,6 +139,7 @@ describe ProductsController do
     end
     
     describe "#create action" do
+      
       it "will not allow and respond with redirect" do
         get products_path
         

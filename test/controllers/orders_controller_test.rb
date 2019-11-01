@@ -179,7 +179,6 @@ describe OrdersController do
   
   describe "checkout" do
     
-    
     describe "nominal case" do
       it "if has cart, can go to checkout page" do
         get root_path
