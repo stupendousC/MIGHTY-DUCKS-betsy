@@ -59,6 +59,11 @@ class OrdersController < ApplicationController
   
   
   def show
+    # basically a VIEW_CART
+    # only way to see this page is if you put stuff in your shopping cart
+    # b/c that's when a session[:order_id] is given,
+    # and that's the key to unlocking this page via @order from before_action find_order()
+
     if params[:id].to_i <= 0
       # if someone entered in bogus order id, like -5000
       flash[:error] = "That order does not exist"
@@ -232,8 +237,6 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: session[:order_id])
     if @order.nil?
       @order = Order.find_by(id: params[:id])
-    end
-    if @order.nil?
       session[:order_id] = nil
     end
   end

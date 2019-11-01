@@ -67,38 +67,56 @@ describe OrdersController do
   end
   
   describe "show" do
-    it "can get an order" do
-      post orders_path
+    # basically a VIEW_CART
+    # only way to see this page is if you put stuff in your shopping cart
+    # b/c that's when a session[:order_id] is given, 
+    # and that's the key to unlocking this page via @order from before_action find_order()
+    describe "nominal cases" do
       
-      @order = Order.last
-      get order_path(@order.id)
+      before do
+        get root_path
+        session[:order_id] = o1.id
+        expect(o1.status).must_equal "pending"
+      end
       
-      must_respond_with :redirect
-      #this test doesn't work because it expects to be logged in as a merchant
-      #but we shouldn't have to be logged in as a merchant # 
-    end  
-    
-    it "will respond with an error if order does not exist" do
-      id = "badid"
-      get order_path(id)
+      it "guest can see their own valid order/shopping cart" do
+        get order_path(o1)
+        must_respond_with :success
+      end  
       
-      must_respond_with :redirect
-      expect(flash[:error]).must_include "That order does not exist"
-    end
-    
-    describe "Not logged in guest..." do
-      ### KELSEY IS DOING THIS
-      it "order doesn't belong to guest, can't see page" do
+      it "will show any missing_stocks correctly in flash" do
+        deplete_this = o1.order_items.first.product
+        deplete_this.update(stock: 0)
         
-      end
-      
-      it "order DOES belong to guest, can see page" do
+        get order_path(o1)
+        must_respond_with :success
+        expect(flash[:error]).must_equal "Uh oh! We ran out of stock on..."
+        expect(flash[:error_msgs]).must_equal deplete_this.name.capitalize
       end
     end
     
-    describe "Logged in merchant..." do
+    describe "edge cases" do
+      it "guest cannot see another guest's valid order/shopping cart" do
+        get root_path
+        # session[:order_id] = "nope" 
+        # in real life, the session would be used by the private find_order to get @order of nil...
+        @order = nil
+        
+        get order_path(o1)
+        must_redirect_to root_path
+        expect(flash[:error]).must_equal "Sorry, that order is unavailable for viewing"
+      end
       
+      it "will respond with an error if order does not exist" do
+        id = "badid"
+        get order_path(id)
+        
+        must_respond_with :redirect
+        expect(flash[:error]).must_include "That order does not exist"
+      end
     end
+    
+    
   end
   
   describe "create" do
