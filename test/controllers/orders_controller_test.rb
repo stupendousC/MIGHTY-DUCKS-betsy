@@ -276,4 +276,12 @@ describe OrdersController do
     end
   end
   
+  describe "CAROLINE: status_ship" do
+    it "can flip an order_item from paid status to shipped status" do
+    end
+    
+    it "edge case: if order_item params is bogus, render same pg w/ flash msg" do
+    end
+  end
+  
 end

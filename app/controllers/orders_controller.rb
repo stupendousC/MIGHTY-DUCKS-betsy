@@ -100,10 +100,10 @@ class OrdersController < ApplicationController
       # sets the session order id
       session[:order_id] = @order.id
       flash[:success] = "Successfully created order"
-      redirect_to order_path(@order.id)
+      return redirect_to order_path(@order.id)
     else
       flash[:error] = "Could not create order"
-      redirect_to root_path
+      return redirect_to root_path
     end
   end
   
@@ -115,10 +115,10 @@ class OrdersController < ApplicationController
       # successfully updates order
       @order.order_items.update(qty: params[:order][:quantity])
       flash[:success] = "Successfully updated order"
-      redirect_to root_path
+      return redirect_to root_path
     else
       flash[:error] = "Could not update order"
-      redirect_to order_path(@order.id)
+      return redirect_to order_path(@order.id)
     end
   end
   
@@ -133,24 +133,24 @@ class OrdersController < ApplicationController
       if @order.missing_stock
         flash[:error] = "Uh oh! We ran out of stock on..."
         flash[:error_msgs] = @order.names_from_order_items(@order.missing_stock)
-        redirect_to order_path(@order)
+        return redirect_to order_path(@order)
       end
       
       # if started a cart but emptied out later
       if (@order.order_items == []) || !(@order.order_items)
         flash[:error] = "Please actually buy something before you give us your credit card"
-        redirect_to root_path
+        return redirect_to root_path
       end
       
       # if you're trying to pay for a closed order
       if @order.status != "pending"
         flash[:error] = "Checkout unavailable for that order"
-        redirect_to root_path
+        return redirect_to root_path
       end
     else
       # If not even having a cart to begin with
       flash[:error] = "You don't have anything in a shopping cart"
-      redirect_to root_path
+      return redirect_to root_path
     end
   end
   
@@ -181,7 +181,7 @@ class OrdersController < ApplicationController
         unless product.update(stock: new_stock)
           # someone else is checking out at the same time and beat u to it
           flash[:error] = "Sorry, someone else snatched up all remaining stock of #{product.name}..."
-          redirect_to order_path(@order)
+          return redirect_to order_path(@order)
         end
       end
       
@@ -194,7 +194,7 @@ class OrdersController < ApplicationController
       
       flash[:success] = "Successfully placed order!"
       add_confirmed_order_id_to_session(@order.id) 
-      redirect_to orders_confirmation_path(@order.id)
+      return redirect_to orders_confirmation_path(@order.id)
       
     else
       # invalid payment info given
@@ -210,7 +210,7 @@ class OrdersController < ApplicationController
         @order = Order.find_by(id: session[:order_confirmed])
         unless @order.status == "paid"
           flash[:error] = "You haven't completed the order yet"
-          redirect_to order_path(id: @order.id)
+          return redirect_to order_path(id: @order.id)
         end
       else
         flash[:error] = "That was not your order"
@@ -228,7 +228,7 @@ class OrdersController < ApplicationController
     @order.delete
     session[:order_id] = nil
     flash[:success] = "Successfully deleted order"
-    redirect_to root_path
+    return redirect_to root_path
   end
   
   
@@ -246,6 +246,7 @@ class OrdersController < ApplicationController
       end
     else
       flash[:error] = "Order not found"
+      return redirect_to merchant_orders_path(merchant_id: session[:merchant_id])
     end
     
   end
