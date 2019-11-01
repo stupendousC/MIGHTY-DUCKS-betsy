@@ -41,7 +41,8 @@ class OrdersController < ApplicationController
         end
         
         if order_item.product.merchant.id == session[:merchant_id]
-          @order = Order.find_by(id: params[:order_item_id])
+          @order_item = OrderItem.find_by(id: params[:order_item_id].to_i)
+          @order = @order_item.order
           @spotlight_customer = @order.customer
         else
           flash[:error] = "Can't show you customer info for an order item that you don't own"
