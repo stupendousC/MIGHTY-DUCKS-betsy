@@ -98,12 +98,20 @@ describe OrdersController do
     describe "edge cases" do
       it "guest cannot see another guest's valid order/shopping cart" do
         get root_path
-        # session[:order_id] = "nope" 
-        # in real life, the session would be used by the private find_order to get @order of nil...
-        @order = nil
+        session[:order_id] = 0
+        # because of the way we set up the before_action find_order(),
+        # trepassers will actually get redirected to see their own cart instead
+        get order_path(o1)
+        
+        must_respond_with :success
+      end
+      
+      it "will respond with an error if order was deleted" do
+        delete order_path(o1)
+        expect(flash[:success]).must_equal "Successfully deleted order"
         
         get order_path(o1)
-        must_redirect_to root_path
+        must_respond_with :redirect
         expect(flash[:error]).must_equal "Sorry, that order is unavailable for viewing"
       end
       

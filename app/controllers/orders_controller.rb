@@ -63,13 +63,13 @@ class OrdersController < ApplicationController
     # only way to see this page is if you put stuff in your shopping cart
     # b/c that's when a session[:order_id] is given,
     # and that's the key to unlocking this page via @order from before_action find_order()
-
+    
     if params[:id].to_i <= 0
       # if someone entered in bogus order id, like -5000
       flash[:error] = "That order does not exist"
       return redirect_to root_path
     elsif @order.nil?
-      # if someone tries to access someone else's cart
+      # if someone tries to access someone else's cart or a deleted cart
       flash[:error] = "Sorry, that order is unavailable for viewing"
       return redirect_to root_path
     end
