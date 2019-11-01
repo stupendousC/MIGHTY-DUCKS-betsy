@@ -12,7 +12,6 @@ class OrderItemsController < ApplicationController
       @order = Order.create
       @order_id = @order.id
       
-      # CW trial: adding here instead
       session[:order_id] = @order_id
     else
       # uses current order if it exists
@@ -42,7 +41,6 @@ class OrderItemsController < ApplicationController
     
     order_item = OrderItem.new( order_item_params )
     
-    # CAROLINE added this next line
     order_item.status = "pending"
     
     if order_item.save
