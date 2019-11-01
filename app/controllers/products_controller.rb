@@ -56,8 +56,8 @@ class ProductsController < ApplicationController
       redirect_to merchant_path(@merchant)
     else
       flash[:error] = "Unable to update #{@product.name}"
-      flash[:error_msgs] = @product.error.full_messages
-      render edit_product_path
+      flash[:error_msgs] = @product.errors.full_messages
+      render action: "edit"
       return
     end
   end
@@ -76,7 +76,8 @@ class ProductsController < ApplicationController
   def require_product_ownership
     @product = Product.find_by(id: params[:id])
     # this confirms that the product belongs to its merchant
-    unless @product.merchant.id == @merchant.id
+    
+    if @product.nil? || @product.merchant.id != @merchant.id
       flash[:error] = "You are not authorized to edit this product!"
       redirect_to root_path
       return

@@ -17,3 +17,8 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+function playQuack() {
+  // audio src: SoundBible.com, public domain
+  document.getElementById('quack-audio').play();
+}

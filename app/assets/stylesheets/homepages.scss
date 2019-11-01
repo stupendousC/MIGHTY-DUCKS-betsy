@@ -8,3 +8,30 @@
   background-color: white;
   width: 100%;
 }
+
+.carousel-center {
+  text-align: center;
+}
+.padding-20px {
+  padding: 20px;
+}
+.padding-20px span {
+  line-height: 40px;
+  vertical-align: top;
+}
+.carousel-control-next, .carousel-control-prev {
+  height: 40px;
+  width: 40px;
+  background-color: var(--gold);
+  display: inline-block;
+  right: initial;
+  left: initial;
+  position: relative;
+}
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  background-color: var(--gold);
+  height: 30px;
+  width: 30px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+}

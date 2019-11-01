@@ -19,7 +19,7 @@
   <%else %>
     <div class="row">
     <% @products.each do |product| %>
-        <div class="col-md-4">
+        <div class="col-md-4 product-index-item">
         <div class="product_img_index"><%= make_thumbnail_link(product)%></div> 
         <%= link_to product.name, product_path(product.id)%> 
         <%= usd(product.price) %></div>
