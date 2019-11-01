@@ -1,8 +1,9 @@
+<main>
 <% if params[:merchant_id] %>
   <% merchant = Merchant.find(params[:merchant_id]) %>
   <h1>PRODUCTS BY: <%= merchant.name %></h1>
 <%else%>
-  <h1>PRODUCT INDEX PAGE</h1>
+  <h1>All Products</h1>
 <%end%>
 
 
@@ -27,3 +28,4 @@
         </div>
     <% end%>
   </div>
+</main>

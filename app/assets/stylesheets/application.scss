@@ -35,6 +35,7 @@ body {
   object-fit: cover;
   height: 200px;
   overflow: hidden;
+
 }
 
 h1 {
@@ -114,7 +115,9 @@ footer section {
   --skyblue: #30A0E0;
   --seablue: #006BBB; 
 }
-
+.container {
+  text-align: center;
+}
 .sample {
   background-color: white;
 
@@ -125,10 +128,13 @@ footer section {
     background-color: white;
   }
   main h1 {
+    text-align: center;
+    font-family: 'Capriola', sans-serif;
     background-color: white;
-    color: var(--skyblue);
-    text-align: left;
-    font-size: 3rem;
+    color: var(--seablue);
+    font-size: 2.5rem;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 
   .order_summary {
@@ -141,6 +147,17 @@ footer section {
   .btn {
     font-size: 1.05rem;
   }
+
+  .btn-primary {
+    background: var(--skyblue);
+    border-color: var(--skyblue);
+  }
+
+  .btn-secondary {
+    background: var(--skyblue);
+    border-color: var(--skyblue);
+  }
+
   .product-index-item {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -148,6 +165,6 @@ footer section {
     border: 4px solid white;
   }
   .product-index-item:hover {
-    border: 4px solid var(--seablue)    
+    border: 4px solid var(--seablue);   
   }
 }
