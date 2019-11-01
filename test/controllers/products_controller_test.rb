@@ -84,7 +84,17 @@ describe ProductsController do
 
         get edit_product_path(-200)
 
-        must_respond_with :not_found
+        must_redirect_to root_path
+      end
+
+
+      it "does not allow a merchant to edit a product that they do not own" do
+        @merchant = @m1
+        new_product = products(:p2)
+
+        get edit_product_path(new_product.id)
+
+        must_redirect_to root_path
       end
     end
 
@@ -114,12 +124,13 @@ describe ProductsController do
       it "doesn't update the product info when data is invalid" do
         skip
       end
+
     end
   end #logged-in merchants describe
 
-  describe  "GUESTS can" do
+  describe  "GUESTS cannot" do
     describe "#new action" do
-      it "FAIL will not allow and responds with redirect" do
+      it "will not allow and respond with redirect" do
         get new_product_path
         
         must_redirect_to root_path
@@ -128,7 +139,7 @@ describe ProductsController do
     end
 
     describe "#create action" do
-      it "will not allow and responds with redirect" do
+      it "will not allow and respond with redirect" do
       get products_path
 
       # must_redirect_to root_path

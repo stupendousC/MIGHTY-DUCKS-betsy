@@ -76,7 +76,8 @@ class ProductsController < ApplicationController
   def require_product_ownership
     @product = Product.find_by(id: params[:id])
     # this confirms that the product belongs to its merchant
-    unless @product.merchant.id == @merchant.id
+    
+    if @product.nil? || @product.merchant.id != @merchant.id
       flash[:error] = "You are not authorized to edit this product!"
       redirect_to root_path
       return
