@@ -85,14 +85,14 @@ class OrdersController < ApplicationController
   end
   
   def create
-    # CW's
+    # CW's      ## I don't remember why I did this, but I'm afraid to go back now lol
     if session[:order_id]
       @order = Order.new(order_params)
     else
       @order = Order.new
       session[:order_id] = @order.id
     end
-    
+    # vs...
     ## KELSEY's
     # @order = Order.new( order_params )
     

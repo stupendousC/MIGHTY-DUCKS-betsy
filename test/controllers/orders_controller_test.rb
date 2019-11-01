@@ -180,9 +180,23 @@ describe OrdersController do
         get root_path
         session[:order_id] = o1.id
         
-        get checkout_path
-        p flash # why is this "nothing in cart???"
+        get checkout_path(id: o1.id)
         must_respond_with :success
+      end
+      
+      it "if has cart and something is out of stock, can redirect w/ flash msg" do
+        get root_path
+        session[:order_id] = o1.id 
+        deplete_this = o1.order_items.first.product 
+        deplete_this.update(stock: 0)
+        deplete_this_too = o1.order_items.last.product
+        deplete_this_too.update(stock: 0)
+        
+        get checkout_path(id: o1.id)
+        expect(flash[:error]).must_equal "Uh oh! We ran out of stock on..."
+        expect(flash[:error_msgs]).must_include deplete_this.name.capitalize
+        expect(flash[:error_msgs]).must_include deplete_this_too.name.capitalize  
+        must_redirect_to order_path(id: o1.id)
       end
     end
     
@@ -194,13 +208,13 @@ describe OrdersController do
       end
       
       it "if had a cart then emptied it, can't go to checkout page" do
+        # here I'm set up as the cart owner, but then I emptied my cart
         get root_path
         session[:order_id] = o1.id
         o1.update(order_items: [])
         expect(o1.order_items).must_equal []
         
-        get checkout_path
-        p flash
+        get checkout_path(id: o1.id)
         expect(flash[:error]).must_equal "Please actually buy something before you give us your credit card"
         must_redirect_to root_path
       end
