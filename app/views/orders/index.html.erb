@@ -5,7 +5,7 @@
 ALL YOUR ORDERS
 </h4>
 
-<section class="table-responsive table-striped">
+<section class="table-responsive table-striped long_enough">
   <table class="table">
     <thead>
       <tr>
@@ -14,7 +14,20 @@ ALL YOUR ORDERS
         <th>PRODUCT</th>
         <th>QTY</th>
         <th>SUBTOTAL</th>
-        <th>ORDER STATUS</th>
+        <th>
+          <section class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              ORDER STATUS
+            </button>
+            <section class="dropdown-menu">
+              <a class="dropdown-item" href="/merchants/<%=@merchant.id%>/orders?status_selected=0"><%=@statuses[0]%></a>
+              <section class="dropdown-divider"></section>
+              <a class="dropdown-item" href="/merchants/<%=@merchant.id%>/orders?status_selected=1"><%=@statuses[1]%></a>
+              <a class="dropdown-item" href="/merchants/<%=@merchant.id%>/orders?status_selected=2"><%=@statuses[2]%></a>
+              <a class="dropdown-item" href="/merchants/<%=@merchant.id%>/orders?status_selected=3"><%=@statuses[3]%></a>
+            </section>
+          </section>
+        </th>
         <th>SHIPPED?</th>
         <th>CUSTOMER</th>
       </tr>
@@ -39,7 +52,7 @@ ALL YOUR ORDERS
           <% end %>
 
           <% if order_status(item) != "Pending" %>
-            <td><%= link_to customer_name(item), merchant_orders_path(@merchant, get_customer_via_order_id: item.order_id) %></td>
+            <td><%= link_to customer_name(item), merchant_orders_path(@merchant, order_item_id: item.id) %></td>
           <% else %>
             <td>Pending</td>
           <% end %>
@@ -50,37 +63,11 @@ ALL YOUR ORDERS
 <% end %>
 
 
-
-
-<h1>REPURPOSE THIS BUTTON Filter orders displayed by status!<br></h1>
-<section class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Products
-      </button>
-      <section class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-      <% @categories.each do |category|%>
-        <% if category.products.count != 0 %>
-        <%= link_to category.name, category_path(category.id), class: "dropdown-item" %>
-        <% end%>
-      <% end %>
-      <%= link_to "View All", products_path, class: "dropdown-item"%>
-    </section>
-    </section>
-
-
-
-
-<hr>
 <h4 class="merchant-info">
-  TOTAL Revenue: <%= usd(total_price_of_array(@order_items)) %><br>
-  TOTAL # of orders: <%= @orders.count %><br>
-  <br>
-  Total Revenue for status<br>
-  Total # of orders by status<br>
-  
+  <h1>REPORT for status: <%= @database_status.upcase %></h1>
+  Revenue: <%= usd(total_price_of_array(@order_items)) %><br>
+  Number of orders: <%= @orders.count %><br>
 </h4>
-
 
 <% if @spotlight_customer %>
     <section class="card customer_spotlight" >

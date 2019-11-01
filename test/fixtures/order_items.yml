@@ -3,29 +3,35 @@ oi1:
   product: p1
   qty: 1
   subtotal: nil
+  status: pending
 oi2:
   order: o1
   product: p2
   qty: 2
   subtotal: nil
+  status: pending
 oi3:
   order: o2
   product: p1
   qty: 3
   subtotal: nil
+  status: shipped
 oi4:
   order: o2
   product: p2
   qty: 4
   subtotal: nil
+  status: shipped
 oi5:
   order: o2
   product: p3
   qty: 5
   subtotal: nil
+  status: shipped
 oi6:
   order: o4
   product: p4
   qty: 1
   subtotal: 100000
+  status: paid
   
