@@ -83,17 +83,16 @@ describe ProductsController do
         @merchant = @m1
         
         get edit_product_path(-200)
-
         must_redirect_to root_path
       end
-
-
+      
+      
       it "does not allow a merchant to edit a product that they do not own" do
         @merchant = @m1
         new_product = products(:p2)
-
+        
         get edit_product_path(new_product.id)
-
+        
         must_redirect_to root_path
       end
     end
@@ -109,7 +108,6 @@ describe ProductsController do
         }.wont_change "Product.count"
         
         updated_product = Product.find_by(id: existing_product.id)
-
         updated_product.price.must_equal 5000
         must_respond_with :redirect
         must_redirect_to merchant_path(id: @merchant.id)
@@ -123,13 +121,13 @@ describe ProductsController do
         }.wont_change "Product.count"
         
         updated_product = Product.find_by(id: existing_product.id)     
-
+        
         updated_product.price.must_equal 2000
         assert(flash[:error] = "Unable to update product1")
       end
     end
   end
-
+  
   describe  "GUESTS cannot" do
     describe "#new action" do
       it "will not allow and respond with redirect" do
@@ -141,11 +139,11 @@ describe ProductsController do
     end
     
     describe "#create action" do
-
+      
       it "will not allow and respond with redirect" do
-      get products_path
-
-      assert(flash[:error] = "You must log-in first")
+        get products_path
+        
+        assert(flash[:error] = "You must log-in first")
       end
     end
   end

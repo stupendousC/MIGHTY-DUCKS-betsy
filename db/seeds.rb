@@ -78,7 +78,6 @@ products =
   { name: "prehistoric duck", stock: 1, price: 800000, category_ids: [c2], merchant: m1, description: "waiting for jurassic park technology to bring this bird back to life", img_url: "https://live.staticflickr.com/65535/48993431188_15ec7756a4_b.jpg" },
   { name: "Darkwing Duck: complete series", stock: 200, price: 2000, category_ids: [c4], merchant: m2, description: "seriously though, why are there so many duck-themed cartoons?", img_url: "https://live.staticflickr.com/65535/48993975911_b50570f24e_b.jpg" },
   { name: "DUCK!!!", stock: 1, price: 10000, category_ids: [c2, c4], merchant: m4, description: "No, seriously, DUCK!!!!!", img_url: "https://live.staticflickr.com/65535/48994203937_8413694ccc_b.jpg" },
-
   
   # { name: "", stock: , price: , category_ids: [], merchant: m0, description: "", img_url: "" },
 ]

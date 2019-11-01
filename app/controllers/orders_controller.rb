@@ -198,8 +198,8 @@ class OrdersController < ApplicationController
       
     else
       # invalid payment info given
-      flash[:error] = "Could not place order"
-      flash[:error_msgs] = @customer.errors.full_messages
+      flash.now[:error] = "Could not place order"
+      flash.now[:error_msgs] = @customer.errors.full_messages
       render action: "checkout"
     end
   end
