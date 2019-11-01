@@ -55,7 +55,6 @@ describe OrdersController do
       created_order = Order.last
       expect(created_order.status).must_equal "pending"
     end
-    
   end
   
   describe "update" do
@@ -63,17 +62,18 @@ describe OrdersController do
       @order = orders("o1")
     end
     
-    it "updates the order if an order item is updated" do
-    end
-    
-    
-    it "gives an error if the order can't be updated" do
+    it "can update an order" do
+      order_hash = {
+        order: {
+          order_items: []
+        }
+      }
+      patch order_path(@order.id), params: order_hash
+      
+      must_respond_with :redirect
+      expect(flash[:success]).must_include "Successfully updated order"
     end
   end
-  
-  
-  
-  
   
   describe "destroy" do
     before do 
@@ -90,20 +90,6 @@ describe OrdersController do
       expect(flash[:success]).must_include "Successfully deleted order"
     end
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
   ### PROBABLY CAROLINE's JOB TO DO THIS

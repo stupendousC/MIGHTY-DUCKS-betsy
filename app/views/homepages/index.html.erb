@@ -1,5 +1,29 @@
 
 
-<section >
-<%= image_tag "https://live.staticflickr.com/3807/9992086884_6f5000fd01_o.jpg", alt: "Giant Duck in Pittsburgh", class: "img_100_width" %>
+<section id="duck-carousel" class="carousel slide carousel-center" data-ride="carousel">
+  <h3 class="padding-20px">
+  <a class="carousel-control-prev" href="#duck-carousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <span>Featured Products</span>
+  <a class="carousel-control-next" href="#duck-carousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  </h3>
+
+  <div class="carousel-inner">
+    <% @products = Product.all %>
+    <div class="carousel-item active">
+      <%= link_to (image_tag(@products[0].img_url,  alt: @products[0].name)), product_path(@products[1].id), class: "d-block w-100" %>
+    </div>
+    <div class="carousel-item">
+    <%= link_to (image_tag(@products[2].img_url, alt: @products[2].name)), product_path(@products[2].id), class: "d-block w-100" %>
+    </div>
+    <div class="carousel-item">
+    <%= link_to (image_tag(@products[4].img_url,  alt: @products[4].name)), product_path(@products[4].id), class: "d-block w-100" %>
+    </div>
+  </div>
+</div>
 </section>

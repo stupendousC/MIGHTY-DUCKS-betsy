@@ -63,6 +63,18 @@ products =
   { name: "solar eclipse duckies", stock: 20, price: 1450, category_ids: [c1], merchant: m4, description: "Check out these savvy duckies! They're ready party with you at the next solar eclipse! Wow your friends with your knowledge of sun safety, and be sure to wear matching shades so you'll look hella cool together!!", img_url: "https://live.staticflickr.com/3213/2419660904_4e27da4239.jpg" },
   { name: "mandarin duck", stock: 1, price: 7000, category_ids: [c2], merchant: m4, description: "Took me forever to catch this little bugger, that's why it's $70.00.  No haggling, serious buyers only!", img_url: "https://live.staticflickr.com/3712/9574548859_92a57e8409.jpg" },
   { name: "duck pistachio terrine", stock: 10, price: 2000, category_ids: [c3], merchant: m4, description: "How am I supposed to know how these taste? I just sell them, ok? Anyway you should totally buy some lol.", img_url: "https://live.staticflickr.com/7072/7188815258_a25018072c.jpg" },
+  { name: "duck (?)", stock: 1, price: 001, category_ids: [c2, c4], merchant: m4, description: "looks like a duck. jerk. scares children.", img_url: "https://live.staticflickr.com/65535/48993816016_de501308de_b.jpg" },
+  { name: "Coach Gordon Bombay", stock: 1, price: 250000, category_ids: [c2], merchant: m3, description: "Big shot lawyer with an alcohol problem forced to coach children's hockey. Metaphorical duck.", img_url: "https://live.staticflickr.com/65535/48994056247_94ff2af1f1_b.jpg" },
+  { name: "Hockey playing duck", stock: 1, price: 199300, category_ids: [], merchant: m3, description: "Goes from peewee hockey to USA Olympics in 2 years, currently dating Diane Kruger (?)", img_url: "https://live.staticflickr.com/65535/48994056057_b90d8ed24f_b.jpg" },
+  { name: "duck cartoon (complete series)", stock: 4000, price: 2599, category_ids: [c1, c4], merchant: m3, description: "nostalgia nightmare", img_url: "https://live.staticflickr.com/65535/48994055902_dcfce978a7_b.jpg" },
+  { name: "DUCKTALES", stock: 5, price: 9999999, category_ids: [c1, c4], merchant: m1, description: "WOO-OO!", img_url: "https://live.staticflickr.com/65535/48993947371_cef17ec098_b.jpg" },
+  { name: "squishy duck keychain", stock: 20, price: 995, category_ids: [c1, c4], merchant: m1, description: "cutest squishy duck", img_url: "https://live.staticflickr.com/65535/48993440333_2d6c4679a7_b.jpg" },
+  { name: "nightmare duck", stock: 3, price: 1900, category_ids: [c1, c4], merchant: m4, description: "It's the duck toy from Nightmare Before Christmas. It will eat you.", img_url: "https://live.staticflickr.com/65535/48993947511_0245e92920_b.jpg" },
+  { name: "duck onesie", stock: 40, price: 3995, category_ids: [c4], merchant: m2, description: "comfy, cozy, trick people into thinking you're a duck", img_url: "https://live.staticflickr.com/65535/48993431303_272c3ee585_b.jpg" },
+  { name: "prehistoric duck", stock: 1, price: 800000, category_ids: [c2], merchant: m1, description: "waiting for jurassic park technology to bring this bird back to life", img_url: "https://live.staticflickr.com/65535/48993431188_15ec7756a4_b.jpg" },
+  { name: "Darkwing Duck: complete series", stock: 200, price: 2000, category_ids: [c4], merchant: m2, description: "seriously though, why are there so many duck-themed cartoons?", img_url: "https://live.staticflickr.com/65535/48993975911_b50570f24e_b.jpg" },
+  { name: "DUCK!!!", stock: 1, price: 10000, category_ids: [c2, c4], merchant: m4, description: "No, seriously, DUCK!!!!!", img_url: "https://live.staticflickr.com/65535/48994203937_8413694ccc_b.jpg" },
+  
   
   # { name: "", stock: , price: , category_ids: [], merchant: m0, description: "", img_url: "" },
 ]
