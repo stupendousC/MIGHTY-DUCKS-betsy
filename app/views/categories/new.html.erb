@@ -1,9 +1,13 @@
 <%= render "/merchants/dashboard" %>
 
-<ul><%= form_with model: @category, class:"new-category-form" do |f| %>
-  <li><%= f.label :name %>
-  <%= f.text_field :name %></li>
 
-  <%= f.submit "Create a new Category", class: "category-form-buttom "%>
+<br>
+<%= form_with model: @category, class:"new-category-form" do |f| %>
+  <section class="form-group">
+  <%= f.label :name, class: "form-row" %>
+  <%= f.text_field :name, class: "form-control" %>
+  </section>
+
+  <%= f.submit "Create a new Category", class: "btn btn-primary category-form-buttom "%>
+
 <% end %>
-</ul>
