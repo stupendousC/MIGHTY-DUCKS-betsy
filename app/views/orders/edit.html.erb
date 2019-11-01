@@ -1,12 +1,15 @@
 <%# <%= form_with model: @order, url: order_path(@order.id) do |f| %>
-<p> Edit Order </p>
+<h1> Edit Order </h1>
 <% @order.order_items.each do |item| %>
+  <section class="form-group middle_flex">
 <%= form_with model: @order_item, url: order_order_item_path(id: item.id, order_id: @order.id), method: :patch do |f| %>
-      Item: <%= item.id %>
+      Item #<%= item.id %><br>
+      Name: <%= item.product.name.capitalize %><br>
     <%= f.label :quantity %>
     <%= f.number_field :quantity, value: item.qty %>
     <%= f.label :remove %>
     <%= f.check_box :remove %>
-  <%= f.submit "Update" %>
+  <%= f.submit "Update", class: "btn btn-primary" %>
   <% end %>
+  </section>
 <% end %>

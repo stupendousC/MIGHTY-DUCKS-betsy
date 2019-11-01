@@ -1,20 +1,24 @@
 <%= render "merchants/dashboard" %>
 
-<ul><%= form_with model: @product, class:"new-product-form" do |f| %>
-  <li><%= f.label :name %>
-  <%= f.text_field :name %></li>
-  <li><%= f.label :price %>
-  <%= f.text_field :price %></li>
-  <li><%= f.label :stock %>
-  <%= f.text_field :stock %></li>
-  <li><%= f.label :description %>
-  <%= f.text_field :description %></li>
-  <li><%= f.label :img_url %>
-  <%= f.text_field :img_url %></li>
+<%= form_with model: @product, class:"new-product-form" do |f| %>
 
-  <li><%= f.label :categories %>
-  <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %></li>
+   <section class="form-group">
+   
+  <%= f.label :name, class: "form-row" %>
+  <%= f.text_field :name, class: "form-control" %>
+  <%= f.label :price, class: "form-row" %>
+  <%= f.text_field :price, class: "form-control" %>
+  <%= f.label :stock, class: "form-row" %>
+  <%= f.text_field :stock, class: "form-control" %>
+  <%= f.label :description, class: "form-row" %>
+  <%= f.text_field :description, class: "form-control" %>
+  <%= f.label :img_url, class: "form-row" %>
+  <%= f.text_field :img_url, class: "form-control" %>
 
-  <%= f.submit "Create a new Product", class: "product-form-buttom "%>
+  <%= f.label :categories %>
+  <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+
+  </section>
+
+  <%= f.submit "Create a new Product", class: "btn btn-primary product-form-buttom "%>
 <% end %>
-</ul>
