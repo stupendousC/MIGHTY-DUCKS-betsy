@@ -1,3 +1,8 @@
+[MIGHTY DUCKS WEBSITE](https://mighty-ducks.herokuapp.com/)
+
+---------------
+Below you'll find the user stories and requirements for this project.
+
 # bEtsy
 
 ## At a Glance
