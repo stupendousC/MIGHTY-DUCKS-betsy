@@ -1,4 +1,6 @@
+# MIGHTY DUCKS
 [MIGHTY DUCKS WEBSITE](https://mighty-ducks.herokuapp.com/)
+A multi-vendor retail website for all wonderful waterfowl enthusiasts!
 
 ---------------
 Below you'll find the user stories and requirements for this project.
